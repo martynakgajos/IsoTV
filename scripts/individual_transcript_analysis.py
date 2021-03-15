@@ -17,7 +17,7 @@ for filename in snakemake.input:
 
     elif ("iupred2a" in filename):
         output.append("#####IUPred2A Analysis")
-        lines = lines[7:]
+        lines = lines[6:]
         for position in lines:
             output.append(position.strip())
 

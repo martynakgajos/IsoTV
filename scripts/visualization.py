@@ -204,10 +204,10 @@ def plotSequenceAnalysis(transcripts_plot, colors, longest_length_protein, fig, 
         buffer_phos = 0.075
         buffer_den = 0.5
 
-        lg = fig.add_subplot(gs[curr_row_panel:curr_row_panel+5, 0])
+        lg = fig.add_subplot(gs[curr_row_panel:curr_row_panel+total_features, 0])
         lg.set_xlim((-0.11,0.11))
 
-        ax = fig.add_subplot(gs[curr_row_panel:curr_row_panel+5, 1:])
+        ax = fig.add_subplot(gs[curr_row_panel:curr_row_panel+total_features, 1:])
         ax.set_xlim((-0.5,longest_length_protein + 1))
         ax.patch.set_facecolor(transcript_color)
         ax.patch.set_alpha(0.15)
@@ -380,7 +380,7 @@ def plotSequenceAnalysis(transcripts_plot, colors, longest_length_protein, fig, 
         ax.spines['left'].set_visible(False)
         #ax.spines['bottom'].set_visible(False)
         ax.set_yticks([], [])
-        curr_row_panel += total_features
+        curr_row_panel += total_features + 1
 
 def plotLegend(plt,fig,gs,total_gs):
     ax = fig.add_subplot(gs[total_gs-2:total_gs, 0:5])
@@ -399,10 +399,10 @@ def plotLegend(plt,fig,gs,total_gs):
     ss_abbvs = ["Alpha Helix","Beta Sheet","Other"]
     for i in range(0,len(ss_abbvs)):
         if (ss_abbvs[i] == "Other"):
-            plt.gca().add_patch(Rectangle((3,float(i*2)/5),3,1.0/5,edgecolor="black",facecolor=colors_ss3[i]))
+            plt.gca().add_patch(Rectangle((3,float(i*2 + 4)/5),3,1.0/5,edgecolor="black",facecolor=colors_ss3[i]))
         else:
-            plt.gca().add_patch(Rectangle((3,float(i*2)/5),3,1.0/5,edgecolor=colors_ss3[i],facecolor=colors_ss3[i]))
-        ax.text(7,float(i*2)/5 + 0.25,ss_abbvs[i],horizontalalignment = "left",verticalalignment = "top")
+            plt.gca().add_patch(Rectangle((3,float(i*2 + 4)/5),3,1.0/5,edgecolor=colors_ss3[i],facecolor=colors_ss3[i]))
+        ax.text(7,float(i*2 + 4)/5 + 0.25,ss_abbvs[i],horizontalalignment = "left",verticalalignment = "top")
     ax.annotate("Secondary Structure",(6.75,2), fontsize = 14, color = "black", ha = "center", va = "center", weight='bold')
     ax.axis("off")
 
@@ -506,6 +506,7 @@ minimumPct = snakemake.config["minIsoPct"]
 
 total_gs = 1
 transcripts_plot = sorted(list(transcripts.keys()))
+
 if (snakemake.config["quantification"]):
     df_temp = data[data["gene_name"] == gene]
     data_gene = df_temp[samples].sum().to_frame().transpose()
@@ -526,7 +527,7 @@ if (snakemake.config["annotation"]):
     for transcript_id in transcripts_delete:
         transcripts_plot.remove(transcript_id)
     total_gs += len(transcripts_plot) + 1
-total_gs += total_features * len(transcripts_plot) + 2
+total_gs += (total_features + 1) * len(transcripts_plot) + 2
 fig = plt.figure(figsize = (21,total_gs))
 gs = fig.add_gridspec(total_gs, 15)
 
@@ -565,7 +566,7 @@ if (len(transcripts_plot) > 0):
     else:
         plotSequenceAnalysis(transcripts_plot, colors, longest_length, fig, gs, total_gs)
 
-    total_gs += total_features * len(transcripts_plot) + 2
+    total_gs += (total_features + 1) * len(transcripts_plot) + 2
     plotLegend(plt,fig,gs,total_gs)
 
 plt.subplots_adjust(wspace=0.05, hspace=0.05)

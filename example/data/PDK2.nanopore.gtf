@@ -1,0 +1,17 @@
+chr17	pinfish	transcript	50095380	50106363	.	+	.	transcript_id "TCONS_00023419"; gene_id "XLOC_007312"; gene_name "PDK2"; oId "f3fe429f-0296-4cc4-a2cf-aa295cd23fbe|60"; cmp_ref "ENST00000505897.5"; class_code "="; tss_id "TSS13403";
+chr17	pinfish	exon	50095380	50095553	.	+	.	transcript_id "TCONS_00023419"; gene_id "XLOC_007312"; exon_number "1";
+chr17	pinfish	exon	50097423	50097564	.	+	.	transcript_id "TCONS_00023419"; gene_id "XLOC_007312"; exon_number "2";
+chr17	pinfish	exon	50105371	50105442	.	+	.	transcript_id "TCONS_00023419"; gene_id "XLOC_007312"; exon_number "3";
+chr17	pinfish	exon	50105885	50106363	.	+	.	transcript_id "TCONS_00023419"; gene_id "XLOC_007312"; exon_number "4";
+chr17	pinfish	transcript	50095387	50111369	.	+	.	transcript_id "TCONS_00023420"; gene_id "XLOC_007312"; gene_name "PDK2"; oId "bf7faaeb-3870-4b4a-8d23-854e564f9462|14"; cmp_ref "ENST00000503176.6"; class_code "="; tss_id "TSS13403";
+chr17	pinfish	exon	50095387	50095553	.	+	.	transcript_id "TCONS_00023420"; gene_id "XLOC_007312"; exon_number "1";
+chr17	pinfish	exon	50097423	50097564	.	+	.	transcript_id "TCONS_00023420"; gene_id "XLOC_007312"; exon_number "2";
+chr17	pinfish	exon	50105371	50105442	.	+	.	transcript_id "TCONS_00023420"; gene_id "XLOC_007312"; exon_number "3";
+chr17	pinfish	exon	50105885	50106069	.	+	.	transcript_id "TCONS_00023420"; gene_id "XLOC_007312"; exon_number "4";
+chr17	pinfish	exon	50106794	50106883	.	+	.	transcript_id "TCONS_00023420"; gene_id "XLOC_007312"; exon_number "5";
+chr17	pinfish	exon	50107076	50107153	.	+	.	transcript_id "TCONS_00023420"; gene_id "XLOC_007312"; exon_number "6";
+chr17	pinfish	exon	50108156	50108232	.	+	.	transcript_id "TCONS_00023420"; gene_id "XLOC_007312"; exon_number "7";
+chr17	pinfish	exon	50108319	50108417	.	+	.	transcript_id "TCONS_00023420"; gene_id "XLOC_007312"; exon_number "8";
+chr17	pinfish	exon	50108612	50108719	.	+	.	transcript_id "TCONS_00023420"; gene_id "XLOC_007312"; exon_number "9";
+chr17	pinfish	exon	50109287	50109400	.	+	.	transcript_id "TCONS_00023420"; gene_id "XLOC_007312"; exon_number "10";
+chr17	pinfish	exon	50109957	50111369	.	+	.	transcript_id "TCONS_00023420"; gene_id "XLOC_007312"; exon_number "11";
