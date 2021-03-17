@@ -7,7 +7,6 @@ import shutil
 from matplotlib.backends.backend_pdf import PdfPages
 
 ##### Logistics
-configfile: "config.yaml"
 workdir: config["outdir"]
 
 ReferenceFasta = config["genome_fasta"]
@@ -18,7 +17,7 @@ SAMPLES = config["samples"]
 ### All
 rule all:
   input:
-    config["output_plots"]
+    "Results/Output/" + config["output_plots"]
 
 # Package versions
 rule dump_versions:
