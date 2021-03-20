@@ -15,14 +15,13 @@ alph = string.ascii_lowercase
 alph += "0123456789!@#$%^&*?;'{}-=+,.~_[]:<>`qwertyuiopasdfghjklzxcvbnm1234567890qwertyuiopasdfghjklzxcvbnmqwertyuiopasdfghjklzxcvbnm"
 
 class transcript:
-    def __init__(self, tcons, ns_decay, aa, idr = [], dom = [], ss3 = [], plc = [], pss = []):
+    def __init__(self, tcons, ns_decay, aa, idr = [], dom = [], ss3 = [], pss = []):
         self.tcons = tcons
         self.ns_decay = ns_decay
         self.aa = aa
         self.idr = idr
         self.dom = dom
         self.ss3 = ss3
-        self.plc = plc
         self.pss = pss
 
 class Exon:
@@ -47,6 +46,63 @@ class Parser(object):
         self.csv = csv
         self.gtf = gtf
         self.samples = samples
+
+
+def functionalFeatureParser(lines):
+    transcripts = dict()
+    analysis = {"aas":False,"idr":False,"dom":False,"ss3":False,"pss":False}
+    aa_lines = ""
+
+    for line in lines:
+        if (line.startswith(">")):
+            if (len(aa_lines) > 0):
+                transcripts[tcons] = transcript(tcons, ns_decay, aa_lines, idr_lines, dom_lines, ss3_lines, pss_lines)
+            tcons = line.strip()[1:].replace("_","")
+            aa_lines = []
+            idr_lines = []
+            dom_lines = []
+            ss3_lines = []
+            ns_decay = False
+            pss_lines = {"PHOSPHO_SITE":[],"GLYCOSYLATION":[],"MYRISTYL":[],"HYDROXYL":[],"AMIDATION":[],"OTHER":[]}
+            analysis = {"aas":False,"idr":False,"dom":False,"ss3":False,"pss":False}
+
+        elif(line.startswith("#####Prosite Analysis")):
+            analysis["pss"] = True
+        elif(line.startswith("#####SS Analysis")):
+            analysis["ss3"] = True
+        elif(line.startswith("#####Domain Analysis")):
+            analysis["dom"] = True
+        elif(line.startswith("#####IUPred2A Analysis")):
+            analysis["idr"] = True
+        elif(line.startswith("#####AA Sequence")):
+            analysis["aas"] = True
+
+        elif(analysis["pss"]):
+            pss_id = line.strip().split("\t")[2]
+            if ("GLYCOSYLATION" in pss_id): pss_lines["GLYCOSYLATION"].append(line.strip().split("\t"))
+            elif ("PHOSPHO_SITE" in pss_id): pss_lines["PHOSPHO_SITE"].append(line.strip().split("\t"))
+            elif ("MYRISTYL" in pss_id): pss_lines["MYRISTYL"].append(line.strip().split("\t"))
+            elif ("HYDROXYL" in pss_id): pss_lines["HYDROXYL"].append(line.strip().split("\t"))
+            elif ("AMIDATION" in pss_id): pss_lines["AMIDATION"].append(line.strip().split("\t"))
+            else: pss_lines["OTHER"].append(line.strip().split("\t"))
+        elif(analysis["ss3"]):
+            ss3_lines.append(line.strip().split("\t"))
+        elif(analysis["dom"]):
+            dom_lines.append(line.strip().split("\t"))
+        elif(analysis["idr"]):
+            idr_lines.append(line.strip().split("\t"))
+        elif(analysis["aas"]):
+            aa_lines = line.strip()
+            if (aa_lines[-1] == "*"):
+                ns_decay = True
+                aa_lines = aa_lines[:-1]
+
+    transcripts[tcons] = transcript(tcons, ns_decay, aa_lines, idr_lines, dom_lines, ss3_lines, pss_lines)
+    total_features = 1
+    for feature in analysis:
+        if (analysis[feature]):
+            total_features += 1
+    return transcripts,total_features
 
 def preprocessArguments(args):
     if (args.gtf == None):
@@ -174,13 +230,14 @@ def plotIsoformStacked(conditions, df, ax, colors, continuous):
     ax.spines['right'].set_visible(False)
     ax.spines['left'].set_bounds(0,100)
     ax.spines['bottom'].set_bounds(min(x),max(x))
-    ax.axis(top = [-0.5,100])
+    ax.set(ylim = (-0.5,100))
     ax.set_yticks([i for i in range(0,101,20)])
     ax.tick_params(axis = "both", which = "major", labelsize = 14)
     plt.xlabel("Condition")
     plt.ylabel("Expression [%]")
     ax.set_title("Individual Isoform Usage", loc = "center", fontsize = 14, weight='bold')
 
+# Preping the annotation to normalize everything in one direction
 def prepareAnnotation(annotation,transcripts_plot):
     cut = annotation[annotation['transcript_id'].isin(transcripts_plot)]
     strand = cut.iloc[0]['strand']
@@ -193,3 +250,11 @@ def prepareAnnotation(annotation,transcripts_plot):
         cut['plot_start'] = (cut['start'] - start) * (-1)
         cut['plot_stop'] = (cut['stop'] - start) * (-1)
     return cut
+
+# Plotting exons
+def plotExonLines(protein_exon_start,protein_exon_end,bottom,buffer_exon,exon_draw):
+    for (feature_start,feature_stop) in exon_draw:
+        plt.plot((protein_exon_start - 1,protein_exon_start - 1),(feature_start,feature_stop),color = "grey", linewidth = 2)
+        plt.plot((protein_exon_end  - 1,protein_exon_end - 1),(feature_start,feature_stop),color = "grey", linewidth = 2)
+    plt.plot((protein_exon_start - 1,protein_exon_start - 1),(bottom,bottom + buffer_exon),color = "grey", linewidth = 2)
+    plt.plot((protein_exon_end - 1,protein_exon_end - 1),(bottom,bottom + buffer_exon),color = "grey", linewidth = 2)

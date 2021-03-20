@@ -39,6 +39,7 @@ matplotlib.rcParams['font.sans-serif'] = "Arial"
 matplotlib.rcParams['font.family'] = "sans-serif"
 plt.rc('font', size=14)
 
+# Plotting Annotation
 def plotAnnotation(annotation, transcripts_plot, colors, longest_length_protein, fig, gs, start_row_panel):
     curr_row_panel = start_row_panel
 
@@ -180,13 +181,7 @@ def plotAnnotation(annotation, transcripts_plot, colors, longest_length_protein,
 
         curr_row_panel += 1
 
-def plotExonLines(protein_exon_start,protein_exon_end,bottom,buffer_exon,exon_draw):
-    for feature_start,feature_stop in exon_draw:
-        plt.plot((protein_exon_start - 1,protein_exon_start - 1),(feature_start,feature_stop),color = "grey", linewidth = 2)
-        plt.plot((protein_exon_end  - 1,protein_exon_end - 1),(feature_start,feature_stop),color = "grey", linewidth = 2)
-    plt.plot((protein_exon_start - 1,protein_exon_start - 1),(bottom,bottom + buffer_exon),color = "grey", linewidth = 2)
-    plt.plot((protein_exon_end - 1,protein_exon_end - 1),(bottom,bottom + buffer_exon),color = "grey", linewidth = 2)
-
+# Plotting Functional Feature Analysis
 def plotSequenceAnalysis(transcripts_plot, colors, longest_length_protein, fig, gs, start_row_panel, annotation = None):
     curr_row_panel = start_row_panel
 
@@ -195,7 +190,6 @@ def plotSequenceAnalysis(transcripts_plot, colors, longest_length_protein, fig, 
 
         transcript_color = colors[isoform]
 
-        buffer_prion = 1.0
         buffer_idr = 1.0
         buffer_domain = 0.4
         buffer_exon = 0.25
@@ -216,17 +210,6 @@ def plotSequenceAnalysis(transcripts_plot, colors, longest_length_protein, fig, 
         plt.plot((0,len(tcons_curr.aa)), (0,0),color = "black")
         bottom = 0
         exon_draw = []
-
-        # Prion score
-        if (snakemake.config["prion"]):
-            plc_df = pd.DataFrame(tcons_curr.plc[1:], columns = tcons_curr.plc[0])
-            plc_df = plc_df.astype({'AANUM': 'int32',"HMM.PrD-like":"float"})
-            plc_df["AANUM"] = plc_df["AANUM"] - 0.5
-            plt.plot(plc_df["AANUM"], bottom + plc_df["HMM.PrD-like"], color = transcript_color)
-            lg.annotate("Prion-Like", (0,bottom + buffer_prion/2), fontsize = 14, color = "black", ha = "center", va = "center")
-            plt.plot((0,len(tcons_curr.aa)), (bottom + 1,bottom + 1),color = "black")
-            bottom += 1.05
-            exon_draw.append([bottom - 1.05,bottom])
 
         # IDR region
         if (snakemake.config["iupred2a"]):
@@ -306,8 +289,8 @@ def plotSequenceAnalysis(transcripts_plot, colors, longest_length_protein, fig, 
                     hamming_values = list(np.hamming(stop - start + 1 + 10))
                     for j in range(max(0,start - 5),min(stop + 1 + 5,len(tcons_curr.aa))):
                         density[j] += hamming_values[j - max(0,start - 5)]
-            density = pd.DataFrame(density)
-            density = (density/density.max()) * 0.5
+            density = np.array(density)
+            density = 0.5 * density/max(density)
             density_x = [i + 0.5 for i in range(len(tcons_curr.aa))]
             plt.plot(density_x, density + bottom, color =  transcript_color)
             lg.annotate("PTM Density",(0,bottom + buffer_den/2), fontsize = 13, color = "black", ha = "center", va = "center", weight='bold')
@@ -382,6 +365,7 @@ def plotSequenceAnalysis(transcripts_plot, colors, longest_length_protein, fig, 
         ax.set_yticks([], [])
         curr_row_panel += total_features + 1
 
+# Plotting legend for the netire visualization
 def plotLegend(plt,fig,gs,total_gs):
     ax = fig.add_subplot(gs[total_gs-2:total_gs, 0:5])
     ax.set_xlim((0, 13))
@@ -419,80 +403,14 @@ def plotLegend(plt,fig,gs,total_gs):
     ax.annotate("Amino Acid",(6.75,2), fontsize = 14, color = "black", ha = "center", va = "center", weight='bold')
     ax.axis("off")
 
-######## Actual Code
+########
 
+# Input/preprocessing
 gene_functional_analysis_file = open(snakemake.input[0], "r")
 lines = gene_functional_analysis_file.readlines()
 gene_functional_analysis_file.close()
 transcript_stats_df = pd.read_csv(snakemake.input[1])
 transcript_stats_df["transcript_id"] = transcript_stats_df["transcript_id"].apply(lambda x: x.replace("_",""))
-
-transcripts = dict()
-analysis = {"aas":False,"idr":False,"dom":False,"ss3":False,"plc":False,"pss":False}
-aa_lines = ""
-
-for line in lines:
-    if (line.startswith(">")):
-        if (len(aa_lines) > 0):
-            transcripts[tcons] = transcript(tcons, ns_decay, aa_lines, idr_lines, dom_lines, ss3_lines, plc_lines, pss_lines)
-        tcons = line.strip()[1:].replace("_","")
-        aa_lines = []
-        idr_lines = []
-        dom_lines = []
-        ss3_lines = []
-        plc_lines = []
-        ns_decay = False
-        pss_lines = {"PHOSPHO_SITE":[],"GLYCOSYLATION":[],"MYRISTYL":[],"HYDROXYL":[],"AMIDATION":[],"OTHER":[]}
-        analysis = {"aas":False,"idr":False,"dom":False,"ss3":False,"plc":False,"pss":False}
-
-    elif(line.startswith("#####Prion Analysis")):
-        analysis["plc"] = True
-    elif(line.startswith("#####Prosite Analysis")):
-        analysis["pss"] = True
-    elif(line.startswith("#####SS Analysis")):
-        analysis["ss3"] = True
-    elif(line.startswith("#####Domain Analysis")):
-        analysis["dom"] = True
-    elif(line.startswith("#####IUPred2A Analysis")):
-        analysis["idr"] = True
-    elif(line.startswith("#####AA Sequence")):
-        analysis["aas"] = True
-
-    elif(analysis["plc"]):
-        plc_lines.append(line.strip().split("\t"))
-    elif(analysis["pss"]):
-        pss_id = line.strip().split("\t")[2]
-        if ("GLYCOSYLATION" in pss_id): pss_lines["GLYCOSYLATION"].append(line.strip().split("\t"))
-        elif ("PHOSPHO_SITE" in pss_id): pss_lines["PHOSPHO_SITE"].append(line.strip().split("\t"))
-        elif ("MYRISTYL" in pss_id): pss_lines["MYRISTYL"].append(line.strip().split("\t"))
-        elif ("HYDROXYL" in pss_id): pss_lines["HYDROXYL"].append(line.strip().split("\t"))
-        elif ("AMIDATION" in pss_id): pss_lines["AMIDATION"].append(line.strip().split("\t"))
-        else: pss_lines["OTHER"].append(line.strip().split("\t"))
-    elif(analysis["ss3"]):
-        ss3_lines.append(line.strip().split("\t"))
-    elif(analysis["dom"]):
-        dom_lines.append(line.strip().split("\t"))
-    elif(analysis["idr"]):
-        idr_lines.append(line.strip().split("\t"))
-    elif(analysis["aas"]):
-        aa_lines = line.strip()
-        if (aa_lines[-1] == "*"):
-            ns_decay = True
-            aa_lines = aa_lines[:-1]
-
-transcripts[tcons] = transcript(tcons, ns_decay, aa_lines, idr_lines, dom_lines, ss3_lines, plc_lines, pss_lines)
-total_features = 0
-for feature in analysis:
-    if analysis[feature]:
-        total_features += 1
-total_features += 1
-
-longest_length = 0
-longest_tcon = ""
-for ids in transcripts:
-    if (len(transcripts[ids].aa) > longest_length):
-        longest_length = len(transcripts[ids].aa)
-        longest_tcon = ids
 
 counts_data_filename = snakemake.input[2] if snakemake.config["quantification"] else None
 annotation_filename = snakemake.input[3] if snakemake.config["annotation"] else None
@@ -503,10 +421,20 @@ maximumIso = snakemake.config["maxIsoNum"]
 minimumPct = snakemake.config["minIsoPct"]
 (annotation, data, samples, conditions, number_replicates) = preprocessArguments(args)
 
+# Assign each transcript their features
+transcripts,total_features = functionalFeatureParser(lines)
 
+# Determine longest transcript
+longest_length = 0
+longest_tcon = ""
+for ids in transcripts:
+    if (len(transcripts[ids].aa) > longest_length):
+        longest_length = len(transcripts[ids].aa)
+        longest_tcon = ids
+
+# Determine which transcripts to visualize and preprocess the quanitifcation data
 total_gs = 1
 transcripts_plot = sorted(list(transcripts.keys()))
-
 if (snakemake.config["quantification"]):
     df_temp = data[data["gene_name"] == gene]
     data_gene = df_temp[samples].sum().to_frame().transpose()
@@ -528,6 +456,9 @@ if (snakemake.config["annotation"]):
         transcripts_plot.remove(transcript_id)
     total_gs += len(transcripts_plot) + 1
 total_gs += (total_features + 1) * len(transcripts_plot) + 2
+
+
+# Visualization Code
 fig = plt.figure(figsize = (21,total_gs))
 gs = fig.add_gridspec(total_gs, 15)
 

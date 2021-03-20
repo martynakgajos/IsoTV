@@ -583,25 +583,6 @@ rule functional_site_analysis:
     shell:
         "perl {params.ps_scan} -d {params.prosite_dat} --pfscan {params.pf_scan} {input} > {output}"
 
-# Prion analysis
-# rule prion_analysis:
-#    input:
-#        "Results/Genes_temp/{gene}/transcripts/{transcript}_protein.fa"
-#    output:
-#        "Results/Genes_temp/{gene}/transcripts/{transcript}_func_prion.txt"
-#    params:
-#        plaac = config["plaac_path"],
-#        gene = "{gene}"
-#    resources:
-#        memory = 10,
-#        time = 1,
-#        tmpdir = 0
-#    priority: 8
-#    threads: 1
-#    group: "sequence_analysis"
-#    shell:
-#        "java -jar {params.plaac} -i {input} -p all > {output}"
-
 # Combine functional feature analysis on individual isoforms
 def functional_files():
     files = []
@@ -610,7 +591,6 @@ def functional_files():
     if (config["pfam"]): files.append(rules.interpro_scan.output)
     if (config["porter"]): files.append(rules.porter_analysis.output)
     if (config["pfScan"]): files.append(rules.functional_site_analysis.output)
-#    if (config["prion"]): files.append(rules.prion_analysis.output)
     return files
 rule individual_transcript_analysis:
     input:
