@@ -617,9 +617,11 @@ def aggregate_transcript_analysis_func(wildcards):
 
 rule aggregate_transcript_analysis:
     input:
-        aggregate_transcript_analysis_func
+        func = aggregate_transcript_analysis_func,
+        stats = "Results/Genes_temp/{gene}/{gene}_transcripts_stats.txt"
     output:
-        "Results/Genes_temp/{gene}/{gene}_transcripts_filtered_analysis.txt"
+        analysis = "Results/Genes/{gene}/{gene}_transcripts_filtered_analysis.txt",
+        stats = "Results/Genes/{gene}/{gene}_transcripts_stats.txt"
     params:
         gene = "{gene}"
     resources:
@@ -629,16 +631,16 @@ rule aggregate_transcript_analysis:
     priority: 5
     threads: 1
     shell:
-        "cat {input} > {output}"
+        "cat {input.func} > {output.analysis}; cat {input.stats} > {output.stats}"
 
 rule protein_coding_potential_analysis:
     input:
-        rules.aggregate_transcript_analysis.output,
-        rules.translation_to_protein.output.stats,
+        rules.aggregate_transcript_analysis.output.analysis,
+        rules.aggregate_transcript_analysis.output.stats,
         CountsData,
         NanoporeGTF,
     output:
-        "Results/Genes_temp/{gene}/{gene}_functional_analysis.pdf"
+        "Results/Genes/{gene}/{gene}_functional_analysis.pdf"
     params:
         gene = "{gene}"
     resources:
@@ -650,24 +652,9 @@ rule protein_coding_potential_analysis:
     script:
         "scripts/visualization.py"
 
-rule copy_genes_temp:
-    input:
-        gene_plot = "Results/Genes_temp/{gene}/{gene}_functional_analysis.pdf"
-    output:
-        gene_folder = directory("Results/Genes/{gene}"),
-        plot = "Results/Plots/{gene}_functional_analysis.pdf"
-    resources:
-        memory = 16,
-        time = 1,
-        tmpdir = 0
-    priority: 8
-    threads: 1
-    shell:
-        "mkdir {output.gene_folder}; cp {input.gene_plot} {output.plot}; cp -r {input} {output.gene_folder};"
-
 def aggregate_protein_coding_potential_analysis(wildcards):
     checkpoint_output = checkpoints.gene_filter.get(**wildcards).output[0]
-    return expand("Results/Plots/{gene}_functional_analysis.pdf",
+    return expand("Results/Genes/{gene}/{gene}_functional_analysis.pdf",
            gene=glob_wildcards(os.path.join(checkpoint_output,"{gene}.txt")).gene)
 
 rule output_combine_files:

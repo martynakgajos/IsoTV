@@ -105,7 +105,7 @@ maximum_secondary: 200
 secondary_score_ratio: 1
 
 ##### Feature Analysis Config
-### Input genestt
+### Input genes
 
 gene_file: "data/genes.tab"
 
@@ -139,9 +139,6 @@ prositeScan_path: "/path/to/ps_scan/ps_scan.pl"
 pfScan_path: "/path/to/ps_scan/pfscan"
 prositeDat_path: "/path/to/prosite.dat"
 pfScan: TRUE
-
-#plaac_path: "/path/to/plaac.jar"
-#prion: FALSE
 
 minIsoTPM: 1
 maxIsoNum: 8
