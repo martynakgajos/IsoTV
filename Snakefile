@@ -539,7 +539,7 @@ rule interpro_scan:
         "source {params.java} ; sh  {params.pfam} -i {input.translation} -o {output} -f GFF3 -appl {params.db} -dra"
 
 # Secondary structure analysis
-rule porter_analysis:
+rule brewery_analysis:
     input:
         "Results/Genes_temp/{gene}/transcripts/{transcript}_protein.fa"
     output:
@@ -589,7 +589,7 @@ def functional_files():
     if (config["aa"]): files.append("Results/Genes_temp/{gene}/transcripts/{transcript}_protein.fa")
     if (config["iupred2a"]): files.append(rules.iupred2a_analysis.output.idr)
     if (config["pfam"]): files.append(rules.interpro_scan.output)
-    if (config["porter"]): files.append(rules.porter_analysis.output)
+    if (config["brewery"]): files.append(rules.brewery_analysis.output)
     if (config["pfScan"]): files.append(rules.functional_site_analysis.output)
     return files
 rule individual_transcript_analysis:
@@ -618,7 +618,8 @@ def aggregate_transcript_analysis_func(wildcards):
 rule aggregate_transcript_analysis:
     input:
         func = aggregate_transcript_analysis_func,
-        stats = "Results/Genes_temp/{gene}/{gene}_transcripts_stats.txt"
+        stats = "Results/Genes_temp/{gene}/{gene}_transcripts_stats.txt",
+        gene_temp = directory("Results/Genes_temp")
     output:
         analysis = "Results/Genes/{gene}/{gene}_transcripts_filtered_analysis.txt",
         stats = "Results/Genes/{gene}/{gene}_transcripts_stats.txt"
@@ -631,7 +632,7 @@ rule aggregate_transcript_analysis:
     priority: 5
     threads: 1
     shell:
-        "cat {input.func} > {output.analysis}; cat {input.stats} > {output.stats}"
+        "cat {input.func} > {output.analysis}; cat {input.stats} > {output.stats}; rm -rf {input.gene_temp};"
 
 rule protein_coding_potential_analysis:
     input:
@@ -660,7 +661,7 @@ def aggregate_protein_coding_potential_analysis(wildcards):
 rule output_combine_files:
     input:
         aggregate = aggregate_protein_coding_potential_analysis,
-        gene_temp = directory("Results/Genes_temp"),
+        gene_temp = directory("Results/Genes_temp")
     output:
         plot = "Results/Output/" + config["output_plots"]
     resources:

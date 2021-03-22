@@ -130,7 +130,7 @@ iupred2a_path: "/path/to/iupred2a/iupred2a.py"
 iupred2a: TRUE
 
 brewery_path: "/path/to/Brewery/Brewery.py"
-porter: TRUE
+brewery: TRUE
 
 interproScan_path: "/path/to/my_interproscan/interproscan-5.38-76.0/interproscan.sh"
 pfam: TRUE
