@@ -243,7 +243,7 @@ def plotSequenceAnalysis(transcripts_plot, colors, longest_length_protein, fig, 
             bottom += 0.5
 
         # Secondary structure prediction
-        if (snakemake.config["porter"]):
+        if (snakemake.config["brewery"]):
             ss3_df = pd.DataFrame(tcons_curr.ss3[1:], columns = tcons_curr.ss3[0])
             ss = list(ss3_df["SS"])
             for i in range(len(tcons_curr.aa)):
