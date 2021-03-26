@@ -526,7 +526,6 @@ rule interpro_scan:
         "Results/Genes_temp/{gene}/transcripts/{transcript}_func_domains.gff3"
     params:
         db = "Pfam",
-        java = config["java"],
         pfam = config["interproScan_path"],
     resources:
         memory = 16,
@@ -536,7 +535,7 @@ rule interpro_scan:
     threads: 1
     group: "sequence_analysis"
     shell:
-        "source {params.java} ; sh  {params.pfam} -i {input.translation} -o {output} -f GFF3 -appl {params.db} -dra"
+        "sh  {params.pfam} -i {input.translation} -o {output} -f GFF3 -appl {params.db} -dra"
 
 # Secondary structure analysis
 rule brewery_analysis:
@@ -549,17 +548,17 @@ rule brewery_analysis:
         lock1 = config["lock1"],
         lock2 = config["lock2"],
     resources:
-        memory = 72,
+        memory = 8,
         time = 1,
         tmpdir = 16
-        #memory = 16,
+        #memory = 72,
         #time = 1,
         #tmpdir = 0
     priority: 10
     threads: 16
     #group: "sequence_analysis"
     shell:
-        "python3 {params.brewery} -i {input} --cpu 16 --noTA --noSA --noCD --fast"
+        "python3 {params.brewery} -i {input} --cpu 8 --noTA --noSA --noCD --fast"
 #        'set -ve; export ORIGDIR="$(/bin/pwd)"; flock {params.lock1} bash -ve -c "scp {input} $MXQ_JOB_TMPDIR/"; cd $MXQ_JOB_TMPDIR/; python3 {params.brewery} -i *.fa --cpu 16 --noTA --noSA --noCD --fast; flock {params.lock2} bash -ve -c "cp *.fa.ss3 $ORIGDIR/{output}"'
 #        "echo {params.brewery} > {output}"
 
@@ -619,7 +618,7 @@ rule aggregate_transcript_analysis:
     input:
         func = aggregate_transcript_analysis_func,
         stats = "Results/Genes_temp/{gene}/{gene}_transcripts_stats.txt",
-        gene_temp = directory("Results/Genes_temp")
+        gene_temp = directory("Results/Genes_temp/{gene}")
     output:
         analysis = "Results/Genes/{gene}/{gene}_transcripts_filtered_analysis.txt",
         stats = "Results/Genes/{gene}/{gene}_transcripts_stats.txt"

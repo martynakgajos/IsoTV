@@ -1,3 +1,4 @@
+###
 chr17	pinfish	transcript	50095380	50106363	.	+	.	transcript_id "TCONS_00023419"; gene_id "XLOC_007312"; gene_name "PDK2"; oId "f3fe429f-0296-4cc4-a2cf-aa295cd23fbe|60"; cmp_ref "ENST00000505897.5"; class_code "="; tss_id "TSS13403";
 chr17	pinfish	exon	50095380	50095553	.	+	.	transcript_id "TCONS_00023419"; gene_id "XLOC_007312"; exon_number "1";
 chr17	pinfish	exon	50097423	50097564	.	+	.	transcript_id "TCONS_00023419"; gene_id "XLOC_007312"; exon_number "2";

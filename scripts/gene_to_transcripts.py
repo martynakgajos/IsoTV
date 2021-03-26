@@ -17,18 +17,19 @@ gene_name = snakemake.params[0]
 if (snakemake.config["annotation"]):
     # Import the nanopore annotation file
     annotation_filename = snakemake.input[0]
-    annotate_df = pd.read_csv(annotation_filename,sep = "\t", header = None)
+    annotate_df = pd.read_csv(annotation_filename,sep = "\t", header = None, comment='#')
     #annotation = pd.read_csv(sep = "\t", skiprows = 5, names = ["chr","type","info"],usecols = [0,2,8])
     #annotate_df = pd.read_csv(annotation_filename,sep = "\t", skiprows = 5, names = ["chr","type","info"],usecols = [0,2,8], header = None)
 
     annotate_df = annotate_df[annotate_df[2]  != "exon"]
+    annotate_type = list(annotate_df[2])
     annotate_lines = list(annotate_df[8])
 
     # Mapping gene name to transcriptID
     gene_tID = dict()
 
     for ann in range(len(annotate_lines)):
-        if ("gene_name" in annotate_lines[ann]):
+        if (("gene_name" in annotate_lines[ann]) and ("transcript_id" in annotate_lines[ann]) and ("transcript" == annotate_type[ann])):
             line = annotate_lines[ann].split(";")
             #tID = line[0].split(" ")[-1][1:-1]
             tID = annotate_lines[ann].split('transcript_id "')[1].split('"')[0]

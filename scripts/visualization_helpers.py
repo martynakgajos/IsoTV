@@ -108,16 +108,19 @@ def preprocessArguments(args):
     if (args.gtf == None):
         annotation = None
     else:
-        annotation = pd.read_csv(args.gtf, delimiter='\t', header=None, usecols=[0,2,3,4,6,8],names=['chrm','type','start','stop','strand','more'])
+        annotation = pd.read_csv(args.gtf, delimiter='\t', header=None, usecols=[0,2,3,4,6,8],names=['chrm','type','start','stop','strand','more'], comment = '#')
         annotation['transcript_id'] = annotation.apply(lambda x: x['more'].split('transcript_id "')[1].split('"')[0],1)
         annotation["transcript_id"] = annotation["transcript_id"].apply(lambda x: x.replace("_",""))
-        annotation["exon_number"] = annotation.apply(lambda x: x["more"].split('exon_number "')[1].split('"')[0] if "exon_number" in x["more"] else 0,1)
+        annotation["exon_number"] = annotation.apply(lambda x: x["more"].split('exon_number')[1].split('"')[1] if "exon_number" in x["more"] else 0,1)
         annotation = annotation.drop(columns='more')
 
     if (args.csv == None):
         data = None
     else:
-        data = pd.read_csv(args.csv)
+        if ("tsv" in args.csv):
+            data = pd.read_csv(args.csv, sep = "\t")
+        else:
+            data = pd.read_csv(args.csv)
 
     samples = [sample for sample in args.samples]
     conditions = sorted(list(set([sample.split("_")[0] for sample in samples])))
@@ -164,7 +167,7 @@ def plotTotal(conditions, df_gene, ax, colors, number_replicates, continuous):
 
         plt.scatter(x + np.random.normal(0, 0.075, len(x)), df_gene.filter(like = '_'), color = "black", marker = '.', s = 200, alpha = 0.5, linewidths = 0, zorder=2)
 
-    ax.set_ylim(bottom = -0.5)
+    ax.set_ylim(bottom = -0.00001)
     ax.set_xticks(conditions_x)
     ax.set_xticklabels(conditions)
     ax.spines['top'].set_visible(False)
@@ -193,7 +196,7 @@ def plotIsoformProfiles(conditions, df, ax, colors, continuous):
                 plt.plot([i + jitter,i + jitter],[last_bottom[i - 1] + mean.iloc[i - 1] - err.iloc[i - 1],last_bottom[i - 1] + mean.iloc[i - 1] + err.iloc[i - 1]],linewidth = 2,color = "black")
             last_bottom += mean
 
-    ax.set_ylim(bottom=-0.5)
+    ax.set_ylim(bottom=-0.00001)
     ax.set_xticks(x)
     ax.set_xticklabels(conditions)
     ax.tick_params(axis = "both", which = "major", labelsize = 14)

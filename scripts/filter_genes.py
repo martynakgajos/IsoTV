@@ -25,7 +25,7 @@ os.makedirs(snakemake.output[0])
 
 # If the annotation file is given
 if (snakemake.config["annotation"]):
-    annotate_df = pd.read_csv(snakemake.input[0], sep = "\t", header = None)
+    annotate_df = pd.read_csv(snakemake.input[0], sep = "\t", header = None, comment='#')
     annotate_df = annotate_df[annotate_df[2]  != "exon"]
     annotate_lines = list(annotate_df[8])
 

@@ -436,7 +436,10 @@ for ids in transcripts:
 total_gs = 1
 transcripts_plot = sorted(list(transcripts.keys()))
 if (snakemake.config["quantification"]):
-    df_temp = data[data["gene_name"] == gene]
+    #df_temp = data[data["gene_name"] == gene]
+    print(transcripts_plot)
+    print(data["transcript_id"])
+    df_temp = data[data["transcript_id"].isin(transcripts_plot)]
     data_gene = df_temp[samples].sum().to_frame().transpose()
     data_gene = calculateStatistics(data_gene,conditions,number_replicates)
     df_temp = calculateStatistics(df_temp,conditions,number_replicates)
