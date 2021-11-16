@@ -1,0 +1,11 @@
+name: filtlong
+channels:
+  - conda-forge
+  - bioconda
+  - defaults
+dependencies:
+  - filtlong=0.2.1=h87af4ef_0
+  - libcxx=12.0.1=habf9029_0
+  - libzlib=1.2.11=h9173be1_1013
+  - zlib=1.2.11=h9173be1_1013
+prefix: /Users/SJAnnaldasula/miniconda3/envs/filtlong

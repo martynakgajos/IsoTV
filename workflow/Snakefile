@@ -20,7 +20,7 @@ rule all:
     #"Results/Output/" + config["output_plots"]
     "Results/Quantification/counts_deseq2norm.txt"
 
-
+'''
 # Package versions
 rule dump_versions:
     output:
@@ -29,7 +29,7 @@ rule dump_versions:
         "environment.yaml"
     shell:
         "conda list > {output.ver}"
-
+'''
 # include: "basecalling.smk"
 
 include: "rules/preprocess.smk"

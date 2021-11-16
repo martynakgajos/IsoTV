@@ -56,8 +56,8 @@ rule PinfishPolishClusters:
         bam = rules.Minimap2Pinfish.output.bam
     output:
         pol_trs = "Results/Pinfish/polished_transcripts.fas"
-    conda:
-        "/project/owlmayerTemporary/Sid/nanopore-analysis/environment.yaml"
+    #conda:
+    #    "/project/owlmayerTemporary/Sid/nanopore-analysis/environment.yaml"
     resources:
         memory = 8,
         time = 1

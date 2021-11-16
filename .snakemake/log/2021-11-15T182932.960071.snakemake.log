@@ -1,3 +1,0 @@
-KeyError in line 10 of /home/annaldas/projects/IsoTV/Snakefile:
-'outdir'
-  File "/home/annaldas/projects/IsoTV/Snakefile", line 10, in <module>

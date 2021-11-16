@@ -1,6 +1,0 @@
-The flag 'directory' used in rule aggregate_transcript_analysis is only valid for outputs, not inputs.
-The flag 'directory' used in rule output_combine_files is only valid for outputs, not inputs.
-Building DAG of jobs...
-MissingInputException in line 27 of /home/annaldas/projects/IsoTV/rules/preprocess.smk:
-Missing input files for rule FilterReads:
-RawData/Fastq/A549_r1_r3.fastq

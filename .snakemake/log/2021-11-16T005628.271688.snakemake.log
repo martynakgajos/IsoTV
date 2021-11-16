@@ -1,5 +1,0 @@
-The flag 'directory' used in rule aggregate_transcript_analysis is only valid for outputs, not inputs.
-The flag 'directory' used in rule output_combine_files is only valid for outputs, not inputs.
-Building DAG of jobs...
-Nothing to be done.
-Complete log: /home/annaldas/projects/IsoTV/.snakemake/log/2021-11-16T005628.271688.snakemake.log

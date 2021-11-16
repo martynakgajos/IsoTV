@@ -4,17 +4,17 @@ rule Minimap2Index:
         genome = ReferenceFasta
     output:
         index = "Results/Minimap2/%s.mmi" %(ReferenceFasta.split("/")[-1])
-    #log:
-    #    "logs/downsample/{sample}/{sample}_bbnorm.log"
     params:
         opts = config["minimap2_index_opts"],
+    #log:
+    #    "logs/downsample/{sample}/{sample}_bbnorm.log"
     threads:
         config["threads"]
     resources:
-        memory = 16,
+        memory = 8,
         time = 1
     conda:
-        "../envs/env.yaml"
+        "../envs/minimap2.yaml"
     shell:
       "minimap2 -t {threads} {params.opts} -I 1000G -d {output.index} {input.genome}"
 
@@ -24,19 +24,31 @@ rule SpliceJunctionIndex:
         GenomeGFF
     output:
         junc_bed = "ReferenceData/junctions.bed"
+    conda:
+        "../envs/minimap2.yaml"
     shell:
         "paftools.js gff2bed {input} > {output.junc_bed}"
 
 # Filter basecalled raw ONT reads
+
+def FilterReadsInput(wildcards):
+    if(os.path.exists("RawData/Fastq/%s.fastq" %(SAMPLES[wildcards.sample]))):
+        return "RawData/Fastq/%s.fastq" %(SAMPLES[wildcards.sample])
+    else:
+        assert(os.path.exists("RawData/Fastq/%s.fastq.gz" %(SAMPLES[wildcards.sample])))
+        return "RawData/Fastq/%s.fastq.gz" %(SAMPLES[wildcards.sample])
+
 rule FilterReads:
     input:
-        lambda wildcards: "RawData/Fastq/%s.fastq" %(SAMPLES[wildcards.sample])
+        FilterReadsInput
     output:
         "FilteredData/{sample}.fastq",
-    resources:
-        memory = 32,
-        time = 1
     params:
         config["min_mean_q"]
+    resources:
+        memory = 8,
+        time = 1
+    conda:
+        "../envs/filtlong.yaml"
     shell:
         "filtlong --min_mean_q {params} {input} > {output}"

@@ -1,6 +1,0 @@
-The flag 'directory' used in rule aggregate_transcript_analysis is only valid for outputs, not inputs.
-The flag 'directory' used in rule output_combine_files is only valid for outputs, not inputs.
-Building DAG of jobs...
-MissingInputException in line 452 of /home/annaldas/projects/IsoTV/Snakefile:
-Missing input files for rule gene_filter:
-/project/owlmayerTemporary/Sid/ForOlga/Sequence/dhx9.fa
