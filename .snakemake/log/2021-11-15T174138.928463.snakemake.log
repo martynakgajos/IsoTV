@@ -1,0 +1,1395 @@
+The flag 'directory' used in rule aggregate_transcript_analysis is only valid for outputs, not inputs.
+The flag 'directory' used in rule output_combine_files is only valid for outputs, not inputs.
+Building DAG of jobs...
+Using shell: /bin/bash
+Provided cores: 32
+Rules claiming more threads will be scaled down.
+Conda environments: ignored
+Job stats:
+job                     count    min threads    max threads
+--------------------  -------  -------------  -------------
+gene_filter                 1              1              1
+output_combine_files        1              1              1
+total                       2              1              1
+
+Select jobs to execute...
+
+[Mon Nov 15 17:41:39 2021]
+checkpoint gene_filter:
+    input: /project/owlmayerTemporary/Sid/isoform_analysis/github/Results/GffCompare/nanopore.combined.gtf
+    output: Results/Genes_temp
+    jobid: 1
+    resources: tmpdir=/scratch/local
+Downstream jobs will be updated after completion.
+
+[Mon Nov 15 17:41:42 2021]
+Finished job 1.
+1 of 2 steps (50%) done
+Updating job output_combine_files.
+Select jobs to execute...
+
+[Mon Nov 15 17:41:42 2021]
+rule gene_to_transcripts:
+    input: /project/owlmayerTemporary/Sid/isoform_analysis/github/Results/GffCompare/nanopore.combined.gtf, /project/owlmayerTemporary/Sid/isoform_analysis/github/Results/Pinfish/corrected_transcriptome_polished_collapsed_nonredundant_tcons.fas, Results/Genes_temp/NRCAM
+    output: Results/Genes_temp/NRCAM/NRCAM_seq.fa
+    jobid: 15
+    wildcards: gene=NRCAM
+    priority: 8
+    resources: tmpdir=0, memory=10, time=1
+
+[Mon Nov 15 17:41:42 2021]
+rule gene_to_transcripts:
+    input: /project/owlmayerTemporary/Sid/isoform_analysis/github/Results/GffCompare/nanopore.combined.gtf, /project/owlmayerTemporary/Sid/isoform_analysis/github/Results/Pinfish/corrected_transcriptome_polished_collapsed_nonredundant_tcons.fas, Results/Genes_temp/SLC6A15
+    output: Results/Genes_temp/SLC6A15/SLC6A15_seq.fa
+    jobid: 6
+    wildcards: gene=SLC6A15
+    priority: 8
+    resources: tmpdir=0, memory=10, time=1
+
+
+[Mon Nov 15 17:41:42 2021]
+rule gene_to_transcripts:
+    input: /project/owlmayerTemporary/Sid/isoform_analysis/github/Results/GffCompare/nanopore.combined.gtf, /project/owlmayerTemporary/Sid/isoform_analysis/github/Results/Pinfish/corrected_transcriptome_polished_collapsed_nonredundant_tcons.fas, Results/Genes_temp/RENBP
+    output: Results/Genes_temp/RENBP/RENBP_seq.fa
+    jobid: 19
+    wildcards: gene=RENBP
+    priority: 8
+    resources: tmpdir=0, memory=10, time=1
+
+
+[Mon Nov 15 17:41:42 2021]
+rule gene_to_transcripts:
+    input: /project/owlmayerTemporary/Sid/isoform_analysis/github/Results/GffCompare/nanopore.combined.gtf, /project/owlmayerTemporary/Sid/isoform_analysis/github/Results/Pinfish/corrected_transcriptome_polished_collapsed_nonredundant_tcons.fas, Results/Genes_temp/GDF1
+    output: Results/Genes_temp/GDF1/GDF1_seq.fa
+    jobid: 10
+    wildcards: gene=GDF1
+    priority: 8
+    resources: tmpdir=0, memory=10, time=1
+
+[Mon Nov 15 17:41:45 2021]
+Finished job 15.
+2 of 18 steps (11%) done
+Select jobs to execute...
+
+[Mon Nov 15 17:41:45 2021]
+checkpoint translation_to_protein:
+    input: Results/Genes_temp/NRCAM/NRCAM_seq.fa
+    output: Results/Genes_temp/NRCAM/transcripts, Results/Genes_temp/NRCAM/NRCAM_transcripts_stats.txt
+    jobid: 14
+    wildcards: gene=NRCAM
+    priority: 10
+    resources: tmpdir=0, memory=10, time=1
+Downstream jobs will be updated after completion.
+
+[Mon Nov 15 17:41:45 2021]
+Finished job 6.
+3 of 18 steps (17%) done
+Select jobs to execute...
+
+[Mon Nov 15 17:41:45 2021]
+checkpoint translation_to_protein:
+    input: Results/Genes_temp/SLC6A15/SLC6A15_seq.fa
+    output: Results/Genes_temp/SLC6A15/transcripts, Results/Genes_temp/SLC6A15/SLC6A15_transcripts_stats.txt
+    jobid: 5
+    wildcards: gene=SLC6A15
+    priority: 10
+    resources: tmpdir=0, memory=10, time=1
+Downstream jobs will be updated after completion.
+
+[Mon Nov 15 17:41:45 2021]
+Finished job 10.
+4 of 18 steps (22%) done
+Select jobs to execute...
+
+[Mon Nov 15 17:41:45 2021]
+checkpoint translation_to_protein:
+    input: Results/Genes_temp/GDF1/GDF1_seq.fa
+    output: Results/Genes_temp/GDF1/transcripts, Results/Genes_temp/GDF1/GDF1_transcripts_stats.txt
+    jobid: 9
+    wildcards: gene=GDF1
+    priority: 10
+    resources: tmpdir=0, memory=10, time=1
+Downstream jobs will be updated after completion.
+
+[Mon Nov 15 17:41:45 2021]
+Finished job 19.
+5 of 18 steps (28%) done
+Select jobs to execute...
+
+[Mon Nov 15 17:41:45 2021]
+checkpoint translation_to_protein:
+    input: Results/Genes_temp/RENBP/RENBP_seq.fa
+    output: Results/Genes_temp/RENBP/transcripts, Results/Genes_temp/RENBP/RENBP_transcripts_stats.txt
+    jobid: 18
+    wildcards: gene=RENBP
+    priority: 10
+    resources: tmpdir=0, memory=10, time=1
+Downstream jobs will be updated after completion.
+
+[Mon Nov 15 17:41:46 2021]
+Finished job 14.
+6 of 18 steps (33%) done
+Updating job aggregate_transcript_analysis.
+Select jobs to execute...
+
+[Mon Nov 15 17:41:46 2021]
+rule iupred2a_analysis:
+    input: Results/Genes_temp/NRCAM/transcripts/TCONS00106501_protein.fa, /home/annaldas/iupred2a/iupred2a.py
+    output: Results/Genes_temp/NRCAM/transcripts/TCONS00106501_sequence.txt, Results/Genes_temp/NRCAM/transcripts/TCONS00106501_func_iupred2a.txt
+    jobid: 42
+    wildcards: gene=NRCAM, transcript=TCONS00106501
+    priority: 8
+    resources: tmpdir=0, memory=10, time=1
+
+
+[Mon Nov 15 17:41:46 2021]
+rule interpro_scan:
+    input: Results/Genes_temp/NRCAM/transcripts/TCONS00106497_protein.fa
+    output: Results/Genes_temp/NRCAM/transcripts/TCONS00106497_func_domains.gff3
+    jobid: 27
+    wildcards: gene=NRCAM, transcript=TCONS00106497
+    priority: 8
+    resources: tmpdir=0, memory=16, time=1
+
+
+[Mon Nov 15 17:41:46 2021]
+rule iupred2a_analysis:
+    input: Results/Genes_temp/NRCAM/transcripts/TCONS00106499_protein.fa, /home/annaldas/iupred2a/iupred2a.py
+    output: Results/Genes_temp/NRCAM/transcripts/TCONS00106499_sequence.txt, Results/Genes_temp/NRCAM/transcripts/TCONS00106499_func_iupred2a.txt
+    jobid: 34
+    wildcards: gene=NRCAM, transcript=TCONS00106499
+    priority: 8
+    resources: tmpdir=0, memory=10, time=1
+
+
+[Mon Nov 15 17:41:46 2021]
+rule interpro_scan:
+    input: Results/Genes_temp/NRCAM/transcripts/TCONS00106499_protein.fa
+    output: Results/Genes_temp/NRCAM/transcripts/TCONS00106499_func_domains.gff3
+    jobid: 35
+    wildcards: gene=NRCAM, transcript=TCONS00106499
+    priority: 8
+    resources: tmpdir=0, memory=16, time=1
+
+
+[Mon Nov 15 17:41:46 2021]
+rule functional_site_analysis:
+    input: Results/Genes_temp/NRCAM/transcripts/TCONS00106497_protein.fa
+    output: Results/Genes_temp/NRCAM/transcripts/TCONS00106497_func_sites.txt
+    jobid: 28
+    wildcards: gene=NRCAM, transcript=TCONS00106497
+    priority: 8
+    resources: tmpdir=0, memory=10, time=1
+
+
+[Mon Nov 15 17:41:46 2021]
+rule interpro_scan:
+    input: Results/Genes_temp/NRCAM/transcripts/TCONS00106501_protein.fa
+    output: Results/Genes_temp/NRCAM/transcripts/TCONS00106501_func_domains.gff3
+    jobid: 43
+    wildcards: gene=NRCAM, transcript=TCONS00106501
+    priority: 8
+    resources: tmpdir=0, memory=16, time=1
+
+[Mon Nov 15 17:41:46 2021]
+Finished job 5.
+
+7 of 46 steps (15%) done
+[Mon Nov 15 17:41:46 2021]
+rule functional_site_analysis:
+    input: Results/Genes_temp/NRCAM/transcripts/TCONS00106499_protein.fa
+    output: Results/Genes_temp/NRCAM/transcripts/TCONS00106499_func_sites.txt
+    jobid: 36
+    wildcards: gene=NRCAM, transcript=TCONS00106499
+    priority: 8
+    resources: tmpdir=0, memory=10, time=1
+
+
+[Mon Nov 15 17:41:46 2021]
+rule functional_site_analysis:
+    input: Results/Genes_temp/NRCAM/transcripts/TCONS00106501_protein.fa
+    output: Results/Genes_temp/NRCAM/transcripts/TCONS00106501_func_sites.txt
+    jobid: 44
+    wildcards: gene=NRCAM, transcript=TCONS00106501
+    priority: 8
+    resources: tmpdir=0, memory=10, time=1
+
+
+[Mon Nov 15 17:41:46 2021]
+rule iupred2a_analysis:
+    input: Results/Genes_temp/NRCAM/transcripts/TCONS00103503_protein.fa, /home/annaldas/iupred2a/iupred2a.py
+    output: Results/Genes_temp/NRCAM/transcripts/TCONS00103503_sequence.txt, Results/Genes_temp/NRCAM/transcripts/TCONS00103503_func_iupred2a.txt
+    jobid: 22
+    wildcards: gene=NRCAM, transcript=TCONS00103503
+    priority: 8
+    resources: tmpdir=0, memory=10, time=1
+
+[Mon Nov 15 17:41:46 2021]
+Finished job 42.
+8 of 46 steps (17%) done
+
+[Mon Nov 15 17:41:46 2021]
+rule iupred2a_analysis:
+    input: Results/Genes_temp/NRCAM/transcripts/TCONS00106498_protein.fa, /home/annaldas/iupred2a/iupred2a.py
+    output: Results/Genes_temp/NRCAM/transcripts/TCONS00106498_sequence.txt, Results/Genes_temp/NRCAM/transcripts/TCONS00106498_func_iupred2a.txt
+    jobid: 30
+    wildcards: gene=NRCAM, transcript=TCONS00106498
+    priority: 8
+    resources: tmpdir=0, memory=10, time=1
+
+[Mon Nov 15 17:41:46 2021]
+
+Finished job 9.
+[Mon Nov 15 17:41:46 2021]
+9 of 46 steps (20%) done
+rule interpro_scan:
+    input: Results/Genes_temp/NRCAM/transcripts/TCONS00103503_protein.fa
+    output: Results/Genes_temp/NRCAM/transcripts/TCONS00103503_func_domains.gff3
+    jobid: 23
+    wildcards: gene=NRCAM, transcript=TCONS00103503
+    priority: 8
+    resources: tmpdir=0, memory=16, time=1
+
+
+[Mon Nov 15 17:41:46 2021]
+rule interpro_scan:
+    input: Results/Genes_temp/NRCAM/transcripts/TCONS00106498_protein.fa
+    output: Results/Genes_temp/NRCAM/transcripts/TCONS00106498_func_domains.gff3
+    jobid: 31
+    wildcards: gene=NRCAM, transcript=TCONS00106498
+    priority: 8
+    resources: tmpdir=0, memory=16, time=1
+
+
+[Mon Nov 15 17:41:46 2021]
+rule iupred2a_analysis:
+    input: Results/Genes_temp/NRCAM/transcripts/TCONS00106500_protein.fa, /home/annaldas/iupred2a/iupred2a.py
+    output: Results/Genes_temp/NRCAM/transcripts/TCONS00106500_sequence.txt, Results/Genes_temp/NRCAM/transcripts/TCONS00106500_func_iupred2a.txt
+    jobid: 38
+    wildcards: gene=NRCAM, transcript=TCONS00106500
+    priority: 8
+    resources: tmpdir=0, memory=10, time=1
+
+[Mon Nov 15 17:41:46 2021]
+Finished job 18.
+10 of 46 steps (22%) done
+
+[Mon Nov 15 17:41:46 2021]
+rule iupred2a_analysis:
+    input: Results/Genes_temp/NRCAM/transcripts/TCONS00106502_protein.fa, /home/annaldas/iupred2a/iupred2a.py
+    output: Results/Genes_temp/NRCAM/transcripts/TCONS00106502_sequence.txt, Results/Genes_temp/NRCAM/transcripts/TCONS00106502_func_iupred2a.txt
+    jobid: 46
+    wildcards: gene=NRCAM, transcript=TCONS00106502
+    priority: 8
+    resources: tmpdir=0, memory=10, time=1
+
+
+[Mon Nov 15 17:41:46 2021]
+rule functional_site_analysis:
+    input: Results/Genes_temp/NRCAM/transcripts/TCONS00103503_protein.fa
+    output: Results/Genes_temp/NRCAM/transcripts/TCONS00103503_func_sites.txt
+    jobid: 24
+    wildcards: gene=NRCAM, transcript=TCONS00103503
+    priority: 8
+    resources: tmpdir=0, memory=10, time=1
+
+
+[Mon Nov 15 17:41:46 2021]
+rule functional_site_analysis:
+    input: Results/Genes_temp/NRCAM/transcripts/TCONS00106498_protein.fa
+    output: Results/Genes_temp/NRCAM/transcripts/TCONS00106498_func_sites.txt
+    jobid: 32
+    wildcards: gene=NRCAM, transcript=TCONS00106498
+    priority: 8
+    resources: tmpdir=0, memory=10, time=1
+
+[Mon Nov 15 17:41:46 2021]
+Finished job 34.
+11 of 46 steps (24%) done
+
+[Mon Nov 15 17:41:46 2021]
+rule interpro_scan:
+    input: Results/Genes_temp/NRCAM/transcripts/TCONS00106500_protein.fa
+    output: Results/Genes_temp/NRCAM/transcripts/TCONS00106500_func_domains.gff3
+    jobid: 39
+    wildcards: gene=NRCAM, transcript=TCONS00106500
+    priority: 8
+    resources: tmpdir=0, memory=16, time=1
+
+
+[Mon Nov 15 17:41:46 2021]
+rule interpro_scan:
+    input: Results/Genes_temp/NRCAM/transcripts/TCONS00106502_protein.fa
+    output: Results/Genes_temp/NRCAM/transcripts/TCONS00106502_func_domains.gff3
+    jobid: 47
+    wildcards: gene=NRCAM, transcript=TCONS00106502
+    priority: 8
+    resources: tmpdir=0, memory=16, time=1
+
+[Mon Nov 15 17:41:46 2021]
+Finished job 22.
+12 of 46 steps (26%) done
+
+[Mon Nov 15 17:41:46 2021]
+rule functional_site_analysis:
+    input: Results/Genes_temp/NRCAM/transcripts/TCONS00106500_protein.fa
+    output: Results/Genes_temp/NRCAM/transcripts/TCONS00106500_func_sites.txt
+    jobid: 40
+    wildcards: gene=NRCAM, transcript=TCONS00106500
+    priority: 8
+    resources: tmpdir=0, memory=10, time=1
+
+
+[Mon Nov 15 17:41:46 2021]
+rule functional_site_analysis:
+    input: Results/Genes_temp/NRCAM/transcripts/TCONS00106502_protein.fa
+    output: Results/Genes_temp/NRCAM/transcripts/TCONS00106502_func_sites.txt
+    jobid: 48
+    wildcards: gene=NRCAM, transcript=TCONS00106502
+    priority: 8
+    resources: tmpdir=0, memory=10, time=1
+
+
+[Mon Nov 15 17:41:46 2021]
+rule iupred2a_analysis:
+    input: Results/Genes_temp/NRCAM/transcripts/TCONS00106497_protein.fa, /home/annaldas/iupred2a/iupred2a.py
+    output: Results/Genes_temp/NRCAM/transcripts/TCONS00106497_sequence.txt, Results/Genes_temp/NRCAM/transcripts/TCONS00106497_func_iupred2a.txt
+    jobid: 26
+    wildcards: gene=NRCAM, transcript=TCONS00106497
+    priority: 8
+    resources: tmpdir=0, memory=10, time=1
+
+[Mon Nov 15 17:41:46 2021]
+Finished job 38.
+13 of 46 steps (28%) done
+[Mon Nov 15 17:41:46 2021]
+Finished job 46.
+14 of 46 steps (30%) done
+Updating job aggregate_transcript_analysis.
+Updating job aggregate_transcript_analysis.
+Updating job aggregate_transcript_analysis.
+Select jobs to execute...
+[Mon Nov 15 17:41:47 2021]
+Finished job 30.
+15 of 102 steps (15%) done
+[Mon Nov 15 17:41:47 2021]
+Finished job 26.
+16 of 102 steps (16%) done
+
+[Mon Nov 15 17:41:47 2021]
+rule interpro_scan:
+    input: Results/Genes_temp/RENBP/transcripts/TCONS00119549_protein.fa
+    output: Results/Genes_temp/RENBP/transcripts/TCONS00119549_func_domains.gff3
+    jobid: 102
+    wildcards: gene=RENBP, transcript=TCONS00119549
+    priority: 8
+    resources: tmpdir=0, memory=16, time=1
+
+
+[Mon Nov 15 17:41:47 2021]
+rule iupred2a_analysis:
+    input: Results/Genes_temp/GDF1/transcripts/TCONS00060366_protein.fa, /home/annaldas/iupred2a/iupred2a.py
+    output: Results/Genes_temp/GDF1/transcripts/TCONS00060366_sequence.txt, Results/Genes_temp/GDF1/transcripts/TCONS00060366_func_iupred2a.txt
+    jobid: 96
+    wildcards: gene=GDF1, transcript=TCONS00060366
+    priority: 8
+    resources: tmpdir=0, memory=10, time=1
+
+
+[Mon Nov 15 17:41:47 2021]
+rule iupred2a_analysis:
+    input: Results/Genes_temp/SLC6A15/transcripts/TCONS00028816_protein.fa, /home/annaldas/iupred2a/iupred2a.py
+    output: Results/Genes_temp/SLC6A15/transcripts/TCONS00028816_sequence.txt, Results/Genes_temp/SLC6A15/transcripts/TCONS00028816_func_iupred2a.txt
+    jobid: 79
+    wildcards: gene=SLC6A15, transcript=TCONS00028816
+    priority: 8
+    resources: tmpdir=0, memory=10, time=1
+
+
+[Mon Nov 15 17:41:47 2021]
+rule iupred2a_analysis:
+    input: Results/Genes_temp/SLC6A15/transcripts/TCONS00025538_protein.fa, /home/annaldas/iupred2a/iupred2a.py
+    output: Results/Genes_temp/SLC6A15/transcripts/TCONS00025538_sequence.txt, Results/Genes_temp/SLC6A15/transcripts/TCONS00025538_func_iupred2a.txt
+    jobid: 51
+    wildcards: gene=SLC6A15, transcript=TCONS00025538
+    priority: 8
+    resources: tmpdir=0, memory=10, time=1
+
+
+[Mon Nov 15 17:41:47 2021]
+rule iupred2a_analysis:
+    input: Results/Genes_temp/SLC6A15/transcripts/TCONS00025539_protein.fa, /home/annaldas/iupred2a/iupred2a.py
+    output: Results/Genes_temp/SLC6A15/transcripts/TCONS00025539_sequence.txt, Results/Genes_temp/SLC6A15/transcripts/TCONS00025539_func_iupred2a.txt
+    jobid: 59
+    wildcards: gene=SLC6A15, transcript=TCONS00025539
+    priority: 8
+    resources: tmpdir=0, memory=10, time=1
+
+
+[Mon Nov 15 17:41:47 2021]
+rule interpro_scan:
+    input: Results/Genes_temp/SLC6A15/transcripts/TCONS00028810_protein.fa
+    output: Results/Genes_temp/SLC6A15/transcripts/TCONS00028810_func_domains.gff3
+    jobid: 68
+    wildcards: gene=SLC6A15, transcript=TCONS00028810
+    priority: 8
+    resources: tmpdir=0, memory=16, time=1
+
+
+[Mon Nov 15 17:41:47 2021]
+rule iupred2a_analysis:
+    input: Results/Genes_temp/SLC6A15/transcripts/TCONS00028817_protein.fa, /home/annaldas/iupred2a/iupred2a.py
+    output: Results/Genes_temp/SLC6A15/transcripts/TCONS00028817_sequence.txt, Results/Genes_temp/SLC6A15/transcripts/TCONS00028817_func_iupred2a.txt
+    jobid: 83
+    wildcards: gene=SLC6A15, transcript=TCONS00028817
+    priority: 8
+    resources: tmpdir=0, memory=10, time=1
+
+
+[Mon Nov 15 17:41:47 2021]
+rule iupred2a_analysis:
+    input: Results/Genes_temp/SLC6A15/transcripts/TCONS00025541_protein.fa, /home/annaldas/iupred2a/iupred2a.py
+    output: Results/Genes_temp/SLC6A15/transcripts/TCONS00025541_sequence.txt, Results/Genes_temp/SLC6A15/transcripts/TCONS00025541_func_iupred2a.txt
+    jobid: 55
+    wildcards: gene=SLC6A15, transcript=TCONS00025541
+    priority: 8
+    resources: tmpdir=0, memory=10, time=1
+
+
+[Mon Nov 15 17:41:47 2021]
+rule iupred2a_analysis:
+    input: Results/Genes_temp/SLC6A15/transcripts/TCONS00028809_protein.fa, /home/annaldas/iupred2a/iupred2a.py
+    output: Results/Genes_temp/SLC6A15/transcripts/TCONS00028809_sequence.txt, Results/Genes_temp/SLC6A15/transcripts/TCONS00028809_func_iupred2a.txt
+    jobid: 63
+    wildcards: gene=SLC6A15, transcript=TCONS00028809
+    priority: 8
+    resources: tmpdir=0, memory=10, time=1
+
+
+[Mon Nov 15 17:41:47 2021]
+rule functional_site_analysis:
+    input: Results/Genes_temp/RENBP/transcripts/TCONS00119549_protein.fa
+    output: Results/Genes_temp/RENBP/transcripts/TCONS00119549_func_sites.txt
+    jobid: 103
+    wildcards: gene=RENBP, transcript=TCONS00119549
+    priority: 8
+    resources: tmpdir=0, memory=10, time=1
+
+
+[Mon Nov 15 17:41:47 2021]
+rule iupred2a_analysis:
+    input: Results/Genes_temp/GDF1/transcripts/TCONS00060363_protein.fa, /home/annaldas/iupred2a/iupred2a.py
+    output: Results/Genes_temp/GDF1/transcripts/TCONS00060363_sequence.txt, Results/Genes_temp/GDF1/transcripts/TCONS00060363_func_iupred2a.txt
+    jobid: 88
+    wildcards: gene=GDF1, transcript=TCONS00060363
+    priority: 8
+    resources: tmpdir=0, memory=10, time=1
+
+[Mon Nov 15 17:41:47 2021]
+Finished job 96.
+17 of 102 steps (17%) done
+
+[Mon Nov 15 17:41:47 2021]
+rule iupred2a_analysis:
+    input: Results/Genes_temp/RENBP/transcripts/TCONS00119550_protein.fa, /home/annaldas/iupred2a/iupred2a.py
+    output: Results/Genes_temp/RENBP/transcripts/TCONS00119550_sequence.txt, Results/Genes_temp/RENBP/transcripts/TCONS00119550_func_iupred2a.txt
+    jobid: 105
+    wildcards: gene=RENBP, transcript=TCONS00119550
+    priority: 8
+    resources: tmpdir=0, memory=10, time=1
+
+[Mon Nov 15 17:41:47 2021]
+Finished job 79.
+18 of 102 steps (18%) done
+
+[Mon Nov 15 17:41:47 2021]
+[Mon Nov 15 17:41:47 2021]
+Finished job 51.
+rule iupred2a_analysis:
+    input: Results/Genes_temp/SLC6A15/transcripts/TCONS00028810_protein.fa, /home/annaldas/iupred2a/iupred2a.py
+    output: Results/Genes_temp/SLC6A15/transcripts/TCONS00028810_sequence.txt, Results/Genes_temp/SLC6A15/transcripts/TCONS00028810_func_iupred2a.txt
+    jobid: 67
+    wildcards: gene=SLC6A15, transcript=TCONS00028810
+    priority: 8
+    resources: tmpdir=0, memory=10, time=1
+19 of 102 steps (19%) done
+
+[Mon Nov 15 17:41:47 2021]
+
+Finished job 55.
+[Mon Nov 15 17:41:47 2021]
+20 of 102 steps (20%) done
+rule iupred2a_analysis:
+    input: Results/Genes_temp/SLC6A15/transcripts/TCONS00028813_protein.fa, /home/annaldas/iupred2a/iupred2a.py
+    output: Results/Genes_temp/SLC6A15/transcripts/TCONS00028813_sequence.txt, Results/Genes_temp/SLC6A15/transcripts/TCONS00028813_func_iupred2a.txt
+    jobid: 75
+    wildcards: gene=SLC6A15, transcript=TCONS00028813
+    priority: 8
+    resources: tmpdir=0, memory=10, time=1
+
+
+[Mon Nov 15 17:41:47 2021]
+[Mon Nov 15 17:41:47 2021]
+Finished job 83.
+rule functional_site_analysis:
+    input: Results/Genes_temp/SLC6A15/transcripts/TCONS00028810_protein.fa
+    output: Results/Genes_temp/SLC6A15/transcripts/TCONS00028810_func_sites.txt
+    jobid: 69
+    wildcards: gene=SLC6A15, transcript=TCONS00028810
+    priority: 8
+    resources: tmpdir=0, memory=10, time=1
+21 of 102 steps (21%) done
+
+
+[Mon Nov 15 17:41:47 2021]
+rule iupred2a_analysis:
+    input: Results/Genes_temp/GDF1/transcripts/TCONS00060364_protein.fa, /home/annaldas/iupred2a/iupred2a.py
+    output: Results/Genes_temp/GDF1/transcripts/TCONS00060364_sequence.txt, Results/Genes_temp/GDF1/transcripts/TCONS00060364_func_iupred2a.txt
+    jobid: 92
+    wildcards: gene=GDF1, transcript=TCONS00060364
+    priority: 8
+    resources: tmpdir=0, memory=10, time=1
+
+[Mon Nov 15 17:41:47 2021]
+Finished job 59.
+22 of 102 steps (22%) done
+
+[Mon Nov 15 17:41:47 2021]
+rule iupred2a_analysis:
+    input: Results/Genes_temp/RENBP/transcripts/TCONS00119549_protein.fa, /home/annaldas/iupred2a/iupred2a.py
+    output: Results/Genes_temp/RENBP/transcripts/TCONS00119549_sequence.txt, Results/Genes_temp/RENBP/transcripts/TCONS00119549_func_iupred2a.txt
+    jobid: 101
+    wildcards: gene=RENBP, transcript=TCONS00119549
+    priority: 8
+    resources: tmpdir=0, memory=10, time=1
+
+[Mon Nov 15 17:41:47 2021]
+Finished job 63.
+23 of 102 steps (23%) done
+
+[Mon Nov 15 17:41:47 2021]
+rule iupred2a_analysis:
+    input: Results/Genes_temp/SLC6A15/transcripts/TCONS00028812_protein.fa, /home/annaldas/iupred2a/iupred2a.py
+    output: Results/Genes_temp/SLC6A15/transcripts/TCONS00028812_sequence.txt, Results/Genes_temp/SLC6A15/transcripts/TCONS00028812_func_iupred2a.txt
+    jobid: 71
+    wildcards: gene=SLC6A15, transcript=TCONS00028812
+    priority: 8
+    resources: tmpdir=0, memory=10, time=1
+
+[Mon Nov 15 17:41:47 2021]
+Finished job 88.
+24 of 102 steps (24%) done
+Select jobs to execute...
+
+[Mon Nov 15 17:41:47 2021]
+rule interpro_scan:
+    input: Results/Genes_temp/RENBP/transcripts/TCONS00119550_protein.fa
+    output: Results/Genes_temp/RENBP/transcripts/TCONS00119550_func_domains.gff3
+    jobid: 106
+    wildcards: gene=RENBP, transcript=TCONS00119550
+    priority: 8
+    resources: tmpdir=0, memory=16, time=1
+
+
+[Mon Nov 15 17:41:47 2021]
+rule interpro_scan:
+    input: Results/Genes_temp/GDF1/transcripts/TCONS00060363_protein.fa
+    output: Results/Genes_temp/GDF1/transcripts/TCONS00060363_func_domains.gff3
+    jobid: 89
+    wildcards: gene=GDF1, transcript=TCONS00060363
+    priority: 8
+    resources: tmpdir=0, memory=16, time=1
+
+
+[Mon Nov 15 17:41:47 2021]
+rule interpro_scan:
+    input: Results/Genes_temp/SLC6A15/transcripts/TCONS00028813_protein.fa
+    output: Results/Genes_temp/SLC6A15/transcripts/TCONS00028813_func_domains.gff3
+    jobid: 76
+    wildcards: gene=SLC6A15, transcript=TCONS00028813
+    priority: 8
+    resources: tmpdir=0, memory=16, time=1
+
+[Mon Nov 15 17:41:47 2021]
+Finished job 105.
+25 of 102 steps (25%) done
+
+[Mon Nov 15 17:41:47 2021]
+rule functional_site_analysis:
+    input: Results/Genes_temp/GDF1/transcripts/TCONS00060364_protein.fa
+    output: Results/Genes_temp/GDF1/transcripts/TCONS00060364_func_sites.txt
+    jobid: 94
+    wildcards: gene=GDF1, transcript=TCONS00060364
+    priority: 8
+    resources: tmpdir=0, memory=10, time=1
+
+
+[Mon Nov 15 17:41:47 2021]
+[Mon Nov 15 17:41:47 2021]
+Finished job 75.
+rule interpro_scan:
+    input: Results/Genes_temp/GDF1/transcripts/TCONS00060364_protein.fa
+    output: Results/Genes_temp/GDF1/transcripts/TCONS00060364_func_domains.gff3
+    jobid: 93
+    wildcards: gene=GDF1, transcript=TCONS00060364
+    priority: 8
+    resources: tmpdir=0, memory=16, time=1
+26 of 102 steps (25%) done
+
+
+[Mon Nov 15 17:41:47 2021]
+rule functional_site_analysis:
+    input: Results/Genes_temp/GDF1/transcripts/TCONS00060363_protein.fa
+    output: Results/Genes_temp/GDF1/transcripts/TCONS00060363_func_sites.txt
+    jobid: 90
+    wildcards: gene=GDF1, transcript=TCONS00060363
+    priority: 8
+    resources: tmpdir=0, memory=10, time=1
+
+[Mon Nov 15 17:41:47 2021]
+Finished job 67.
+27 of 102 steps (26%) done
+
+[Mon Nov 15 17:41:47 2021]
+rule functional_site_analysis:
+    input: Results/Genes_temp/RENBP/transcripts/TCONS00119550_protein.fa
+    output: Results/Genes_temp/RENBP/transcripts/TCONS00119550_func_sites.txt
+    jobid: 107
+    wildcards: gene=RENBP, transcript=TCONS00119550
+    priority: 8
+    resources: tmpdir=0, memory=10, time=1
+
+
+[Mon Nov 15 17:41:47 2021]
+rule functional_site_analysis:
+    input: Results/Genes_temp/SLC6A15/transcripts/TCONS00028813_protein.fa
+    output: Results/Genes_temp/SLC6A15/transcripts/TCONS00028813_func_sites.txt
+    jobid: 77
+    wildcards: gene=SLC6A15, transcript=TCONS00028813
+    priority: 8
+    resources: tmpdir=0, memory=10, time=1
+
+[Mon Nov 15 17:41:47 2021]
+Finished job 92.
+28 of 102 steps (27%) done
+[Mon Nov 15 17:41:47 2021]
+Finished job 71.
+29 of 102 steps (28%) done
+[Mon Nov 15 17:41:47 2021]
+Finished job 101.
+30 of 102 steps (29%) done
+Select jobs to execute...
+
+[Mon Nov 15 17:41:47 2021]
+rule functional_site_analysis:
+    input: Results/Genes_temp/SLC6A15/transcripts/TCONS00025541_protein.fa
+    output: Results/Genes_temp/SLC6A15/transcripts/TCONS00025541_func_sites.txt
+    jobid: 57
+    wildcards: gene=SLC6A15, transcript=TCONS00025541
+    priority: 8
+    resources: tmpdir=0, memory=10, time=1
+
+
+[Mon Nov 15 17:41:47 2021]
+rule interpro_scan:
+    input: Results/Genes_temp/SLC6A15/transcripts/TCONS00028809_protein.fa
+    output: Results/Genes_temp/SLC6A15/transcripts/TCONS00028809_func_domains.gff3
+    jobid: 64
+    wildcards: gene=SLC6A15, transcript=TCONS00028809
+    priority: 8
+    resources: tmpdir=0, memory=16, time=1
+
+
+[Mon Nov 15 17:41:47 2021]
+rule functional_site_analysis:
+    input: Results/Genes_temp/SLC6A15/transcripts/TCONS00025538_protein.fa
+    output: Results/Genes_temp/SLC6A15/transcripts/TCONS00025538_func_sites.txt
+    jobid: 53
+    wildcards: gene=SLC6A15, transcript=TCONS00025538
+    priority: 8
+    resources: tmpdir=0, memory=10, time=1
+
+
+[Mon Nov 15 17:41:47 2021]
+rule functional_site_analysis:
+    input: Results/Genes_temp/SLC6A15/transcripts/TCONS00028809_protein.fa
+    output: Results/Genes_temp/SLC6A15/transcripts/TCONS00028809_func_sites.txt
+    jobid: 65
+    wildcards: gene=SLC6A15, transcript=TCONS00028809
+    priority: 8
+    resources: tmpdir=0, memory=10, time=1
+
+
+[Mon Nov 15 17:41:47 2021]
+rule interpro_scan:
+    input: Results/Genes_temp/SLC6A15/transcripts/TCONS00025538_protein.fa
+    output: Results/Genes_temp/SLC6A15/transcripts/TCONS00025538_func_domains.gff3
+    jobid: 52
+    wildcards: gene=SLC6A15, transcript=TCONS00025538
+    priority: 8
+    resources: tmpdir=0, memory=16, time=1
+
+
+[Mon Nov 15 17:41:47 2021]
+rule interpro_scan:
+    input: Results/Genes_temp/SLC6A15/transcripts/TCONS00025541_protein.fa
+    output: Results/Genes_temp/SLC6A15/transcripts/TCONS00025541_func_domains.gff3
+    jobid: 56
+    wildcards: gene=SLC6A15, transcript=TCONS00025541
+    priority: 8
+    resources: tmpdir=0, memory=16, time=1
+
+Select jobs to execute...
+[Mon Nov 15 17:42:01 2021]
+Finished job 28.
+31 of 102 steps (30%) done
+
+[Mon Nov 15 17:42:01 2021]
+rule functional_site_analysis:
+    input: Results/Genes_temp/GDF1/transcripts/TCONS00060366_protein.fa
+    output: Results/Genes_temp/GDF1/transcripts/TCONS00060366_func_sites.txt
+    jobid: 98
+    wildcards: gene=GDF1, transcript=TCONS00060366
+    priority: 8
+    resources: tmpdir=0, memory=10, time=1
+
+[Mon Nov 15 17:42:01 2021]
+Finished job 48.
+32 of 102 steps (31%) done
+Select jobs to execute...
+
+[Mon Nov 15 17:42:01 2021]
+rule interpro_scan:
+    input: Results/Genes_temp/GDF1/transcripts/TCONS00060366_protein.fa
+    output: Results/Genes_temp/GDF1/transcripts/TCONS00060366_func_domains.gff3
+    jobid: 97
+    wildcards: gene=GDF1, transcript=TCONS00060366
+    priority: 8
+    resources: tmpdir=0, memory=16, time=1
+
+[Mon Nov 15 17:42:01 2021]
+Finished job 24.
+33 of 102 steps (32%) done
+Select jobs to execute...
+
+[Mon Nov 15 17:42:01 2021]
+rule functional_site_analysis:
+    input: Results/Genes_temp/SLC6A15/transcripts/TCONS00028816_protein.fa
+    output: Results/Genes_temp/SLC6A15/transcripts/TCONS00028816_func_sites.txt
+    jobid: 81
+    wildcards: gene=SLC6A15, transcript=TCONS00028816
+    priority: 8
+    resources: tmpdir=0, memory=10, time=1
+
+[Mon Nov 15 17:42:01 2021]
+Finished job 40.
+34 of 102 steps (33%) done
+Select jobs to execute...
+
+[Mon Nov 15 17:42:01 2021]
+rule interpro_scan:
+    input: Results/Genes_temp/SLC6A15/transcripts/TCONS00028816_protein.fa
+    output: Results/Genes_temp/SLC6A15/transcripts/TCONS00028816_func_domains.gff3
+    jobid: 80
+    wildcards: gene=SLC6A15, transcript=TCONS00028816
+    priority: 8
+    resources: tmpdir=0, memory=16, time=1
+
+[Mon Nov 15 17:42:02 2021]
+Finished job 44.
+35 of 102 steps (34%) done
+Select jobs to execute...
+
+[Mon Nov 15 17:42:02 2021]
+rule functional_site_analysis:
+    input: Results/Genes_temp/SLC6A15/transcripts/TCONS00028817_protein.fa
+    output: Results/Genes_temp/SLC6A15/transcripts/TCONS00028817_func_sites.txt
+    jobid: 85
+    wildcards: gene=SLC6A15, transcript=TCONS00028817
+    priority: 8
+    resources: tmpdir=0, memory=10, time=1
+
+[Mon Nov 15 17:42:03 2021]
+Finished job 57.
+36 of 102 steps (35%) done
+Select jobs to execute...
+
+[Mon Nov 15 17:42:03 2021]
+rule functional_site_analysis:
+    input: Results/Genes_temp/SLC6A15/transcripts/TCONS00025539_protein.fa
+    output: Results/Genes_temp/SLC6A15/transcripts/TCONS00025539_func_sites.txt
+    jobid: 61
+    wildcards: gene=SLC6A15, transcript=TCONS00025539
+    priority: 8
+    resources: tmpdir=0, memory=10, time=1
+
+[Mon Nov 15 17:42:03 2021]
+Finished job 53.
+37 of 102 steps (36%) done
+Select jobs to execute...
+
+[Mon Nov 15 17:42:03 2021]
+rule functional_site_analysis:
+    input: Results/Genes_temp/SLC6A15/transcripts/TCONS00028812_protein.fa
+    output: Results/Genes_temp/SLC6A15/transcripts/TCONS00028812_func_sites.txt
+    jobid: 73
+    wildcards: gene=SLC6A15, transcript=TCONS00028812
+    priority: 8
+    resources: tmpdir=0, memory=10, time=1
+
+[Mon Nov 15 17:42:04 2021]
+Finished job 90.
+38 of 102 steps (37%) done
+Select jobs to execute...
+
+[Mon Nov 15 17:42:04 2021]
+rule interpro_scan:
+    input: Results/Genes_temp/SLC6A15/transcripts/TCONS00025539_protein.fa
+    output: Results/Genes_temp/SLC6A15/transcripts/TCONS00025539_func_domains.gff3
+    jobid: 60
+    wildcards: gene=SLC6A15, transcript=TCONS00025539
+    priority: 8
+    resources: tmpdir=0, memory=16, time=1
+
+[Mon Nov 15 17:42:04 2021]
+Finished job 107.
+39 of 102 steps (38%) done
+Select jobs to execute...
+
+[Mon Nov 15 17:42:04 2021]
+rule interpro_scan:
+    input: Results/Genes_temp/SLC6A15/transcripts/TCONS00028812_protein.fa
+    output: Results/Genes_temp/SLC6A15/transcripts/TCONS00028812_func_domains.gff3
+    jobid: 72
+    wildcards: gene=SLC6A15, transcript=TCONS00028812
+    priority: 8
+    resources: tmpdir=0, memory=16, time=1
+
+[Mon Nov 15 17:42:04 2021]
+Finished job 77.
+40 of 102 steps (39%) done
+Select jobs to execute...
+
+[Mon Nov 15 17:42:04 2021]
+rule interpro_scan:
+    input: Results/Genes_temp/SLC6A15/transcripts/TCONS00028817_protein.fa
+    output: Results/Genes_temp/SLC6A15/transcripts/TCONS00028817_func_domains.gff3
+    jobid: 84
+    wildcards: gene=SLC6A15, transcript=TCONS00028817
+    priority: 8
+    resources: tmpdir=0, memory=16, time=1
+
+[Mon Nov 15 17:42:04 2021]
+Finished job 65.
+41 of 102 steps (40%) done
+[Mon Nov 15 17:42:04 2021]
+Finished job 94.
+42 of 102 steps (41%) done
+[Mon Nov 15 17:42:05 2021]
+Finished job 103.
+43 of 102 steps (42%) done
+[Mon Nov 15 17:42:06 2021]
+Finished job 69.
+44 of 102 steps (43%) done
+[Mon Nov 15 17:42:07 2021]
+Finished job 36.
+45 of 102 steps (44%) done
+[Mon Nov 15 17:42:07 2021]
+Finished job 32.
+46 of 102 steps (45%) done
+[Mon Nov 15 17:42:17 2021]
+Finished job 98.
+47 of 102 steps (46%) done
+[Mon Nov 15 17:42:17 2021]
+Finished job 85.
+48 of 102 steps (47%) done
+[Mon Nov 15 17:42:18 2021]
+Finished job 61.
+49 of 102 steps (48%) done
+[Mon Nov 15 17:42:18 2021]
+Finished job 81.
+50 of 102 steps (49%) done
+[Mon Nov 15 17:42:19 2021]
+Finished job 73.
+51 of 102 steps (50%) done
+[Mon Nov 15 17:42:26 2021]
+Finished job 47.
+52 of 102 steps (51%) done
+Select jobs to execute...
+
+[Mon Nov 15 17:42:26 2021]
+rule individual_transcript_analysis:
+    input: Results/Genes_temp/NRCAM/transcripts/TCONS00106502_protein.fa, Results/Genes_temp/NRCAM/transcripts/TCONS00106502_func_iupred2a.txt, Results/Genes_temp/NRCAM/transcripts/TCONS00106502_func_domains.gff3, Results/Genes_temp/NRCAM/transcripts/TCONS00106502_func_sites.txt
+    output: Results/Genes_temp/NRCAM/transcripts/TCONS00106502_analysis.txt
+    jobid: 45
+    wildcards: gene=NRCAM, transcript=TCONS00106502
+    priority: 5
+    resources: tmpdir=0, memory=10, time=1
+
+[Mon Nov 15 17:42:26 2021]
+Finished job 45.
+53 of 102 steps (52%) done
+[Mon Nov 15 17:42:26 2021]
+Finished job 27.
+54 of 102 steps (53%) done
+Select jobs to execute...
+
+[Mon Nov 15 17:42:26 2021]
+rule individual_transcript_analysis:
+    input: Results/Genes_temp/NRCAM/transcripts/TCONS00106497_protein.fa, Results/Genes_temp/NRCAM/transcripts/TCONS00106497_func_iupred2a.txt, Results/Genes_temp/NRCAM/transcripts/TCONS00106497_func_domains.gff3, Results/Genes_temp/NRCAM/transcripts/TCONS00106497_func_sites.txt
+    output: Results/Genes_temp/NRCAM/transcripts/TCONS00106497_analysis.txt
+    jobid: 25
+    wildcards: gene=NRCAM, transcript=TCONS00106497
+    priority: 5
+    resources: tmpdir=0, memory=10, time=1
+
+[Mon Nov 15 17:42:27 2021]
+Finished job 25.
+55 of 102 steps (54%) done
+[Mon Nov 15 17:42:27 2021]
+Finished job 39.
+56 of 102 steps (55%) done
+Select jobs to execute...
+
+[Mon Nov 15 17:42:27 2021]
+rule individual_transcript_analysis:
+    input: Results/Genes_temp/NRCAM/transcripts/TCONS00106500_protein.fa, Results/Genes_temp/NRCAM/transcripts/TCONS00106500_func_iupred2a.txt, Results/Genes_temp/NRCAM/transcripts/TCONS00106500_func_domains.gff3, Results/Genes_temp/NRCAM/transcripts/TCONS00106500_func_sites.txt
+    output: Results/Genes_temp/NRCAM/transcripts/TCONS00106500_analysis.txt
+    jobid: 37
+    wildcards: gene=NRCAM, transcript=TCONS00106500
+    priority: 5
+    resources: tmpdir=0, memory=10, time=1
+
+[Mon Nov 15 17:42:27 2021]
+Finished job 37.
+57 of 102 steps (56%) done
+[Mon Nov 15 17:42:31 2021]
+Finished job 84.
+58 of 102 steps (57%) done
+Select jobs to execute...
+
+[Mon Nov 15 17:42:31 2021]
+rule individual_transcript_analysis:
+    input: Results/Genes_temp/SLC6A15/transcripts/TCONS00028817_protein.fa, Results/Genes_temp/SLC6A15/transcripts/TCONS00028817_func_iupred2a.txt, Results/Genes_temp/SLC6A15/transcripts/TCONS00028817_func_domains.gff3, Results/Genes_temp/SLC6A15/transcripts/TCONS00028817_func_sites.txt
+    output: Results/Genes_temp/SLC6A15/transcripts/TCONS00028817_analysis.txt
+    jobid: 82
+    wildcards: gene=SLC6A15, transcript=TCONS00028817
+    priority: 5
+    resources: tmpdir=0, memory=10, time=1
+
+[Mon Nov 15 17:42:32 2021]
+Finished job 82.
+59 of 102 steps (58%) done
+[Mon Nov 15 17:42:32 2021]
+Finished job 60.
+60 of 102 steps (59%) done
+Select jobs to execute...
+
+[Mon Nov 15 17:42:32 2021]
+rule individual_transcript_analysis:
+    input: Results/Genes_temp/SLC6A15/transcripts/TCONS00025539_protein.fa, Results/Genes_temp/SLC6A15/transcripts/TCONS00025539_func_iupred2a.txt, Results/Genes_temp/SLC6A15/transcripts/TCONS00025539_func_domains.gff3, Results/Genes_temp/SLC6A15/transcripts/TCONS00025539_func_sites.txt
+    output: Results/Genes_temp/SLC6A15/transcripts/TCONS00025539_analysis.txt
+    jobid: 58
+    wildcards: gene=SLC6A15, transcript=TCONS00025539
+    priority: 5
+    resources: tmpdir=0, memory=10, time=1
+
+[Mon Nov 15 17:42:32 2021]
+Finished job 58.
+61 of 102 steps (60%) done
+[Mon Nov 15 17:42:32 2021]
+Finished job 72.
+62 of 102 steps (61%) done
+Select jobs to execute...
+
+[Mon Nov 15 17:42:32 2021]
+rule individual_transcript_analysis:
+    input: Results/Genes_temp/SLC6A15/transcripts/TCONS00028812_protein.fa, Results/Genes_temp/SLC6A15/transcripts/TCONS00028812_func_iupred2a.txt, Results/Genes_temp/SLC6A15/transcripts/TCONS00028812_func_domains.gff3, Results/Genes_temp/SLC6A15/transcripts/TCONS00028812_func_sites.txt
+    output: Results/Genes_temp/SLC6A15/transcripts/TCONS00028812_analysis.txt
+    jobid: 70
+    wildcards: gene=SLC6A15, transcript=TCONS00028812
+    priority: 5
+    resources: tmpdir=0, memory=10, time=1
+
+[Mon Nov 15 17:42:33 2021]
+Finished job 70.
+63 of 102 steps (62%) done
+[Mon Nov 15 17:42:51 2021]
+Finished job 89.
+64 of 102 steps (63%) done
+Select jobs to execute...
+
+[Mon Nov 15 17:42:51 2021]
+rule individual_transcript_analysis:
+    input: Results/Genes_temp/GDF1/transcripts/TCONS00060363_protein.fa, Results/Genes_temp/GDF1/transcripts/TCONS00060363_func_iupred2a.txt, Results/Genes_temp/GDF1/transcripts/TCONS00060363_func_domains.gff3, Results/Genes_temp/GDF1/transcripts/TCONS00060363_func_sites.txt
+    output: Results/Genes_temp/GDF1/transcripts/TCONS00060363_analysis.txt
+    jobid: 87
+    wildcards: gene=GDF1, transcript=TCONS00060363
+    priority: 5
+    resources: tmpdir=0, memory=10, time=1
+
+[Mon Nov 15 17:42:51 2021]
+Finished job 102.
+65 of 102 steps (64%) done
+[Mon Nov 15 17:42:51 2021]
+Finished job 93.
+66 of 102 steps (65%) done
+Select jobs to execute...
+
+[Mon Nov 15 17:42:51 2021]
+rule individual_transcript_analysis:
+    input: Results/Genes_temp/RENBP/transcripts/TCONS00119549_protein.fa, Results/Genes_temp/RENBP/transcripts/TCONS00119549_func_iupred2a.txt, Results/Genes_temp/RENBP/transcripts/TCONS00119549_func_domains.gff3, Results/Genes_temp/RENBP/transcripts/TCONS00119549_func_sites.txt
+    output: Results/Genes_temp/RENBP/transcripts/TCONS00119549_analysis.txt
+    jobid: 100
+    wildcards: gene=RENBP, transcript=TCONS00119549
+    priority: 5
+    resources: tmpdir=0, memory=10, time=1
+
+[Mon Nov 15 17:42:51 2021]
+rule individual_transcript_analysis:
+    input: Results/Genes_temp/GDF1/transcripts/TCONS00060364_protein.fa, Results/Genes_temp/GDF1/transcripts/TCONS00060364_func_iupred2a.txt, Results/Genes_temp/GDF1/transcripts/TCONS00060364_func_domains.gff3, Results/Genes_temp/GDF1/transcripts/TCONS00060364_func_sites.txt
+    output: Results/Genes_temp/GDF1/transcripts/TCONS00060364_analysis.txt
+    jobid: 91
+    wildcards: gene=GDF1, transcript=TCONS00060364
+    priority: 5
+    resources: tmpdir=0, memory=10, time=1
+
+[Mon Nov 15 17:42:51 2021]
+Finished job 31.
+67 of 102 steps (66%) done
+Select jobs to execute...
+
+[Mon Nov 15 17:42:51 2021]
+rule individual_transcript_analysis:
+    input: Results/Genes_temp/NRCAM/transcripts/TCONS00106498_protein.fa, Results/Genes_temp/NRCAM/transcripts/TCONS00106498_func_iupred2a.txt, Results/Genes_temp/NRCAM/transcripts/TCONS00106498_func_domains.gff3, Results/Genes_temp/NRCAM/transcripts/TCONS00106498_func_sites.txt
+    output: Results/Genes_temp/NRCAM/transcripts/TCONS00106498_analysis.txt
+    jobid: 29
+    wildcards: gene=NRCAM, transcript=TCONS00106498
+    priority: 5
+    resources: tmpdir=0, memory=10, time=1
+
+[Mon Nov 15 17:42:51 2021]
+Finished job 64.
+68 of 102 steps (67%) done
+Select jobs to execute...
+
+[Mon Nov 15 17:42:51 2021]
+rule individual_transcript_analysis:
+    input: Results/Genes_temp/SLC6A15/transcripts/TCONS00028809_protein.fa, Results/Genes_temp/SLC6A15/transcripts/TCONS00028809_func_iupred2a.txt, Results/Genes_temp/SLC6A15/transcripts/TCONS00028809_func_domains.gff3, Results/Genes_temp/SLC6A15/transcripts/TCONS00028809_func_sites.txt
+    output: Results/Genes_temp/SLC6A15/transcripts/TCONS00028809_analysis.txt
+    jobid: 62
+    wildcards: gene=SLC6A15, transcript=TCONS00028809
+    priority: 5
+    resources: tmpdir=0, memory=10, time=1
+
+[Mon Nov 15 17:42:51 2021]
+Finished job 87.
+69 of 102 steps (68%) done
+[Mon Nov 15 17:42:51 2021]
+Finished job 35.
+70 of 102 steps (69%) done
+Select jobs to execute...
+
+[Mon Nov 15 17:42:51 2021]
+rule individual_transcript_analysis:
+    input: Results/Genes_temp/NRCAM/transcripts/TCONS00106499_protein.fa, Results/Genes_temp/NRCAM/transcripts/TCONS00106499_func_iupred2a.txt, Results/Genes_temp/NRCAM/transcripts/TCONS00106499_func_domains.gff3, Results/Genes_temp/NRCAM/transcripts/TCONS00106499_func_sites.txt
+    output: Results/Genes_temp/NRCAM/transcripts/TCONS00106499_analysis.txt
+    jobid: 33
+    wildcards: gene=NRCAM, transcript=TCONS00106499
+    priority: 5
+    resources: tmpdir=0, memory=10, time=1
+
+[Mon Nov 15 17:42:51 2021]
+Finished job 106.
+71 of 102 steps (70%) done
+Select jobs to execute...
+
+[Mon Nov 15 17:42:51 2021]
+rule individual_transcript_analysis:
+    input: Results/Genes_temp/RENBP/transcripts/TCONS00119550_protein.fa, Results/Genes_temp/RENBP/transcripts/TCONS00119550_func_iupred2a.txt, Results/Genes_temp/RENBP/transcripts/TCONS00119550_func_domains.gff3, Results/Genes_temp/RENBP/transcripts/TCONS00119550_func_sites.txt
+    output: Results/Genes_temp/RENBP/transcripts/TCONS00119550_analysis.txt
+    jobid: 104
+    wildcards: gene=RENBP, transcript=TCONS00119550
+    priority: 5
+    resources: tmpdir=0, memory=10, time=1
+
+[Mon Nov 15 17:42:51 2021]
+Finished job 100.
+72 of 102 steps (71%) done
+[Mon Nov 15 17:42:51 2021]
+Finished job 91.
+73 of 102 steps (72%) done
+[Mon Nov 15 17:42:51 2021]
+Finished job 29.
+74 of 102 steps (73%) done
+[Mon Nov 15 17:42:51 2021]
+Finished job 56.
+75 of 102 steps (74%) done
+Select jobs to execute...
+
+[Mon Nov 15 17:42:51 2021]
+rule individual_transcript_analysis:
+    input: Results/Genes_temp/SLC6A15/transcripts/TCONS00025541_protein.fa, Results/Genes_temp/SLC6A15/transcripts/TCONS00025541_func_iupred2a.txt, Results/Genes_temp/SLC6A15/transcripts/TCONS00025541_func_domains.gff3, Results/Genes_temp/SLC6A15/transcripts/TCONS00025541_func_sites.txt
+    output: Results/Genes_temp/SLC6A15/transcripts/TCONS00025541_analysis.txt
+    jobid: 54
+    wildcards: gene=SLC6A15, transcript=TCONS00025541
+    priority: 5
+    resources: tmpdir=0, memory=10, time=1
+
+[Mon Nov 15 17:42:52 2021]
+Finished job 43.
+76 of 102 steps (75%) done
+Select jobs to execute...
+
+[Mon Nov 15 17:42:52 2021]
+rule individual_transcript_analysis:
+    input: Results/Genes_temp/NRCAM/transcripts/TCONS00106501_protein.fa, Results/Genes_temp/NRCAM/transcripts/TCONS00106501_func_iupred2a.txt, Results/Genes_temp/NRCAM/transcripts/TCONS00106501_func_domains.gff3, Results/Genes_temp/NRCAM/transcripts/TCONS00106501_func_sites.txt
+    output: Results/Genes_temp/NRCAM/transcripts/TCONS00106501_analysis.txt
+    jobid: 41
+    wildcards: gene=NRCAM, transcript=TCONS00106501
+    priority: 5
+    resources: tmpdir=0, memory=10, time=1
+
+[Mon Nov 15 17:42:52 2021]
+Finished job 62.
+77 of 102 steps (75%) done
+[Mon Nov 15 17:42:52 2021]
+Finished job 33.
+78 of 102 steps (76%) done
+[Mon Nov 15 17:42:52 2021]
+Finished job 104.
+79 of 102 steps (77%) done
+Select jobs to execute...
+
+[Mon Nov 15 17:42:52 2021]
+rule aggregate_transcript_analysis:
+    input: Results/Genes_temp/RENBP/transcripts/TCONS00119549_analysis.txt, Results/Genes_temp/RENBP/transcripts/TCONS00119550_analysis.txt, Results/Genes_temp/RENBP/RENBP_transcripts_stats.txt, Results/Genes_temp/RENBP
+    output: Results/Genes/RENBP/RENBP_transcripts_filtered_analysis.txt, Results/Genes/RENBP/RENBP_transcripts_stats.txt
+    jobid: 17
+    wildcards: gene=RENBP
+    priority: 5
+    resources: tmpdir=0, memory=4, time=1
+
+[Mon Nov 15 17:42:52 2021]
+Finished job 52.
+80 of 102 steps (78%) done
+Select jobs to execute...
+
+[Mon Nov 15 17:42:52 2021]
+rule individual_transcript_analysis:
+    input: Results/Genes_temp/SLC6A15/transcripts/TCONS00025538_protein.fa, Results/Genes_temp/SLC6A15/transcripts/TCONS00025538_func_iupred2a.txt, Results/Genes_temp/SLC6A15/transcripts/TCONS00025538_func_domains.gff3, Results/Genes_temp/SLC6A15/transcripts/TCONS00025538_func_sites.txt
+    output: Results/Genes_temp/SLC6A15/transcripts/TCONS00025538_analysis.txt
+    jobid: 50
+    wildcards: gene=SLC6A15, transcript=TCONS00025538
+    priority: 5
+    resources: tmpdir=0, memory=10, time=1
+
+[Mon Nov 15 17:42:52 2021]
+Finished job 76.
+81 of 102 steps (79%) done
+Select jobs to execute...
+
+[Mon Nov 15 17:42:52 2021]
+rule individual_transcript_analysis:
+    input: Results/Genes_temp/SLC6A15/transcripts/TCONS00028813_protein.fa, Results/Genes_temp/SLC6A15/transcripts/TCONS00028813_func_iupred2a.txt, Results/Genes_temp/SLC6A15/transcripts/TCONS00028813_func_domains.gff3, Results/Genes_temp/SLC6A15/transcripts/TCONS00028813_func_sites.txt
+    output: Results/Genes_temp/SLC6A15/transcripts/TCONS00028813_analysis.txt
+    jobid: 74
+    wildcards: gene=SLC6A15, transcript=TCONS00028813
+    priority: 5
+    resources: tmpdir=0, memory=10, time=1
+
+[Mon Nov 15 17:42:52 2021]
+Finished job 17.
+82 of 102 steps (80%) done
+Select jobs to execute...
+
+[Mon Nov 15 17:42:52 2021]
+rule protein_coding_potential_analysis:
+    input: Results/Genes/RENBP/RENBP_transcripts_filtered_analysis.txt, Results/Genes/RENBP/RENBP_transcripts_stats.txt, /project/owlmayerTemporary/Sid/isoform_analysis/github/Results/Quantification/counts_deseq2norm.txt, /project/owlmayerTemporary/Sid/isoform_analysis/github/Results/GffCompare/nanopore.combined.gtf
+    output: Results/Genes/RENBP/RENBP_functional_analysis.pdf
+    jobid: 16
+    wildcards: gene=RENBP
+    priority: 8
+    resources: tmpdir=0, memory=16, time=1
+
+[Mon Nov 15 17:42:52 2021]
+Finished job 68.
+83 of 102 steps (81%) done
+Select jobs to execute...
+
+[Mon Nov 15 17:42:52 2021]
+rule individual_transcript_analysis:
+    input: Results/Genes_temp/SLC6A15/transcripts/TCONS00028810_protein.fa, Results/Genes_temp/SLC6A15/transcripts/TCONS00028810_func_iupred2a.txt, Results/Genes_temp/SLC6A15/transcripts/TCONS00028810_func_domains.gff3, Results/Genes_temp/SLC6A15/transcripts/TCONS00028810_func_sites.txt
+    output: Results/Genes_temp/SLC6A15/transcripts/TCONS00028810_analysis.txt
+    jobid: 66
+    wildcards: gene=SLC6A15, transcript=TCONS00028810
+    priority: 5
+    resources: tmpdir=0, memory=10, time=1
+
+[Mon Nov 15 17:42:52 2021]
+Finished job 54.
+84 of 102 steps (82%) done
+[Mon Nov 15 17:42:52 2021]
+Finished job 23.
+85 of 102 steps (83%) done
+Select jobs to execute...
+
+[Mon Nov 15 17:42:52 2021]
+rule individual_transcript_analysis:
+    input: Results/Genes_temp/NRCAM/transcripts/TCONS00103503_protein.fa, Results/Genes_temp/NRCAM/transcripts/TCONS00103503_func_iupred2a.txt, Results/Genes_temp/NRCAM/transcripts/TCONS00103503_func_domains.gff3, Results/Genes_temp/NRCAM/transcripts/TCONS00103503_func_sites.txt
+    output: Results/Genes_temp/NRCAM/transcripts/TCONS00103503_analysis.txt
+    jobid: 21
+    wildcards: gene=NRCAM, transcript=TCONS00103503
+    priority: 5
+    resources: tmpdir=0, memory=10, time=1
+
+[Mon Nov 15 17:42:52 2021]
+Finished job 41.
+86 of 102 steps (84%) done
+[Mon Nov 15 17:42:52 2021]
+Finished job 50.
+87 of 102 steps (85%) done
+[Mon Nov 15 17:42:52 2021]
+Finished job 74.
+88 of 102 steps (86%) done
+[Mon Nov 15 17:42:52 2021]
+Finished job 66.
+89 of 102 steps (87%) done
+[Mon Nov 15 17:42:52 2021]
+Finished job 21.
+90 of 102 steps (88%) done
+Select jobs to execute...
+
+[Mon Nov 15 17:42:52 2021]
+rule aggregate_transcript_analysis:
+    input: Results/Genes_temp/NRCAM/transcripts/TCONS00103503_analysis.txt, Results/Genes_temp/NRCAM/transcripts/TCONS00106497_analysis.txt, Results/Genes_temp/NRCAM/transcripts/TCONS00106498_analysis.txt, Results/Genes_temp/NRCAM/transcripts/TCONS00106499_analysis.txt, Results/Genes_temp/NRCAM/transcripts/TCONS00106500_analysis.txt, Results/Genes_temp/NRCAM/transcripts/TCONS00106501_analysis.txt, Results/Genes_temp/NRCAM/transcripts/TCONS00106502_analysis.txt, Results/Genes_temp/NRCAM/NRCAM_transcripts_stats.txt, Results/Genes_temp/NRCAM
+    output: Results/Genes/NRCAM/NRCAM_transcripts_filtered_analysis.txt, Results/Genes/NRCAM/NRCAM_transcripts_stats.txt
+    jobid: 13
+    wildcards: gene=NRCAM
+    priority: 5
+    resources: tmpdir=0, memory=4, time=1
+
+[Mon Nov 15 17:42:52 2021]
+Finished job 13.
+91 of 102 steps (89%) done
+Select jobs to execute...
+
+[Mon Nov 15 17:42:52 2021]
+rule protein_coding_potential_analysis:
+    input: Results/Genes/NRCAM/NRCAM_transcripts_filtered_analysis.txt, Results/Genes/NRCAM/NRCAM_transcripts_stats.txt, /project/owlmayerTemporary/Sid/isoform_analysis/github/Results/Quantification/counts_deseq2norm.txt, /project/owlmayerTemporary/Sid/isoform_analysis/github/Results/GffCompare/nanopore.combined.gtf
+    output: Results/Genes/NRCAM/NRCAM_functional_analysis.pdf
+    jobid: 12
+    wildcards: gene=NRCAM
+    priority: 8
+    resources: tmpdir=0, memory=16, time=1
+
+[Mon Nov 15 17:42:53 2021]
+Finished job 80.
+92 of 102 steps (90%) done
+Select jobs to execute...
+
+[Mon Nov 15 17:42:53 2021]
+rule individual_transcript_analysis:
+    input: Results/Genes_temp/SLC6A15/transcripts/TCONS00028816_protein.fa, Results/Genes_temp/SLC6A15/transcripts/TCONS00028816_func_iupred2a.txt, Results/Genes_temp/SLC6A15/transcripts/TCONS00028816_func_domains.gff3, Results/Genes_temp/SLC6A15/transcripts/TCONS00028816_func_sites.txt
+    output: Results/Genes_temp/SLC6A15/transcripts/TCONS00028816_analysis.txt
+    jobid: 78
+    wildcards: gene=SLC6A15, transcript=TCONS00028816
+    priority: 5
+    resources: tmpdir=0, memory=10, time=1
+
+[Mon Nov 15 17:42:53 2021]
+Finished job 78.
+93 of 102 steps (91%) done
+Select jobs to execute...
+
+[Mon Nov 15 17:42:53 2021]
+rule aggregate_transcript_analysis:
+    input: Results/Genes_temp/SLC6A15/transcripts/TCONS00025538_analysis.txt, Results/Genes_temp/SLC6A15/transcripts/TCONS00025541_analysis.txt, Results/Genes_temp/SLC6A15/transcripts/TCONS00025539_analysis.txt, Results/Genes_temp/SLC6A15/transcripts/TCONS00028809_analysis.txt, Results/Genes_temp/SLC6A15/transcripts/TCONS00028810_analysis.txt, Results/Genes_temp/SLC6A15/transcripts/TCONS00028812_analysis.txt, Results/Genes_temp/SLC6A15/transcripts/TCONS00028813_analysis.txt, Results/Genes_temp/SLC6A15/transcripts/TCONS00028816_analysis.txt, Results/Genes_temp/SLC6A15/transcripts/TCONS00028817_analysis.txt, Results/Genes_temp/SLC6A15/SLC6A15_transcripts_stats.txt, Results/Genes_temp/SLC6A15
+    output: Results/Genes/SLC6A15/SLC6A15_transcripts_filtered_analysis.txt, Results/Genes/SLC6A15/SLC6A15_transcripts_stats.txt
+    jobid: 4
+    wildcards: gene=SLC6A15
+    priority: 5
+    resources: tmpdir=0, memory=4, time=1
+
+[Mon Nov 15 17:42:53 2021]
+Finished job 4.
+94 of 102 steps (92%) done
+Select jobs to execute...
+
+[Mon Nov 15 17:42:53 2021]
+rule protein_coding_potential_analysis:
+    input: Results/Genes/SLC6A15/SLC6A15_transcripts_filtered_analysis.txt, Results/Genes/SLC6A15/SLC6A15_transcripts_stats.txt, /project/owlmayerTemporary/Sid/isoform_analysis/github/Results/Quantification/counts_deseq2norm.txt, /project/owlmayerTemporary/Sid/isoform_analysis/github/Results/GffCompare/nanopore.combined.gtf
+    output: Results/Genes/SLC6A15/SLC6A15_functional_analysis.pdf
+    jobid: 3
+    wildcards: gene=SLC6A15
+    priority: 8
+    resources: tmpdir=0, memory=16, time=1
+
+[Mon Nov 15 17:42:55 2021]
+Finished job 97.
+95 of 102 steps (93%) done
+Select jobs to execute...
+
+[Mon Nov 15 17:42:55 2021]
+rule individual_transcript_analysis:
+    input: Results/Genes_temp/GDF1/transcripts/TCONS00060366_protein.fa, Results/Genes_temp/GDF1/transcripts/TCONS00060366_func_iupred2a.txt, Results/Genes_temp/GDF1/transcripts/TCONS00060366_func_domains.gff3, Results/Genes_temp/GDF1/transcripts/TCONS00060366_func_sites.txt
+    output: Results/Genes_temp/GDF1/transcripts/TCONS00060366_analysis.txt
+    jobid: 95
+    wildcards: gene=GDF1, transcript=TCONS00060366
+    priority: 5
+    resources: tmpdir=0, memory=10, time=1
+
+[Mon Nov 15 17:42:56 2021]
+Finished job 95.
+96 of 102 steps (94%) done
+Select jobs to execute...
+
+[Mon Nov 15 17:42:56 2021]
+rule aggregate_transcript_analysis:
+    input: Results/Genes_temp/GDF1/transcripts/TCONS00060363_analysis.txt, Results/Genes_temp/GDF1/transcripts/TCONS00060364_analysis.txt, Results/Genes_temp/GDF1/transcripts/TCONS00060366_analysis.txt, Results/Genes_temp/GDF1/GDF1_transcripts_stats.txt, Results/Genes_temp/GDF1
+    output: Results/Genes/GDF1/GDF1_transcripts_filtered_analysis.txt, Results/Genes/GDF1/GDF1_transcripts_stats.txt
+    jobid: 8
+    wildcards: gene=GDF1
+    priority: 5
+    resources: tmpdir=0, memory=4, time=1
+
+[Mon Nov 15 17:42:56 2021]
+Finished job 8.
+97 of 102 steps (95%) done
+Select jobs to execute...
+
+[Mon Nov 15 17:42:56 2021]
+rule protein_coding_potential_analysis:
+    input: Results/Genes/GDF1/GDF1_transcripts_filtered_analysis.txt, Results/Genes/GDF1/GDF1_transcripts_stats.txt, /project/owlmayerTemporary/Sid/isoform_analysis/github/Results/Quantification/counts_deseq2norm.txt, /project/owlmayerTemporary/Sid/isoform_analysis/github/Results/GffCompare/nanopore.combined.gtf
+    output: Results/Genes/GDF1/GDF1_functional_analysis.pdf
+    jobid: 7
+    wildcards: gene=GDF1
+    priority: 8
+    resources: tmpdir=0, memory=16, time=1
+
+[Mon Nov 15 17:43:15 2021]
+Finished job 16.
+98 of 102 steps (96%) done
+[Mon Nov 15 17:43:15 2021]
+Finished job 12.
+99 of 102 steps (97%) done
+[Mon Nov 15 17:43:16 2021]
+Finished job 3.
+100 of 102 steps (98%) done
+[Mon Nov 15 17:43:18 2021]
+Finished job 7.
+101 of 102 steps (99%) done
+Select jobs to execute...
+
+[Mon Nov 15 17:43:18 2021]
+rule output_combine_files:
+    input: Results/Genes/SLC6A15/SLC6A15_functional_analysis.pdf, Results/Genes/GDF1/GDF1_functional_analysis.pdf, Results/Genes/PFN2/PFN2_functional_analysis.pdf, Results/Genes/NRCAM/NRCAM_functional_analysis.pdf, Results/Genes/RENBP/RENBP_functional_analysis.pdf, Results/Genes_temp
+    output: Results/Output/test.pdf
+    jobid: 0
+    priority: 5
+    resources: tmpdir=0, memory=4, time=1
+
+[Mon Nov 15 17:43:18 2021]
+Finished job 0.
+102 of 102 steps (100%) done
+Complete log: /home/annaldas/projects/IsoTV/.snakemake/log/2021-11-15T174138.928463.snakemake.log

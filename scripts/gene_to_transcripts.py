@@ -45,19 +45,25 @@ if (snakemake.config["annotation"]):
         print("The gene %s was not found in the annotation file." %error)
         raise
 
+    transcripts_filename = snakemake.input[1]
+    def keyfunc(id):
+        return id.split("|")[0]
+    transcripts = SeqIO.index(transcripts_filename, "fasta",key_function = keyfunc)
+
     for tID in gene_tID[gene_name]:
         output.append(">" + tID)
-        output.append(str(transcripts[tID].seq))
+        output.append(str(transcripts[tID].seq).upper())
+
 # If only the transcriptome file is given
 else:
     for transcript in transcripts:
         try:
-            if (gene_name == transcipts[transcript].id.split("|")[1]):
+            if (gene_name == transcripts[transcript].id.split("|")[1]):
                 output.append(">" + transcipts[transcript].id.split("|")[0])
-                output.append(str(transcipts[transcript].seq))
+                output.append(str(transcripts[transcript].seq).upper())
         except:
-            output.append(">" + transcipts[transcript].id.split("|")[0])
-            output.append(str(transcipts[transcript].seq))
+            output.append(">" + transcripts[transcript].id.split("|")[0])
+            output.append(str(transcripts[transcript].seq).upper())
 
     if (output == []):
         print("The gene %s was not found in the transcriptome file.")

@@ -1,0 +1,136 @@
+The flag 'directory' used in rule aggregate_transcript_analysis is only valid for outputs, not inputs.
+The flag 'directory' used in rule output_combine_files is only valid for outputs, not inputs.
+Building DAG of jobs...
+Updating job output_combine_files.
+Using shell: /bin/bash
+Provided cores: 32
+Rules claiming more threads will be scaled down.
+Conda environments: ignored
+Job stats:
+job                                  count    min threads    max threads
+---------------------------------  -------  -------------  -------------
+all                                      1              1              1
+output_combine_files                     1              1              1
+protein_coding_potential_analysis        6              1              1
+total                                    8              1              1
+
+Select jobs to execute...
+
+[Mon Nov 15 23:08:53 2021]
+rule protein_coding_potential_analysis:
+    input: Results/Genes/PFN2/PFN2_transcripts_filtered_analysis.txt, Results/Genes/PFN2/PFN2_transcripts_stats.txt, /project/owlmayerTemporary/Sid/isoform_analysis/github/Results/Quantification/counts_deseq2norm.txt, /project/owlmayerTemporary/Sid/isoform_analysis/github/Results/GffCompare/nanopore.combined.gtf
+    output: Results/Genes/PFN2/PFN2_functional_analysis.pdf
+    jobid: 7
+    wildcards: gene=PFN2
+    priority: 8
+    resources: tmpdir=0, memory=16, time=1
+
+[Mon Nov 15 23:08:53 2021]
+rule protein_coding_potential_analysis:
+    input: Results/Genes/NRCAM/NRCAM_transcripts_filtered_analysis.txt, Results/Genes/NRCAM/NRCAM_transcripts_stats.txt, /project/owlmayerTemporary/Sid/isoform_analysis/github/Results/Quantification/counts_deseq2norm.txt, /project/owlmayerTemporary/Sid/isoform_analysis/github/Results/GffCompare/nanopore.combined.gtf
+    output: Results/Genes/NRCAM/NRCAM_functional_analysis.pdf
+    jobid: 8
+    wildcards: gene=NRCAM
+    priority: 8
+    resources: tmpdir=0, memory=16, time=1
+
+[Mon Nov 15 23:08:53 2021]
+rule protein_coding_potential_analysis:
+    input: Results/Genes/GDF1/GDF1_transcripts_filtered_analysis.txt, Results/Genes/GDF1/GDF1_transcripts_stats.txt, /project/owlmayerTemporary/Sid/isoform_analysis/github/Results/Quantification/counts_deseq2norm.txt, /project/owlmayerTemporary/Sid/isoform_analysis/github/Results/GffCompare/nanopore.combined.gtf
+    output: Results/Genes/GDF1/GDF1_functional_analysis.pdf
+    jobid: 6
+    wildcards: gene=GDF1
+    priority: 8
+    resources: tmpdir=0, memory=16, time=1
+
+[Mon Nov 15 23:08:53 2021]
+rule protein_coding_potential_analysis:
+    input: Results/Genes/SLC6A15/SLC6A15_transcripts_filtered_analysis.txt, Results/Genes/SLC6A15/SLC6A15_transcripts_stats.txt, /project/owlmayerTemporary/Sid/isoform_analysis/github/Results/Quantification/counts_deseq2norm.txt, /project/owlmayerTemporary/Sid/isoform_analysis/github/Results/GffCompare/nanopore.combined.gtf
+    output: Results/Genes/SLC6A15/SLC6A15_functional_analysis.pdf
+    jobid: 5
+    wildcards: gene=SLC6A15
+    priority: 8
+    resources: tmpdir=0, memory=16, time=1
+
+
+[Mon Nov 15 23:08:53 2021]
+rule protein_coding_potential_analysis:
+    input: Results/Genes/PRKCZ/PRKCZ_transcripts_filtered_analysis.txt, Results/Genes/PRKCZ/PRKCZ_transcripts_stats.txt, /project/owlmayerTemporary/Sid/isoform_analysis/github/Results/Quantification/counts_deseq2norm.txt, /project/owlmayerTemporary/Sid/isoform_analysis/github/Results/GffCompare/nanopore.combined.gtf
+    output: Results/Genes/PRKCZ/PRKCZ_functional_analysis.pdf
+    jobid: 4
+    wildcards: gene=PRKCZ
+    priority: 8
+    resources: tmpdir=0, memory=16, time=1
+
+[Mon Nov 15 23:08:53 2021]
+rule protein_coding_potential_analysis:
+    input: Results/Genes/RENBP/RENBP_transcripts_filtered_analysis.txt, Results/Genes/RENBP/RENBP_transcripts_stats.txt, /project/owlmayerTemporary/Sid/isoform_analysis/github/Results/Quantification/counts_deseq2norm.txt, /project/owlmayerTemporary/Sid/isoform_analysis/github/Results/GffCompare/nanopore.combined.gtf
+    output: Results/Genes/RENBP/RENBP_functional_analysis.pdf
+    jobid: 9
+    wildcards: gene=RENBP
+    priority: 8
+    resources: tmpdir=0, memory=16, time=1
+
+[Mon Nov 15 23:09:16 2021]
+Error in rule protein_coding_potential_analysis:
+    jobid: 4
+    output: Results/Genes/PRKCZ/PRKCZ_functional_analysis.pdf
+
+RuleException:
+CalledProcessError in line 653 of /home/annaldas/projects/IsoTV/Snakefile:
+Command 'set -euo pipefail;  /pkg/python-3.9.7-0/bin/python3.9 /project/owlmayerTemporary/Sid/isoform_analysis/github/.snakemake/scripts/tmpwcw9kov_.visualization.py' returned non-zero exit status 1.
+  File "/home/annaldas/projects/IsoTV/Snakefile", line 653, in __rule_protein_coding_potential_analysis
+  File "/pkg/python-3.9.7-0/lib/python3.9/concurrent/futures/thread.py", line 52, in run
+[Mon Nov 15 23:09:16 2021]
+Error in rule protein_coding_potential_analysis:
+    jobid: 7
+    output: Results/Genes/PFN2/PFN2_functional_analysis.pdf
+
+RuleException:
+CalledProcessError in line 653 of /home/annaldas/projects/IsoTV/Snakefile:
+Command 'set -euo pipefail;  /pkg/python-3.9.7-0/bin/python3.9 /project/owlmayerTemporary/Sid/isoform_analysis/github/.snakemake/scripts/tmpzgvhy7_i.visualization.py' returned non-zero exit status 1.
+  File "/home/annaldas/projects/IsoTV/Snakefile", line 653, in __rule_protein_coding_potential_analysis
+  File "/pkg/python-3.9.7-0/lib/python3.9/concurrent/futures/thread.py", line 52, in run
+[Mon Nov 15 23:09:17 2021]
+Error in rule protein_coding_potential_analysis:
+    jobid: 8
+    output: Results/Genes/NRCAM/NRCAM_functional_analysis.pdf
+
+RuleException:
+CalledProcessError in line 653 of /home/annaldas/projects/IsoTV/Snakefile:
+Command 'set -euo pipefail;  /pkg/python-3.9.7-0/bin/python3.9 /project/owlmayerTemporary/Sid/isoform_analysis/github/.snakemake/scripts/tmp7r_5qz1v.visualization.py' returned non-zero exit status 1.
+  File "/home/annaldas/projects/IsoTV/Snakefile", line 653, in __rule_protein_coding_potential_analysis
+  File "/pkg/python-3.9.7-0/lib/python3.9/concurrent/futures/thread.py", line 52, in run
+[Mon Nov 15 23:09:20 2021]
+Error in rule protein_coding_potential_analysis:
+    jobid: 5
+    output: Results/Genes/SLC6A15/SLC6A15_functional_analysis.pdf
+
+RuleException:
+CalledProcessError in line 653 of /home/annaldas/projects/IsoTV/Snakefile:
+Command 'set -euo pipefail;  /pkg/python-3.9.7-0/bin/python3.9 /project/owlmayerTemporary/Sid/isoform_analysis/github/.snakemake/scripts/tmp6tju2nyo.visualization.py' returned non-zero exit status 1.
+  File "/home/annaldas/projects/IsoTV/Snakefile", line 653, in __rule_protein_coding_potential_analysis
+  File "/pkg/python-3.9.7-0/lib/python3.9/concurrent/futures/thread.py", line 52, in run
+[Mon Nov 15 23:09:20 2021]
+Error in rule protein_coding_potential_analysis:
+    jobid: 9
+    output: Results/Genes/RENBP/RENBP_functional_analysis.pdf
+
+RuleException:
+CalledProcessError in line 653 of /home/annaldas/projects/IsoTV/Snakefile:
+Command 'set -euo pipefail;  /pkg/python-3.9.7-0/bin/python3.9 /project/owlmayerTemporary/Sid/isoform_analysis/github/.snakemake/scripts/tmp43711rvv.visualization.py' returned non-zero exit status 1.
+  File "/home/annaldas/projects/IsoTV/Snakefile", line 653, in __rule_protein_coding_potential_analysis
+  File "/pkg/python-3.9.7-0/lib/python3.9/concurrent/futures/thread.py", line 52, in run
+[Mon Nov 15 23:09:20 2021]
+Error in rule protein_coding_potential_analysis:
+    jobid: 6
+    output: Results/Genes/GDF1/GDF1_functional_analysis.pdf
+
+RuleException:
+CalledProcessError in line 653 of /home/annaldas/projects/IsoTV/Snakefile:
+Command 'set -euo pipefail;  /pkg/python-3.9.7-0/bin/python3.9 /project/owlmayerTemporary/Sid/isoform_analysis/github/.snakemake/scripts/tmpry43u_ro.visualization.py' returned non-zero exit status 1.
+  File "/home/annaldas/projects/IsoTV/Snakefile", line 653, in __rule_protein_coding_potential_analysis
+  File "/pkg/python-3.9.7-0/lib/python3.9/concurrent/futures/thread.py", line 52, in run
+Shutting down, this might take some time.
+Exiting because a job execution failed. Look above for error message
+Complete log: /home/annaldas/projects/IsoTV/.snakemake/log/2021-11-15T230852.208746.snakemake.log

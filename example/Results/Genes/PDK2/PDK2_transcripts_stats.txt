@@ -1,0 +1,3 @@
+transcript_id,start,end
+TCONS_00023419,56,656
+TCONS_00023420,49,1273

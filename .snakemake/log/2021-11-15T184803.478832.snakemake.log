@@ -1,0 +1,56 @@
+The flag 'directory' used in rule aggregate_transcript_analysis is only valid for outputs, not inputs.
+The flag 'directory' used in rule output_combine_files is only valid for outputs, not inputs.
+Building DAG of jobs...
+Using shell: /bin/bash
+Provided cores: 32
+Rules claiming more threads will be scaled down.
+Conda environments: ignored
+Job stats:
+job                     count    min threads    max threads
+--------------------  -------  -------------  -------------
+gene_filter                 1              1              1
+output_combine_files        1              1              1
+total                       2              1              1
+
+Select jobs to execute...
+
+[Mon Nov 15 18:48:06 2021]
+checkpoint gene_filter:
+    input: /project/owlmayerTemporary/Sid/isoform_analysis/github/Results/GffCompare/nanopore.combined.gtf
+    output: Results/Genes_temp
+    jobid: 1
+    resources: tmpdir=/scratch/local
+Downstream jobs will be updated after completion.
+
+[Mon Nov 15 18:48:09 2021]
+Finished job 1.
+1 of 2 steps (50%) done
+Updating job output_combine_files.
+Select jobs to execute...
+
+[Mon Nov 15 18:48:09 2021]
+rule protein_coding_potential_analysis:
+    input: Results/Genes/PRKCZ/PRKCZ_transcripts_filtered_analysis.txt, Results/Genes/PRKCZ/PRKCZ_transcripts_stats.txt, /project/owlmayerTemporary/Sid/isoform_analysis/github/Results/Quantification/counts_deseq2norm.txt, /project/owlmayerTemporary/Sid/isoform_analysis/github/Results/GffCompare/nanopore.combined.gtf
+    output: Results/Genes/PRKCZ/PRKCZ_functional_analysis.pdf
+    jobid: 3
+    wildcards: gene=PRKCZ
+    priority: 8
+    resources: tmpdir=0, memory=16, time=1
+
+[Mon Nov 15 18:48:33 2021]
+Finished job 3.
+2 of 3 steps (67%) done
+Select jobs to execute...
+
+[Mon Nov 15 18:48:33 2021]
+rule output_combine_files:
+    input: Results/Genes/PRKCZ/PRKCZ_functional_analysis.pdf, Results/Genes/SLC6A15/SLC6A15_functional_analysis.pdf, Results/Genes/GDF1/GDF1_functional_analysis.pdf, Results/Genes/PFN2/PFN2_functional_analysis.pdf, Results/Genes/NRCAM/NRCAM_functional_analysis.pdf, Results/Genes/RENBP/RENBP_functional_analysis.pdf, Results/Genes_temp
+    output: Results/Output/test.pdf
+    jobid: 0
+    priority: 5
+    resources: tmpdir=0, memory=4, time=1
+
+[Mon Nov 15 18:48:33 2021]
+Finished job 0.
+3 of 3 steps (100%) done
+Complete log: /home/annaldas/projects/IsoTV/.snakemake/log/2021-11-15T184803.478832.snakemake.log

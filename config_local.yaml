@@ -1,0 +1,164 @@
+##### IsoTV Config File
+
+pipeline: "IsoTV"
+repo: "https://github.molgen.mpg.de/MayerGroup/IsoTV"
+
+### Output directory
+
+outdir: "/project/owlmayerTemporary/Sid/isoform_analysis/isotv_v2"
+
+### General pipeline parameters:
+
+basecalling: FALSE
+preprocess: TRUE
+annotation: TRUE
+quantification: TRUE
+
+###### ONT long read processing config
+### Basecalling pipeline parameters
+
+guppy: "/path/to/Guppy324/bin/guppy_basecaller"
+flowcell: FLO-MIN106
+kit: SQK-DCS109
+
+### Reference Files
+#genome_fasta: "/path/to/GRCh38.p12.primary_assembly.genome.fa"
+#genome_annot: "/path/to/gencode.v32.primary_assembly.annotation.gtf"
+genome_fasta: "/project/owlmayerTemporary/Sid/nanopore-analysis/ReferenceData/GRCh38.p12.primary_assembly.genome.fa"
+genome_annot: "/project/owlmayerTemporary/Sid/nanopore-analysis/ReferenceData/gencode.v32.primary_assembly.annotation.gtf"
+
+### Samples
+# samples with .bottom extension must be placed in the RawData folder
+# condition_replicate
+
+samples:
+    A549_1: "A549_r1_r3"
+    A549_2: "A549_r2_r1"
+    #A549_5: "A549_r5_r3"
+    #HCT116_1: "HCT116_r1_r4"
+    #HCT116_3: "HCT116_r3_r2"
+    #HCT116_4: "HCT116_r4_r1"
+    #HCT116_5: "HCT116_r5_r1"
+    #HEPG2_1: "HEPG2_r1_r1"
+    #HEPG2_4: "HEPG2_r4_r2"
+    #HEPG2_5: "HEPG2_r5_r3"
+    #K562_1: "K562_r1_r2"
+    #K562_2: "K562_r2_r1"
+    #K562_3: "K562_r3_r1"
+    #K562_4: "K562_r4_r2"
+    #MCF7_1: "MCF7_r1_r2"
+    #MCF7_3: "MCF7_r3_r3"
+    #MCF7_4: "MCF7_r4_r2"
+
+threads: 16
+
+# Use pychopper results
+pychopper: TRUE
+
+# Use annotation to improve splice junction mapping (minimap2 --junc_bed parameter)
+minimap2_opts_junction: TRUE
+
+# Minimum read quality to keep:
+min_mean_q: 5
+
+# Stringency of porechop heuristic:
+porechop_heu_stringency: 0.25
+
+# Options passed to minimap2 during indexing:
+minimap2_index_opts: "-k14"
+
+# Extra options passed to minimap2:
+minimap2_opts: "-uf"  # required for stranded data e.g. when pychopper filtered
+
+# Minmum mapping quality:
+minimum_mapping_quality: 5
+
+# Options passed to spliced_bam2gff:
+spliced_bam2gff_opts: "-s"  # required for stranded data e.g. when pychopper filtered
+
+# -c parameter:
+minimum_cluster_size: 3
+
+# -p parameter:
+minimum_isoform_percent: 1
+
+# -d parameter:
+exon_boundary_tolerance: 10
+
+# -e parameter:
+terminal_exon_boundary_tolerance: 50
+
+# Extra options passed to minimap2 when mapping polished reads:
+minimap2_opts_polished: "-uf"   # required for stranded data e.g. when pychopper filtered
+
+# Options passed to spliced_bam2gff when converting alignments of polished reads:
+spliced_bam2gff_opts_pol: "-s"  # required for stranded data e.g. when pychopper filtered
+
+# Options passed to collapse_partials when collapsing fragmentation artifacts
+# Internal exon boundary tolerance:
+collapse_internal_tol: 5
+
+# Five prime boundary tolerance:
+collapse_five_tol: 500
+
+# Three prime boundary tolerance:
+collapse_three_tol: 50
+
+maximum_secondary: 200
+secondary_score_ratio: 1
+
+##### Feature Analysis Config
+### Input genes
+
+gene_file: "data/genes.tab"
+
+### Output file and folder
+
+output_plots: "test.pdf"
+
+### Processed file paths - required if not using ONT long read processing workflow
+
+nanopore_gtf: "data/PDK2.nanopore.gtf"
+#nanopore_gtf: "/project/owlmayerTemporary/Sid/isoform_analysis/goeke/Results/GffCompare/nanopore.combined.gtf"
+#polished_reads: "data/PDK2.transcriptome.fas"
+polished_reads: "/project/owlmayerTemporary/Sid/isoform_analysis/goeke/Results/Pinfish/corrected_transcriptome_polished_collapsed_nonredundant_tcons.fas"
+#counts_data: "data/PDK2.counts.txt"
+counts_data: "data/test.txt"
+
+# Is data continuous
+continuous: FALSE
+
+### External tool paths and functional analysis
+
+aa: TRUE
+
+#iupred2a_path: "/path/to/iupred2a/iupred2a.py"
+iupred2a_path: "/home/annaldas/iupred2a/iupred2a.py"
+iupred2a: TRUE
+
+#brewery_path: "/path/to/Brewery/Brewery.py"
+brewery_path: "/home/annaldas/Brewery/Brewery.py"
+brewery: TRUE
+
+#interproScan_path: "/path/to/my_interproscan/interproscan-5.38-76.0/interproscan.sh"
+interproScan_path: "/home/annaldas/my_interproscan/interproscan-5.38-76.0/interproscan.sh"
+pfam: TRUE
+
+#prositeScan_path: "/path/to/ps_scan/ps_scan.pl"
+#pfScan_path: "/path/to/ps_scan/pfscan"
+#prositeDat_path: "/path/to/prosite.dat"
+prositeScan_path: "/home/annaldas/ps_scan/ps_scan.pl"
+pfScan_path: "/home/annaldas/ps_scan/pfscan"
+prositeDat_path: "/project/owlmayerTemporary/Sid/github/prosite.dat"
+pfScan: TRUE
+
+minIsoTPM: 1
+maxIsoNum: 8
+minIsoPct: 10
+
+### Misc paths
+
+java : "/pkg/openjdk-11.0.3.2-0/profile"
+
+lock1: "/.../lock.txt"
+lock2: "/.../lock2.txt"

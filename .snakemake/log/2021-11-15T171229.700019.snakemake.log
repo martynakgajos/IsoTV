@@ -1,0 +1,163 @@
+The flag 'directory' used in rule aggregate_transcript_analysis is only valid for outputs, not inputs.
+The flag 'directory' used in rule output_combine_files is only valid for outputs, not inputs.
+Building DAG of jobs...
+Using shell: /bin/bash
+Provided cores: 32
+Rules claiming more threads will be scaled down.
+Conda environments: ignored
+Job stats:
+job                     count    min threads    max threads
+--------------------  -------  -------------  -------------
+gene_filter                 1              1              1
+output_combine_files        1              1              1
+total                       2              1              1
+
+Select jobs to execute...
+
+[Mon Nov 15 17:12:30 2021]
+checkpoint gene_filter:
+    input: /project/owlmayerTemporary/Sid/isoform_analysis/github/Results/GffCompare/nanopore.combined.gtf
+    output: Results/Genes_temp
+    jobid: 1
+    resources: tmpdir=/scratch/local
+Downstream jobs will be updated after completion.
+
+[Mon Nov 15 17:12:32 2021]
+Finished job 1.
+1 of 2 steps (50%) done
+Updating job output_combine_files.
+Select jobs to execute...
+
+[Mon Nov 15 17:12:32 2021]
+rule gene_to_transcripts:
+    input: /project/owlmayerTemporary/Sid/isoform_analysis/github/Results/GffCompare/nanopore.combined.gtf, /project/owlmayerTemporary/Sid/isoform_analysis/github/Results/Pinfish/corrected_transcriptome_polished_collapsed_nonredundant_tcons.fas, Results/Genes_temp/NRCAM
+    output: Results/Genes_temp/NRCAM/NRCAM_seq.fa
+    jobid: 15
+    wildcards: gene=NRCAM
+    priority: 8
+    resources: tmpdir=0, memory=10, time=1
+
+[Mon Nov 15 17:12:32 2021]
+rule gene_to_transcripts:
+    input: /project/owlmayerTemporary/Sid/isoform_analysis/github/Results/GffCompare/nanopore.combined.gtf, /project/owlmayerTemporary/Sid/isoform_analysis/github/Results/Pinfish/corrected_transcriptome_polished_collapsed_nonredundant_tcons.fas, Results/Genes_temp/RENBP
+    output: Results/Genes_temp/RENBP/RENBP_seq.fa
+    jobid: 19
+    wildcards: gene=RENBP
+    priority: 8
+    resources: tmpdir=0, memory=10, time=1
+
+[Mon Nov 15 17:12:32 2021]
+rule gene_to_transcripts:
+    input: /project/owlmayerTemporary/Sid/isoform_analysis/github/Results/GffCompare/nanopore.combined.gtf, /project/owlmayerTemporary/Sid/isoform_analysis/github/Results/Pinfish/corrected_transcriptome_polished_collapsed_nonredundant_tcons.fas, Results/Genes_temp/SLC6A15
+    output: Results/Genes_temp/SLC6A15/SLC6A15_seq.fa
+    jobid: 6
+    wildcards: gene=SLC6A15
+    priority: 8
+    resources: tmpdir=0, memory=10, time=1
+
+[Mon Nov 15 17:12:32 2021]
+rule gene_to_transcripts:
+    input: /project/owlmayerTemporary/Sid/isoform_analysis/github/Results/GffCompare/nanopore.combined.gtf, /project/owlmayerTemporary/Sid/isoform_analysis/github/Results/Pinfish/corrected_transcriptome_polished_collapsed_nonredundant_tcons.fas, Results/Genes_temp/GDF1
+    output: Results/Genes_temp/GDF1/GDF1_seq.fa
+    jobid: 10
+    wildcards: gene=GDF1
+    priority: 8
+    resources: tmpdir=0, memory=10, time=1
+
+[Mon Nov 15 17:12:35 2021]
+Finished job 6.
+2 of 18 steps (11%) done
+[Mon Nov 15 17:12:35 2021]
+Finished job 15.
+3 of 18 steps (17%) done
+Select jobs to execute...
+
+[Mon Nov 15 17:12:35 2021]
+checkpoint translation_to_protein:
+    input: Results/Genes_temp/NRCAM/NRCAM_seq.fa
+    output: Results/Genes_temp/NRCAM/transcripts, Results/Genes_temp/NRCAM/NRCAM_transcripts_stats.txt
+    jobid: 14
+    wildcards: gene=NRCAM
+    priority: 10
+    resources: tmpdir=0, memory=10, time=1
+Downstream jobs will be updated after completion.
+
+[Mon Nov 15 17:12:35 2021]
+checkpoint translation_to_protein:
+    input: Results/Genes_temp/SLC6A15/SLC6A15_seq.fa
+    output: Results/Genes_temp/SLC6A15/transcripts, Results/Genes_temp/SLC6A15/SLC6A15_transcripts_stats.txt
+    jobid: 5
+    wildcards: gene=SLC6A15
+    priority: 10
+    resources: tmpdir=0, memory=10, time=1
+Downstream jobs will be updated after completion.
+
+[Mon Nov 15 17:12:36 2021]
+Finished job 10.
+4 of 18 steps (22%) done
+Select jobs to execute...
+
+[Mon Nov 15 17:12:36 2021]
+checkpoint translation_to_protein:
+    input: Results/Genes_temp/GDF1/GDF1_seq.fa
+    output: Results/Genes_temp/GDF1/transcripts, Results/Genes_temp/GDF1/GDF1_transcripts_stats.txt
+    jobid: 9
+    wildcards: gene=GDF1
+    priority: 10
+    resources: tmpdir=0, memory=10, time=1
+Downstream jobs will be updated after completion.
+
+[Mon Nov 15 17:12:36 2021]
+Finished job 19.
+5 of 18 steps (28%) done
+Select jobs to execute...
+
+[Mon Nov 15 17:12:36 2021]
+checkpoint translation_to_protein:
+    input: Results/Genes_temp/RENBP/RENBP_seq.fa
+    output: Results/Genes_temp/RENBP/transcripts, Results/Genes_temp/RENBP/RENBP_transcripts_stats.txt
+    jobid: 18
+    wildcards: gene=RENBP
+    priority: 10
+    resources: tmpdir=0, memory=10, time=1
+Downstream jobs will be updated after completion.
+
+[Mon Nov 15 17:12:36 2021]
+Finished job 14.
+6 of 18 steps (33%) done
+Updating job aggregate_transcript_analysis.
+Select jobs to execute...
+[Mon Nov 15 17:12:36 2021]
+Finished job 5.
+7 of 53 steps (13%) done
+
+[Mon Nov 15 17:12:36 2021]
+rule iupred2a_analysis:
+    input: Results/Genes_temp/NRCAM/transcripts/TCONS00106500_protein.fa, /home/annaldas/iupred2a/iupred2a.py
+    output: Results/Genes_temp/NRCAM/transcripts/TCONS00106500_sequence.txt, Results/Genes_temp/NRCAM/transcripts/TCONS00106500_func_iupred2a.txt
+    jobid: 42
+    wildcards: gene=NRCAM, transcript=TCONS00106500
+    priority: 8
+    resources: tmpdir=0, memory=10, time=1
+
+
+[Mon Nov 15 17:12:36 2021]
+rule iupred2a_analysis:
+    input: Results/Genes_temp/NRCAM/transcripts/TCONS00106497_protein.fa, /home/annaldas/iupred2a/iupred2a.py
+    output: Results/Genes_temp/NRCAM/transcripts/TCONS00106497_sequence.txt, Results/Genes_temp/NRCAM/transcripts/TCONS00106497_func_iupred2a.txt
+    jobid: 27
+    wildcards: gene=NRCAM, transcript=TCONS00106497
+    priority: 8
+    resources: tmpdir=0, memory=10, time=1
+
+
+[Mon Nov 15 17:12:36 2021]
+rule brewery_analysis:
+    input: Results/Genes_temp/NRCAM/transcripts/TCONS00106498_protein.fa
+    output: Results/Genes_temp/NRCAM/transcripts/TCONS00106498_protein.fa.ss3
+    jobid: 34
+    wildcards: gene=NRCAM, transcript=TCONS00106498
+    priority: 10
+    threads: 16
+    resources: tmpdir=16, memory=8, time=1
+

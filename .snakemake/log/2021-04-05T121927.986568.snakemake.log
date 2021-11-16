@@ -1,0 +1,458 @@
+The flag 'directory' used in rule aggregate_transcript_analysis is only valid for outputs, not inputs.
+The flag 'directory' used in rule output_combine_files is only valid for outputs, not inputs.
+Building DAG of jobs...
+Using shell: /bin/bash
+Provided cores: 32
+Rules claiming more threads will be scaled down.
+Conda environments: ignored
+Job counts:
+	count	jobs
+	1	all
+	1	gene_filter
+	1	output_combine_files
+	3
+Select jobs to execute...
+
+[Mon Apr  5 12:19:29 2021]
+checkpoint gene_filter:
+    input: /project/owlmayerTemporary/Sid/ForOlga/Sequence/OlgaGenes.fa
+    output: Results/Genes_temp
+    jobid: 2
+Downstream jobs will be updated after completion.
+
+Updating job output_combine_files.
+[Mon Apr  5 12:19:29 2021]
+Finished job 2.
+1 of 7 steps (14%) done
+Select jobs to execute...
+
+[Mon Apr  5 12:19:29 2021]
+rule gene_to_transcripts:
+    input: /project/owlmayerTemporary/Sid/isoform_analysis/goeke/Results/GffCompare/nanopore.combined.gtf, /project/owlmayerTemporary/Sid/ForOlga/Sequence/OlgaGenes.fa, Results/Genes_temp/ADAR1
+    output: Results/Genes_temp/ADAR1/ADAR1_seq.fa
+    jobid: 7
+    wildcards: gene=ADAR1
+    priority: 8
+    resources: memory=10, time=1, tmpdir=0
+
+[Mon Apr  5 12:19:30 2021]
+Finished job 7.
+2 of 7 steps (29%) done
+Select jobs to execute...
+
+[Mon Apr  5 12:19:30 2021]
+checkpoint translation_to_protein:
+    input: Results/Genes_temp/ADAR1/ADAR1_seq.fa
+    output: Results/Genes_temp/ADAR1/transcripts, Results/Genes_temp/ADAR1/ADAR1_transcripts_stats.txt
+    jobid: 6
+    wildcards: gene=ADAR1
+    priority: 10
+    resources: memory=10, time=1, tmpdir=0
+Downstream jobs will be updated after completion.
+
+Updating job aggregate_transcript_analysis.
+[Mon Apr  5 12:19:31 2021]
+Finished job 6.
+3 of 32 steps (9%) done
+Select jobs to execute...
+
+[Mon Apr  5 12:19:31 2021]
+rule iupred2a_analysis:
+    input: Results/Genes_temp/ADAR1/transcripts/P552653_protein.fa, /home/annaldas/iupred2a/iupred2a.py
+    output: Results/Genes_temp/ADAR1/transcripts/P552653_sequence.txt, Results/Genes_temp/ADAR1/transcripts/P552653_func_iupred2a.txt
+    jobid: 21
+    wildcards: gene=ADAR1, transcript=P552653
+    priority: 8
+    resources: memory=10, time=1, tmpdir=0
+
+
+[Mon Apr  5 12:19:31 2021]
+rule functional_site_analysis:
+    input: Results/Genes_temp/ADAR1/transcripts/P552653_protein.fa
+    output: Results/Genes_temp/ADAR1/transcripts/P552653_func_sites.txt
+    jobid: 24
+    wildcards: gene=ADAR1, transcript=P552653
+    priority: 8
+    resources: memory=10, time=1, tmpdir=0
+
+
+[Mon Apr  5 12:19:31 2021]
+rule interpro_scan:
+    input: Results/Genes_temp/ADAR1/transcripts/P552651_protein.fa
+    output: Results/Genes_temp/ADAR1/transcripts/P552651_func_domains.gff3
+    jobid: 12
+    wildcards: gene=ADAR1, transcript=P552651
+    priority: 8
+    resources: memory=16, time=1, tmpdir=0
+
+
+[Mon Apr  5 12:19:31 2021]
+rule iupred2a_analysis:
+    input: Results/Genes_temp/ADAR1/transcripts/P552654_protein.fa, /home/annaldas/iupred2a/iupred2a.py
+    output: Results/Genes_temp/ADAR1/transcripts/P552654_sequence.txt, Results/Genes_temp/ADAR1/transcripts/P552654_func_iupred2a.txt
+    jobid: 26
+    wildcards: gene=ADAR1, transcript=P552654
+    priority: 8
+    resources: memory=10, time=1, tmpdir=0
+
+
+[Mon Apr  5 12:19:31 2021]
+rule functional_site_analysis:
+    input: Results/Genes_temp/ADAR1/transcripts/P552651_protein.fa
+    output: Results/Genes_temp/ADAR1/transcripts/P552651_func_sites.txt
+    jobid: 14
+    wildcards: gene=ADAR1, transcript=P552651
+    priority: 8
+    resources: memory=10, time=1, tmpdir=0
+
+
+[Mon Apr  5 12:19:31 2021]
+rule interpro_scan:
+    input: Results/Genes_temp/ADAR1/transcripts/P552652_protein.fa
+    output: Results/Genes_temp/ADAR1/transcripts/P552652_func_domains.gff3
+    jobid: 17
+    wildcards: gene=ADAR1, transcript=P552652
+    priority: 8
+    resources: memory=16, time=1, tmpdir=0
+
+
+[Mon Apr  5 12:19:31 2021]
+rule iupred2a_analysis:
+    input: Results/Genes_temp/ADAR1/transcripts/P552652_protein.fa, /home/annaldas/iupred2a/iupred2a.py
+    output: Results/Genes_temp/ADAR1/transcripts/P552652_sequence.txt, Results/Genes_temp/ADAR1/transcripts/P552652_func_iupred2a.txt
+    jobid: 16
+    wildcards: gene=ADAR1, transcript=P552652
+    priority: 8
+    resources: memory=10, time=1, tmpdir=0
+
+
+[Mon Apr  5 12:19:31 2021]
+rule interpro_scan:
+    input: Results/Genes_temp/ADAR1/transcripts/P552655_protein.fa
+    output: Results/Genes_temp/ADAR1/transcripts/P552655_func_domains.gff3
+    jobid: 32
+    wildcards: gene=ADAR1, transcript=P552655
+    priority: 8
+    resources: memory=16, time=1, tmpdir=0
+
+
+[Mon Apr  5 12:19:31 2021]
+rule brewery_analysis:
+    input: Results/Genes_temp/ADAR1/transcripts/P552652_protein.fa
+    output: Results/Genes_temp/ADAR1/transcripts/P552652_protein.fa.ss3
+    jobid: 18
+    wildcards: gene=ADAR1, transcript=P552652
+    priority: 10
+    threads: 16
+    resources: memory=8, time=1, tmpdir=16
+
+
+[Mon Apr  5 12:19:31 2021]
+rule functional_site_analysis:
+    input: Results/Genes_temp/ADAR1/transcripts/P552655_protein.fa
+    output: Results/Genes_temp/ADAR1/transcripts/P552655_func_sites.txt
+    jobid: 34
+    wildcards: gene=ADAR1, transcript=P552655
+    priority: 8
+    resources: memory=10, time=1, tmpdir=0
+
+
+[Mon Apr  5 12:19:31 2021]
+rule interpro_scan:
+    input: Results/Genes_temp/ADAR1/transcripts/P552653_protein.fa
+    output: Results/Genes_temp/ADAR1/transcripts/P552653_func_domains.gff3
+    jobid: 22
+    wildcards: gene=ADAR1, transcript=P552653
+    priority: 8
+    resources: memory=16, time=1, tmpdir=0
+
+
+[Mon Apr  5 12:19:31 2021]
+rule iupred2a_analysis:
+    input: Results/Genes_temp/ADAR1/transcripts/P552651_protein.fa, /home/annaldas/iupred2a/iupred2a.py
+    output: Results/Genes_temp/ADAR1/transcripts/P552651_sequence.txt, Results/Genes_temp/ADAR1/transcripts/P552651_func_iupred2a.txt
+    jobid: 11
+    wildcards: gene=ADAR1, transcript=P552651
+    priority: 8
+    resources: memory=10, time=1, tmpdir=0
+
+
+[Mon Apr  5 12:19:31 2021]
+rule interpro_scan:
+    input: Results/Genes_temp/ADAR1/transcripts/P552654_protein.fa
+    output: Results/Genes_temp/ADAR1/transcripts/P552654_func_domains.gff3
+    jobid: 27
+    wildcards: gene=ADAR1, transcript=P552654
+    priority: 8
+    resources: memory=16, time=1, tmpdir=0
+
+
+[Mon Apr  5 12:19:31 2021]
+rule functional_site_analysis:
+    input: Results/Genes_temp/ADAR1/transcripts/P552654_protein.fa
+    output: Results/Genes_temp/ADAR1/transcripts/P552654_func_sites.txt
+    jobid: 29
+    wildcards: gene=ADAR1, transcript=P552654
+    priority: 8
+    resources: memory=10, time=1, tmpdir=0
+
+
+[Mon Apr  5 12:19:31 2021]
+rule iupred2a_analysis:
+    input: Results/Genes_temp/ADAR1/transcripts/P552655_protein.fa, /home/annaldas/iupred2a/iupred2a.py
+    output: Results/Genes_temp/ADAR1/transcripts/P552655_sequence.txt, Results/Genes_temp/ADAR1/transcripts/P552655_func_iupred2a.txt
+    jobid: 31
+    wildcards: gene=ADAR1, transcript=P552655
+    priority: 8
+    resources: memory=10, time=1, tmpdir=0
+
+
+[Mon Apr  5 12:19:31 2021]
+rule functional_site_analysis:
+    input: Results/Genes_temp/ADAR1/transcripts/P552652_protein.fa
+    output: Results/Genes_temp/ADAR1/transcripts/P552652_func_sites.txt
+    jobid: 19
+    wildcards: gene=ADAR1, transcript=P552652
+    priority: 8
+    resources: memory=10, time=1, tmpdir=0
+
+[Mon Apr  5 12:19:31 2021]
+Finished job 21.
+4 of 32 steps (12%) done
+Select jobs to execute...
+[Mon Apr  5 12:19:31 2021]
+Finished job 16.
+5 of 32 steps (16%) done
+[Mon Apr  5 12:19:31 2021]
+Finished job 31.
+6 of 32 steps (19%) done
+[Mon Apr  5 12:19:31 2021]
+Finished job 11.
+7 of 32 steps (22%) done
+[Mon Apr  5 12:19:31 2021]
+Finished job 26.
+8 of 32 steps (25%) done
+Select jobs to execute...
+Select jobs to execute...
+Select jobs to execute...
+Select jobs to execute...
+[Mon Apr  5 12:19:47 2021]
+Finished job 34.
+9 of 32 steps (28%) done
+Select jobs to execute...
+[Mon Apr  5 12:19:47 2021]
+Finished job 24.
+10 of 32 steps (31%) done
+Select jobs to execute...
+[Mon Apr  5 12:19:48 2021]
+Finished job 14.
+11 of 32 steps (34%) done
+Select jobs to execute...
+[Mon Apr  5 12:19:49 2021]
+Finished job 29.
+12 of 32 steps (38%) done
+[Mon Apr  5 12:19:50 2021]
+Finished job 19.
+13 of 32 steps (41%) done
+Select jobs to execute...
+Select jobs to execute...
+[Mon Apr  5 12:20:10 2021]
+Finished job 22.
+14 of 32 steps (44%) done
+Select jobs to execute...
+[Mon Apr  5 12:20:10 2021]
+Finished job 32.
+15 of 32 steps (47%) done
+Select jobs to execute...
+[Mon Apr  5 12:20:10 2021]
+Finished job 27.
+16 of 32 steps (50%) done
+Select jobs to execute...
+[Mon Apr  5 12:20:12 2021]
+Finished job 17.
+17 of 32 steps (53%) done
+Select jobs to execute...
+[Mon Apr  5 12:20:13 2021]
+Finished job 12.
+18 of 32 steps (56%) done
+Select jobs to execute...
+
+[Mon Apr  5 12:20:13 2021]
+rule brewery_analysis:
+    input: Results/Genes_temp/ADAR1/transcripts/P552655_protein.fa
+    output: Results/Genes_temp/ADAR1/transcripts/P552655_protein.fa.ss3
+    jobid: 33
+    wildcards: gene=ADAR1, transcript=P552655
+    priority: 10
+    threads: 16
+    resources: memory=8, time=1, tmpdir=16
+
+[Mon Apr  5 12:22:25 2021]
+Finished job 18.
+19 of 32 steps (59%) done
+Select jobs to execute...
+
+[Mon Apr  5 12:22:25 2021]
+rule brewery_analysis:
+    input: Results/Genes_temp/ADAR1/transcripts/P552653_protein.fa
+    output: Results/Genes_temp/ADAR1/transcripts/P552653_protein.fa.ss3
+    jobid: 23
+    wildcards: gene=ADAR1, transcript=P552653
+    priority: 10
+    threads: 16
+    resources: memory=8, time=1, tmpdir=16
+
+[Mon Apr  5 12:22:26 2021]
+Finished job 33.
+20 of 32 steps (62%) done
+Select jobs to execute...
+
+[Mon Apr  5 12:22:26 2021]
+rule brewery_analysis:
+    input: Results/Genes_temp/ADAR1/transcripts/P552651_protein.fa
+    output: Results/Genes_temp/ADAR1/transcripts/P552651_protein.fa.ss3
+    jobid: 13
+    wildcards: gene=ADAR1, transcript=P552651
+    priority: 10
+    threads: 16
+    resources: memory=8, time=1, tmpdir=16
+
+[Mon Apr  5 12:25:08 2021]
+Finished job 23.
+21 of 32 steps (66%) done
+Select jobs to execute...
+
+[Mon Apr  5 12:25:08 2021]
+rule individual_transcript_analysis:
+    input: Results/Genes_temp/ADAR1/transcripts/P552652_protein.fa, Results/Genes_temp/ADAR1/transcripts/P552652_func_iupred2a.txt, Results/Genes_temp/ADAR1/transcripts/P552652_func_domains.gff3, Results/Genes_temp/ADAR1/transcripts/P552652_protein.fa.ss3, Results/Genes_temp/ADAR1/transcripts/P552652_func_sites.txt
+    output: Results/Genes_temp/ADAR1/transcripts/P552652_analysis.txt
+    jobid: 15
+    wildcards: gene=ADAR1, transcript=P552652
+    priority: 5
+    resources: memory=10, time=1, tmpdir=0
+
+[Mon Apr  5 12:25:08 2021]
+rule individual_transcript_analysis:
+    input: Results/Genes_temp/ADAR1/transcripts/P552655_protein.fa, Results/Genes_temp/ADAR1/transcripts/P552655_func_iupred2a.txt, Results/Genes_temp/ADAR1/transcripts/P552655_func_domains.gff3, Results/Genes_temp/ADAR1/transcripts/P552655_protein.fa.ss3, Results/Genes_temp/ADAR1/transcripts/P552655_func_sites.txt
+    output: Results/Genes_temp/ADAR1/transcripts/P552655_analysis.txt
+    jobid: 30
+    wildcards: gene=ADAR1, transcript=P552655
+    priority: 5
+    resources: memory=10, time=1, tmpdir=0
+
+[Mon Apr  5 12:25:08 2021]
+rule individual_transcript_analysis:
+    input: Results/Genes_temp/ADAR1/transcripts/P552653_protein.fa, Results/Genes_temp/ADAR1/transcripts/P552653_func_iupred2a.txt, Results/Genes_temp/ADAR1/transcripts/P552653_func_domains.gff3, Results/Genes_temp/ADAR1/transcripts/P552653_protein.fa.ss3, Results/Genes_temp/ADAR1/transcripts/P552653_func_sites.txt
+    output: Results/Genes_temp/ADAR1/transcripts/P552653_analysis.txt
+    jobid: 20
+    wildcards: gene=ADAR1, transcript=P552653
+    priority: 5
+    resources: memory=10, time=1, tmpdir=0
+
+[Mon Apr  5 12:25:08 2021]
+Finished job 20.
+22 of 32 steps (69%) done
+[Mon Apr  5 12:25:08 2021]
+Finished job 30.
+23 of 32 steps (72%) done
+Select jobs to execute...
+[Mon Apr  5 12:25:08 2021]
+Finished job 15.
+24 of 32 steps (75%) done
+
+[Mon Apr  5 12:25:08 2021]
+rule brewery_analysis:
+    input: Results/Genes_temp/ADAR1/transcripts/P552654_protein.fa
+    output: Results/Genes_temp/ADAR1/transcripts/P552654_protein.fa.ss3
+    jobid: 28
+    wildcards: gene=ADAR1, transcript=P552654
+    priority: 10
+    threads: 16
+    resources: memory=8, time=1, tmpdir=16
+
+[Mon Apr  5 12:25:20 2021]
+Finished job 13.
+25 of 32 steps (78%) done
+Select jobs to execute...
+
+[Mon Apr  5 12:25:20 2021]
+rule individual_transcript_analysis:
+    input: Results/Genes_temp/ADAR1/transcripts/P552651_protein.fa, Results/Genes_temp/ADAR1/transcripts/P552651_func_iupred2a.txt, Results/Genes_temp/ADAR1/transcripts/P552651_func_domains.gff3, Results/Genes_temp/ADAR1/transcripts/P552651_protein.fa.ss3, Results/Genes_temp/ADAR1/transcripts/P552651_func_sites.txt
+    output: Results/Genes_temp/ADAR1/transcripts/P552651_analysis.txt
+    jobid: 10
+    wildcards: gene=ADAR1, transcript=P552651
+    priority: 5
+    resources: memory=10, time=1, tmpdir=0
+
+[Mon Apr  5 12:25:20 2021]
+Finished job 10.
+26 of 32 steps (81%) done
+[Mon Apr  5 12:28:01 2021]
+Finished job 28.
+27 of 32 steps (84%) done
+Select jobs to execute...
+
+[Mon Apr  5 12:28:01 2021]
+rule individual_transcript_analysis:
+    input: Results/Genes_temp/ADAR1/transcripts/P552654_protein.fa, Results/Genes_temp/ADAR1/transcripts/P552654_func_iupred2a.txt, Results/Genes_temp/ADAR1/transcripts/P552654_func_domains.gff3, Results/Genes_temp/ADAR1/transcripts/P552654_protein.fa.ss3, Results/Genes_temp/ADAR1/transcripts/P552654_func_sites.txt
+    output: Results/Genes_temp/ADAR1/transcripts/P552654_analysis.txt
+    jobid: 25
+    wildcards: gene=ADAR1, transcript=P552654
+    priority: 5
+    resources: memory=10, time=1, tmpdir=0
+
+[Mon Apr  5 12:28:01 2021]
+Finished job 25.
+28 of 32 steps (88%) done
+Select jobs to execute...
+
+[Mon Apr  5 12:28:01 2021]
+rule aggregate_transcript_analysis:
+    input: Results/Genes_temp/ADAR1/transcripts/P552651_analysis.txt, Results/Genes_temp/ADAR1/transcripts/P552652_analysis.txt, Results/Genes_temp/ADAR1/transcripts/P552653_analysis.txt, Results/Genes_temp/ADAR1/transcripts/P552654_analysis.txt, Results/Genes_temp/ADAR1/transcripts/P552655_analysis.txt, Results/Genes_temp/ADAR1/ADAR1_transcripts_stats.txt, Results/Genes_temp/ADAR1
+    output: Results/Genes/ADAR1/ADAR1_transcripts_filtered_analysis.txt, Results/Genes/ADAR1/ADAR1_transcripts_stats.txt
+    jobid: 5
+    wildcards: gene=ADAR1
+    priority: 5
+    resources: memory=4, time=1, tmpdir=0
+
+[Mon Apr  5 12:28:01 2021]
+Finished job 5.
+29 of 32 steps (91%) done
+Select jobs to execute...
+
+[Mon Apr  5 12:28:01 2021]
+rule protein_coding_potential_analysis:
+    input: Results/Genes/ADAR1/ADAR1_transcripts_filtered_analysis.txt, Results/Genes/ADAR1/ADAR1_transcripts_stats.txt, /project/owlmayerTemporary/Sid/ForOlga/Sequence/OlgaGenes.fa, /project/owlmayerTemporary/Sid/isoform_analysis/goeke/Results/GffCompare/nanopore.combined.gtf
+    output: Results/Genes/ADAR1/ADAR1_functional_analysis.pdf
+    jobid: 4
+    wildcards: gene=ADAR1
+    priority: 8
+    resources: memory=16, time=1, tmpdir=0
+
+[Mon Apr  5 12:28:20 2021]
+Finished job 4.
+30 of 32 steps (94%) done
+Select jobs to execute...
+
+[Mon Apr  5 12:28:20 2021]
+rule output_combine_files:
+    input: Results/Genes/ADAR1/ADAR1_functional_analysis.pdf, Results/Genes/DHX9/DHX9_functional_analysis.pdf, Results/Genes_temp
+    output: Results/Output/OlgaIsoforms.pdf
+    jobid: 1
+    priority: 5
+    resources: memory=4, time=1, tmpdir=0
+
+[Mon Apr  5 12:28:20 2021]
+Finished job 1.
+31 of 32 steps (97%) done
+Select jobs to execute...
+
+[Mon Apr  5 12:28:20 2021]
+localrule all:
+    input: Results/Output/OlgaIsoforms.pdf
+    jobid: 0
+
+[Mon Apr  5 12:28:20 2021]
+Finished job 0.
+32 of 32 steps (100%) done
+Complete log: /home/annaldas/projects/IsoTV/.snakemake/log/2021-04-05T121927.986568.snakemake.log

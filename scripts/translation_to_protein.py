@@ -45,7 +45,7 @@ def translate(seq, i):
     while(translating):
         if (len(seq) < 3):
             translating = False
-            aa += "*"
+            aa += ""
         else:
             codon = seq[0:3]
             if (codon_table[codon] == "_"):

@@ -109,6 +109,10 @@ def preprocessArguments(args):
         annotation = None
     else:
         annotation = pd.read_csv(args.gtf, delimiter='\t', header=None, usecols=[0,2,3,4,6,8],names=['chrm','type','start','stop','strand','more'], comment = '#')
+        filter_lines = annotation['more'].apply(lambda x: "transcript_id" in x)
+        annotation = annotation[filter_lines]
+        filter_lines = annotation['type'].apply(lambda x: "transcript" in x or "exon" in x)
+        annotation = annotation[filter_lines]
         annotation['transcript_id'] = annotation.apply(lambda x: x['more'].split('transcript_id "')[1].split('"')[0],1)
         annotation["transcript_id"] = annotation["transcript_id"].apply(lambda x: x.replace("_",""))
         annotation["exon_number"] = annotation.apply(lambda x: x["more"].split('exon_number')[1].split('"')[1] if "exon_number" in x["more"] else 0,1)

@@ -1,0 +1,111 @@
+The flag 'directory' used in rule aggregate_transcript_analysis is only valid for outputs, not inputs.
+The flag 'directory' used in rule output_combine_files is only valid for outputs, not inputs.
+Building DAG of jobs...
+Using shell: /bin/bash
+Provided cores: 32
+Rules claiming more threads will be scaled down.
+Conda environments: ignored
+Job stats:
+job                                         count    min threads    max threads
+----------------------------------------  -------  -------------  -------------
+CalculateDeSeq2Norm                             1              1              1
+ConcatenateCounts                               1              1              1
+CountTranscripts                                2              1              1
+ExtractPrimaryMapping                           2              1              1
+FilterReads                                     2              1              1
+GffCompare                                      1              1              1
+Map2Transcriptome                               2             16             16
+Minimap2Genome                                  2             16             16
+Minimap2Index                                   1             16             16
+Minimap2Pinfish                                 1             16             16
+MinimapPolishedClusters                         1             16             16
+PinfishClusterGFF                               1             16             16
+PinfishCollapsePolishedPartials                 1              1              1
+PinfishPolishClusters                           1             16             16
+PinfishPolishedBAM2GFF                          1             16             16
+PinfishRawBAM2GFF                               1             16             16
+PrepareCorrectedTranscriptomeFasta              1              1              1
+PrepareCorrectedTranscriptomeFastaNonred        1              1              1
+Pychopper                                       2              1              1
+SpliceJunctionIndex                             1              1              1
+Transcriptome2Index                             1             16             16
+all                                             1              1              1
+total                                          28              1             16
+
+Select jobs to execute...
+
+[Tue Nov 16 01:05:14 2021]
+rule FilterReads:
+    input: RawData/Fastq/A549_r2_r1.fastq
+    output: FilteredData/A549_2.fastq
+    jobid: 15
+    wildcards: sample=A549_2
+    resources: tmpdir=/scratch/local, memory=32, time=1
+
+
+[Tue Nov 16 01:05:14 2021]
+rule FilterReads:
+    input: RawData/Fastq/A549_r1_r3.fastq
+    output: FilteredData/A549_1.fastq
+    jobid: 13
+    wildcards: sample=A549_1
+    resources: tmpdir=/scratch/local, memory=32, time=1
+
+
+[Tue Nov 16 01:05:14 2021]
+rule SpliceJunctionIndex:
+    input: /project/owlmayerTemporary/Sid/nanopore-analysis/ReferenceData/gencode.v32.primary_assembly.annotation.gtf
+    output: ReferenceData/junctions.bed
+    jobid: 16
+    resources: tmpdir=/scratch/local
+
+
+[Tue Nov 16 01:05:14 2021]
+rule Minimap2Index:
+    input: /project/owlmayerTemporary/Sid/nanopore-analysis/ReferenceData/GRCh38.p12.primary_assembly.genome.fa
+    output: Results/Minimap2/GRCh38.p12.primary_assembly.genome.fa.mmi
+    jobid: 7
+    threads: 16
+    resources: tmpdir=/scratch/local, memory=32, time=1
+
+[Tue Nov 16 01:05:14 2021]
+Error in rule FilterReads:
+    jobid: 13
+    output: FilteredData/A549_1.fastq
+    shell:
+        filtlong --min_mean_q 5 RawData/Fastq/A549_r1_r3.fastq > FilteredData/A549_1.fastq
+        (one of the commands exited with non-zero exit code; note that snakemake uses bash strict mode!)
+
+Removing output files of failed job FilterReads since they might be corrupted:
+FilteredData/A549_1.fastq
+[Tue Nov 16 01:05:14 2021]
+Error in rule SpliceJunctionIndex:
+    jobid: 16
+    output: ReferenceData/junctions.bed
+    shell:
+        paftools.js gff2bed /project/owlmayerTemporary/Sid/nanopore-analysis/ReferenceData/gencode.v32.primary_assembly.annotation.gtf > ReferenceData/junctions.bed
+        (one of the commands exited with non-zero exit code; note that snakemake uses bash strict mode!)
+
+Removing output files of failed job SpliceJunctionIndex since they might be corrupted:
+ReferenceData/junctions.bed
+[Tue Nov 16 01:05:14 2021]
+Error in rule FilterReads:
+    jobid: 15
+    output: FilteredData/A549_2.fastq
+    shell:
+        filtlong --min_mean_q 5 RawData/Fastq/A549_r2_r1.fastq > FilteredData/A549_2.fastq
+        (one of the commands exited with non-zero exit code; note that snakemake uses bash strict mode!)
+
+Removing output files of failed job FilterReads since they might be corrupted:
+FilteredData/A549_2.fastq
+[Tue Nov 16 01:05:14 2021]
+Error in rule Minimap2Index:
+    jobid: 7
+    output: Results/Minimap2/GRCh38.p12.primary_assembly.genome.fa.mmi
+    shell:
+        minimap2 -t 16 -k14 -I 1000G -d Results/Minimap2/GRCh38.p12.primary_assembly.genome.fa.mmi /project/owlmayerTemporary/Sid/nanopore-analysis/ReferenceData/GRCh38.p12.primary_assembly.genome.fa
+        (one of the commands exited with non-zero exit code; note that snakemake uses bash strict mode!)
+
+Shutting down, this might take some time.
+Exiting because a job execution failed. Look above for error message
+Complete log: /home/annaldas/projects/IsoTV/.snakemake/log/2021-11-16T010513.767166.snakemake.log

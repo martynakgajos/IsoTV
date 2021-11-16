@@ -34,6 +34,7 @@ if (snakemake.config["annotation"]):
             gene = annotate_lines[ann].split('gene_name "')[1].split('"')[0]
             if (gene in genes):
                 gene_exists_file_func(gene)
+
 else: # If only the transcriptome file is given
     transcripts_filename = snakemake.input[0]
     transcripts = SeqIO.index(transcripts_filename, "fasta")

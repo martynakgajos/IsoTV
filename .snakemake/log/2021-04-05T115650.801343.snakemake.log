@@ -1,0 +1,176 @@
+The flag 'directory' used in rule aggregate_transcript_analysis is only valid for outputs, not inputs.
+The flag 'directory' used in rule output_combine_files is only valid for outputs, not inputs.
+Building DAG of jobs...
+Using shell: /bin/bash
+Provided cores: 32
+Rules claiming more threads will be scaled down.
+Conda environments: ignored
+Job counts:
+	count	jobs
+	1	all
+	1	gene_filter
+	1	output_combine_files
+	3
+Select jobs to execute...
+
+[Mon Apr  5 11:56:51 2021]
+checkpoint gene_filter:
+    input: /project/owlmayerTemporary/Sid/ForOlga/Sequence/dhx9.fa
+    output: Results/Genes_temp
+    jobid: 2
+Downstream jobs will be updated after completion.
+
+Updating job output_combine_files.
+[Mon Apr  5 11:56:52 2021]
+Finished job 2.
+1 of 7 steps (14%) done
+Select jobs to execute...
+
+[Mon Apr  5 11:56:52 2021]
+rule gene_to_transcripts:
+    input: /project/owlmayerTemporary/Sid/isoform_analysis/goeke/Results/GffCompare/nanopore.combined.gtf, /project/owlmayerTemporary/Sid/ForOlga/Sequence/dhx9.fa, Results/Genes_temp/dhx9
+    output: Results/Genes_temp/dhx9/dhx9_seq.fa
+    jobid: 7
+    wildcards: gene=dhx9
+    priority: 8
+    resources: memory=10, time=1, tmpdir=0
+
+[Mon Apr  5 11:56:53 2021]
+Finished job 7.
+2 of 7 steps (29%) done
+Select jobs to execute...
+
+[Mon Apr  5 11:56:53 2021]
+checkpoint translation_to_protein:
+    input: Results/Genes_temp/dhx9/dhx9_seq.fa
+    output: Results/Genes_temp/dhx9/transcripts, Results/Genes_temp/dhx9/dhx9_transcripts_stats.txt
+    jobid: 6
+    wildcards: gene=dhx9
+    priority: 10
+    resources: memory=10, time=1, tmpdir=0
+Downstream jobs will be updated after completion.
+
+Updating job aggregate_transcript_analysis.
+[Mon Apr  5 11:56:54 2021]
+Finished job 6.
+3 of 12 steps (25%) done
+Select jobs to execute...
+
+[Mon Apr  5 11:56:54 2021]
+rule iupred2a_analysis:
+    input: Results/Genes_temp/dhx9/transcripts/dhx9_protein.fa, /home/annaldas/iupred2a/iupred2a.py
+    output: Results/Genes_temp/dhx9/transcripts/dhx9_sequence.txt, Results/Genes_temp/dhx9/transcripts/dhx9_func_iupred2a.txt
+    jobid: 10
+    wildcards: gene=dhx9, transcript=dhx9
+    priority: 8
+    resources: memory=10, time=1, tmpdir=0
+
+
+[Mon Apr  5 11:56:54 2021]
+rule interpro_scan:
+    input: Results/Genes_temp/dhx9/transcripts/dhx9_protein.fa
+    output: Results/Genes_temp/dhx9/transcripts/dhx9_func_domains.gff3
+    jobid: 11
+    wildcards: gene=dhx9, transcript=dhx9
+    priority: 8
+    resources: memory=16, time=1, tmpdir=0
+
+
+[Mon Apr  5 11:56:54 2021]
+rule brewery_analysis:
+    input: Results/Genes_temp/dhx9/transcripts/dhx9_protein.fa
+    output: Results/Genes_temp/dhx9/transcripts/dhx9_protein.fa.ss3
+    jobid: 12
+    wildcards: gene=dhx9, transcript=dhx9
+    priority: 10
+    threads: 16
+    resources: memory=8, time=1, tmpdir=16
+
+
+[Mon Apr  5 11:56:54 2021]
+rule functional_site_analysis:
+    input: Results/Genes_temp/dhx9/transcripts/dhx9_protein.fa
+    output: Results/Genes_temp/dhx9/transcripts/dhx9_func_sites.txt
+    jobid: 13
+    wildcards: gene=dhx9, transcript=dhx9
+    priority: 8
+    resources: memory=10, time=1, tmpdir=0
+
+[Mon Apr  5 11:56:54 2021]
+Finished job 10.
+4 of 12 steps (33%) done
+[Mon Apr  5 11:57:06 2021]
+Finished job 13.
+5 of 12 steps (42%) done
+[Mon Apr  5 11:57:11 2021]
+Finished job 12.
+6 of 12 steps (50%) done
+[Mon Apr  5 11:57:16 2021]
+Finished job 11.
+7 of 12 steps (58%) done
+Select jobs to execute...
+
+[Mon Apr  5 11:57:16 2021]
+rule individual_transcript_analysis:
+    input: Results/Genes_temp/dhx9/transcripts/dhx9_protein.fa, Results/Genes_temp/dhx9/transcripts/dhx9_func_iupred2a.txt, Results/Genes_temp/dhx9/transcripts/dhx9_func_domains.gff3, Results/Genes_temp/dhx9/transcripts/dhx9_protein.fa.ss3, Results/Genes_temp/dhx9/transcripts/dhx9_func_sites.txt
+    output: Results/Genes_temp/dhx9/transcripts/dhx9_analysis.txt
+    jobid: 9
+    wildcards: gene=dhx9, transcript=dhx9
+    priority: 5
+    resources: memory=10, time=1, tmpdir=0
+
+[Mon Apr  5 11:57:16 2021]
+Finished job 9.
+8 of 12 steps (67%) done
+Select jobs to execute...
+
+[Mon Apr  5 11:57:16 2021]
+rule aggregate_transcript_analysis:
+    input: Results/Genes_temp/dhx9/transcripts/dhx9_analysis.txt, Results/Genes_temp/dhx9/dhx9_transcripts_stats.txt, Results/Genes_temp/dhx9
+    output: Results/Genes/dhx9/dhx9_transcripts_filtered_analysis.txt, Results/Genes/dhx9/dhx9_transcripts_stats.txt
+    jobid: 5
+    wildcards: gene=dhx9
+    priority: 5
+    resources: memory=4, time=1, tmpdir=0
+
+[Mon Apr  5 11:57:16 2021]
+Finished job 5.
+9 of 12 steps (75%) done
+Select jobs to execute...
+
+[Mon Apr  5 11:57:16 2021]
+rule protein_coding_potential_analysis:
+    input: Results/Genes/dhx9/dhx9_transcripts_filtered_analysis.txt, Results/Genes/dhx9/dhx9_transcripts_stats.txt, /project/owlmayerTemporary/Sid/ForOlga/Sequence/dhx9.fa, /project/owlmayerTemporary/Sid/isoform_analysis/goeke/Results/GffCompare/nanopore.combined.gtf
+    output: Results/Genes/dhx9/dhx9_functional_analysis.pdf
+    jobid: 4
+    wildcards: gene=dhx9
+    priority: 8
+    resources: memory=16, time=1, tmpdir=0
+
+[Mon Apr  5 11:57:23 2021]
+Finished job 4.
+10 of 12 steps (83%) done
+Select jobs to execute...
+
+[Mon Apr  5 11:57:23 2021]
+rule output_combine_files:
+    input: Results/Genes/dhx9/dhx9_functional_analysis.pdf, Results/Genes_temp
+    output: Results/Output/OlgaIsoforms.pdf
+    jobid: 1
+    priority: 5
+    resources: memory=4, time=1, tmpdir=0
+
+[Mon Apr  5 11:57:23 2021]
+Finished job 1.
+11 of 12 steps (92%) done
+Select jobs to execute...
+
+[Mon Apr  5 11:57:23 2021]
+localrule all:
+    input: Results/Output/OlgaIsoforms.pdf
+    jobid: 0
+
+[Mon Apr  5 11:57:23 2021]
+Finished job 0.
+12 of 12 steps (100%) done
+Complete log: /home/annaldas/projects/IsoTV/.snakemake/log/2021-04-05T115650.801343.snakemake.log

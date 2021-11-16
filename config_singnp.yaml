@@ -1,0 +1,173 @@
+##### NanoIso Config File
+
+### Snakemake Pipeline Info
+
+pipeline: "IsoTV"
+repo: "https://github.molgen.mpg.de/MayerGroup/IsoTV"
+
+### Working Directory path and Results Directory name
+
+#outdir: "/Users/SJAnnaldasula/Documents/MPIMG/goeke"
+outdir: "/project/owlmayerTemporary/Sid/isoform_analysis/goeke"
+#outdir: "/project/owlmayerTemporary/Sid/isoform_analysis/github"
+
+
+### General pipeline parameters:
+
+basecalling: TRUE
+preprocess: TRUE
+annotation: TRUE
+quantification: TRUE
+
+### Basecalling pipeline parameters
+
+guppy: "/project/owlmayer/Applications/14_MinION/Guppy324/bin/guppy_basecaller"
+
+flowcell: FLO-MIN106
+
+kit: SQK-DCS109
+
+###### Analysis Config
+### Reference Files
+
+genome_fasta: "/project/owlmayerTemporary/Sid/nanopore-analysis/ReferenceData/GRCh38.p12.primary_assembly.genome.fa"
+genome_annot: "/project/owlmayerTemporary/Sid/nanopore-analysis/ReferenceData/gencode.v32.primary_assembly.annotation.gtf"
+
+### Samples
+# samples with .bottom extenssion must be placed in the RawData folder
+#condition_replicate
+samples:
+    A549_1: "A549_r1_r3"
+    A549_2: "A549_r2_r1"
+    #A549_3: "A549_r3_r2"
+    A549_5: "A549_r5_r3"
+    HCT116_1: "HCT116_r1_r4"
+    HCT116_3: "HCT116_r3_r2"
+    HCT116_4: "HCT116_r4_r1"
+    HCT116_5: "HCT116_r5_r1"
+    HEPG2_1: "HEPG2_r1_r1"
+    HEPG2_4: "HEPG2_r4_r2"
+    HEPG2_5: "HEPG2_r5_r3"
+    K562_1: "K562_r1_r2"
+    K562_2: "K562_r2_r1"
+    K562_3: "K562_r3_r1"
+    K562_4: "K562_r4_r2"
+    MCF7_1: "MCF7_r1_r2"
+    MCF7_3: "MCF7_r3_r3"
+    MCF7_4: "MCF7_r4_r2"
+
+### Tools config
+threads: 16
+
+# Use pychopper results
+pychopper: TRUE
+
+# Use annotation to improve splice junction mapping (minimap2 --junc_bed parameter)
+minimap2_opts_junction: TRUE
+
+# Minimum read quality to keep:
+min_mean_q: 5
+
+# Stringency of porechop heuristic:
+porechop_heu_stringency: 0.25
+
+# Options passed to minimap2 during indexing:
+minimap2_index_opts: "-k14"
+
+# Extra options passed to minimap2:
+minimap2_opts: "-uf"  # required for stranded data e.g. when pychopper filtered
+
+# Minmum mapping quality:
+minimum_mapping_quality: 5
+
+# Options passed to spliced_bam2gff:
+spliced_bam2gff_opts: "-s"  # required for stranded data e.g. when pychopper filtered
+
+# -c parameter:
+minimum_cluster_size: 3
+
+# -p parameter:
+minimum_isoform_percent: 1
+
+# -d parameter:
+exon_boundary_tolerance: 10
+
+# -e parameter:
+terminal_exon_boundary_tolerance: 50
+
+# Extra options passed to minimap2 when mapping polished reads:
+minimap2_opts_polished: "-uf"   # required for stranded data e.g. when pychopper filtered
+
+# Options passed to spliced_bam2gff when converting alignments of polished reads:
+spliced_bam2gff_opts_pol: "-s"  # required for stranded data e.g. when pychopper filtered
+
+# Options passed to collapse_partials when collapsing fragmentation artifacts
+# Internal exon boundary tolerance:
+collapse_internal_tol: 5
+
+# Five prime boundary tolerance:
+collapse_five_tol: 500
+
+# Three prime boundary tolerance:
+collapse_three_tol: 50
+
+maximum_secondary: 200
+
+secondary_score_ratio: 1
+
+
+##### Analysis config
+### Input genes
+
+#gene_file: "/Users/SJAnnaldasula/Documents/MPIMG/isoform_analysis/genes.tab"
+gene_file: "/home/annaldas/projects/isoform_analysis/genes.tab"
+
+
+### Output file and folder
+
+output_plots: "loveisgone.pdf"
+output_seqs: "test/"
+
+### Processed file paths
+
+nanopore_gtf: "/project/owlmayerTemporary/Sid/nanopore-analysis/Results_5_1_new/Results_5_1_new/GffCompare/nanopore.combined_filt.gtf"
+polished_reads: "/project/owlmayerTemporary/Sid/nanopore-analysis/Results_5_1_new/Results_5_1_new/Pinfish/corrected_transcriptome_polished_collapsed_tcons_nonredundant.fas"
+counts_data: "/project/owlmayerTemporary/Sid/nanopore-analysis/Results_5_1_new/Results_5_1_new/Quantification_nonred/all_counts_deseq2norm_all.txt"
+
+#nanopore_gtf: "/project/owlmayerTemporary/Sid/isoform_analysis/github/Results/GffCompare/nanopore.combined.gtf"
+#polished_reads: "/project/owlmayerTemporary/Sid/isoform_analysis/github/Results/Pinfish/corrected_transcriptome_polished_collapsed_nonredundant_tcons.fas"
+#counts_data: "/project/owlmayerTemporary/Sid/isoform_analysis/github/Results/Quantification/counts_deseq2norm.txt"
+### Tools paths and functional analysis
+
+continuous: FALSE
+
+aa: TRUE
+
+iupred2a_path: "/home/annaldas/iupred2a/iupred2a.py"
+iupred2a: TRUE
+
+brewery_path: "/home/annaldas/Brewery/Brewery.py"
+porter: TRUE
+
+interproScan_path: "/home/annaldas/my_interproscan/interproscan-5.38-76.0/interproscan.sh"
+pfam: TRUE
+
+prositeScan_path: "/home/annaldas/ps_scan/ps_scan.pl"
+pfScan_path: "/home/annaldas/ps_scan/pfscan"
+prositeDat_path: "/project/owlmayerTemporary/Sid/github/prosite.dat"
+pfScan: TRUE
+
+plaac_path: "/home/annaldas/plaac/web/bin/plaac.jar"
+prion: FALSE
+
+
+minIsoTPM: 1
+maxIsoNum: 8
+minIsoPct: 10
+
+### Misc paths
+
+java : "/pkg/openjdk-11.0.3.2-0/profile"
+
+lock1: "/project/owlmayerTemporary/Sid/lock.txt"
+lock2: "/project/owlmayerTemporary/Sid/lock2.txt"

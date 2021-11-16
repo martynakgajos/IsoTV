@@ -1,0 +1,54 @@
+The flag 'directory' used in rule aggregate_transcript_analysis is only valid for outputs, not inputs.
+The flag 'directory' used in rule output_combine_files is only valid for outputs, not inputs.
+Building DAG of jobs...
+Using shell: /bin/bash
+Provided cores: 32
+Rules claiming more threads will be scaled down.
+Conda environments: ignored
+Job counts:
+	count	jobs
+	1	all
+	1	gene_filter
+	1	output_combine_files
+	3
+Select jobs to execute...
+
+[Mon Apr  5 13:22:47 2021]
+checkpoint gene_filter:
+    input: /project/owlmayerTemporary/Sid/gencode/gencode.v33.primary_assembly.annotation.gtf
+    output: Results/Genes_temp
+    jobid: 2
+Downstream jobs will be updated after completion.
+
+Updating job output_combine_files.
+[Mon Apr  5 13:23:03 2021]
+Finished job 2.
+1 of 7 steps (14%) done
+Select jobs to execute...
+
+[Mon Apr  5 13:23:03 2021]
+rule gene_to_transcripts:
+    input: /project/owlmayerTemporary/Sid/gencode/gencode.v33.primary_assembly.annotation.gtf, /project/owlmayerTemporary/Sid/gencode/gencode.v33.pc_transcripts.fa, Results/Genes_temp/ADAR
+    output: Results/Genes_temp/ADAR/ADAR_seq.fa
+    jobid: 7
+    wildcards: gene=ADAR
+    priority: 8
+    resources: memory=10, time=1, tmpdir=0
+
+[Mon Apr  5 13:23:26 2021]
+Error in rule gene_to_transcripts:
+    jobid: 7
+    output: Results/Genes_temp/ADAR/ADAR_seq.fa
+
+RuleException:
+CalledProcessError in line 480 of /home/annaldas/projects/IsoTV/Snakefile:
+Command 'set -euo pipefail;  /home/annaldas/miniconda3/envs/isotv_update/bin/python3.7 /project/owlmayerTemporary/Sid/ForOlga/Sequence/.snakemake/scripts/tmp4u6he58v.gene_to_transcripts.py' returned non-zero exit status 1.
+  File "/home/annaldas/miniconda3/envs/isotv_update/lib/python3.7/site-packages/snakemake/executors/__init__.py", line 2347, in run_wrapper
+  File "/home/annaldas/projects/IsoTV/Snakefile", line 480, in __rule_gene_to_transcripts
+  File "/home/annaldas/miniconda3/envs/isotv_update/lib/python3.7/site-packages/snakemake/executors/__init__.py", line 568, in _callback
+  File "/home/annaldas/miniconda3/envs/isotv_update/lib/python3.7/concurrent/futures/thread.py", line 57, in run
+  File "/home/annaldas/miniconda3/envs/isotv_update/lib/python3.7/site-packages/snakemake/executors/__init__.py", line 554, in cached_or_run
+  File "/home/annaldas/miniconda3/envs/isotv_update/lib/python3.7/site-packages/snakemake/executors/__init__.py", line 2359, in run_wrapper
+Shutting down, this might take some time.
+Exiting because a job execution failed. Look above for error message
+Complete log: /home/annaldas/projects/IsoTV/.snakemake/log/2021-04-05T132246.318030.snakemake.log

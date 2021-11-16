@@ -1,0 +1,529 @@
+The flag 'directory' used in rule aggregate_transcript_analysis is only valid for outputs, not inputs.
+The flag 'directory' used in rule output_combine_files is only valid for outputs, not inputs.
+Building DAG of jobs...
+Using shell: /bin/bash
+Provided cores: 32
+Rules claiming more threads will be scaled down.
+Conda environments: ignored
+Job stats:
+job                     count    min threads    max threads
+--------------------  -------  -------------  -------------
+all                         1              1              1
+gene_filter                 1              1              1
+output_combine_files        1              1              1
+total                       3              1              1
+
+Select jobs to execute...
+
+[Mon Nov 15 18:31:40 2021]
+checkpoint gene_filter:
+    input: /project/owlmayerTemporary/Sid/isoform_analysis/github/Results/GffCompare/nanopore.combined.gtf
+    output: Results/Genes_temp
+    jobid: 2
+    resources: tmpdir=/scratch/local
+Downstream jobs will be updated after completion.
+
+[Mon Nov 15 18:31:42 2021]
+Finished job 2.
+1 of 3 steps (33%) done
+Updating job output_combine_files.
+Select jobs to execute...
+
+[Mon Nov 15 18:31:42 2021]
+rule gene_to_transcripts:
+    input: /project/owlmayerTemporary/Sid/isoform_analysis/github/Results/GffCompare/nanopore.combined.gtf, /project/owlmayerTemporary/Sid/isoform_analysis/github/Results/Pinfish/corrected_transcriptome_polished_collapsed_nonredundant_tcons.fas, Results/Genes_temp/PRKCZ
+    output: Results/Genes_temp/PRKCZ/PRKCZ_seq.fa
+    jobid: 7
+    wildcards: gene=PRKCZ
+    priority: 8
+    resources: tmpdir=0, memory=10, time=1
+
+[Mon Nov 15 18:31:45 2021]
+Finished job 7.
+2 of 7 steps (29%) done
+Select jobs to execute...
+
+[Mon Nov 15 18:31:45 2021]
+checkpoint translation_to_protein:
+    input: Results/Genes_temp/PRKCZ/PRKCZ_seq.fa
+    output: Results/Genes_temp/PRKCZ/transcripts, Results/Genes_temp/PRKCZ/PRKCZ_transcripts_stats.txt
+    jobid: 6
+    wildcards: gene=PRKCZ
+    priority: 10
+    resources: tmpdir=0, memory=10, time=1
+Downstream jobs will be updated after completion.
+
+[Mon Nov 15 18:31:46 2021]
+Finished job 6.
+3 of 7 steps (43%) done
+Updating job aggregate_transcript_analysis.
+Select jobs to execute...
+
+[Mon Nov 15 18:31:46 2021]
+rule iupred2a_analysis:
+    input: Results/Genes_temp/PRKCZ/transcripts/TCONS00000326_protein.fa, /home/annaldas/iupred2a/iupred2a.py
+    output: Results/Genes_temp/PRKCZ/transcripts/TCONS00000326_sequence.txt, Results/Genes_temp/PRKCZ/transcripts/TCONS00000326_func_iupred2a.txt
+    jobid: 47
+    wildcards: gene=PRKCZ, transcript=TCONS00000326
+    priority: 8
+    resources: tmpdir=0, memory=10, time=1
+
+
+[Mon Nov 15 18:31:46 2021]
+rule functional_site_analysis:
+    input: Results/Genes_temp/PRKCZ/transcripts/TCONS00000317_protein.fa
+    output: Results/Genes_temp/PRKCZ/transcripts/TCONS00000317_func_sites.txt
+    jobid: 17
+    wildcards: gene=PRKCZ, transcript=TCONS00000317
+    priority: 8
+    resources: tmpdir=0, memory=10, time=1
+
+
+[Mon Nov 15 18:31:46 2021]
+rule interpro_scan:
+    input: Results/Genes_temp/PRKCZ/transcripts/TCONS00000319_protein.fa
+    output: Results/Genes_temp/PRKCZ/transcripts/TCONS00000319_func_domains.gff3
+    jobid: 24
+    wildcards: gene=PRKCZ, transcript=TCONS00000319
+    priority: 8
+    resources: tmpdir=0, memory=16, time=1
+
+
+[Mon Nov 15 18:31:46 2021]
+rule iupred2a_analysis:
+    input: Results/Genes_temp/PRKCZ/transcripts/TCONS00000324_protein.fa, /home/annaldas/iupred2a/iupred2a.py
+    output: Results/Genes_temp/PRKCZ/transcripts/TCONS00000324_sequence.txt, Results/Genes_temp/PRKCZ/transcripts/TCONS00000324_func_iupred2a.txt
+    jobid: 39
+    wildcards: gene=PRKCZ, transcript=TCONS00000324
+    priority: 8
+    resources: tmpdir=0, memory=10, time=1
+
+
+[Mon Nov 15 18:31:46 2021]
+rule interpro_scan:
+    input: Results/Genes_temp/PRKCZ/transcripts/TCONS00000321_protein.fa
+    output: Results/Genes_temp/PRKCZ/transcripts/TCONS00000321_func_domains.gff3
+    jobid: 32
+    wildcards: gene=PRKCZ, transcript=TCONS00000321
+    priority: 8
+    resources: tmpdir=0, memory=16, time=1
+
+
+[Mon Nov 15 18:31:46 2021]
+rule functional_site_analysis:
+    input: Results/Genes_temp/PRKCZ/transcripts/TCONS00000319_protein.fa
+    output: Results/Genes_temp/PRKCZ/transcripts/TCONS00000319_func_sites.txt
+    jobid: 25
+    wildcards: gene=PRKCZ, transcript=TCONS00000319
+    priority: 8
+    resources: tmpdir=0, memory=10, time=1
+
+
+[Mon Nov 15 18:31:46 2021]
+rule functional_site_analysis:
+    input: Results/Genes_temp/PRKCZ/transcripts/TCONS00000321_protein.fa
+    output: Results/Genes_temp/PRKCZ/transcripts/TCONS00000321_func_sites.txt
+    jobid: 33
+    wildcards: gene=PRKCZ, transcript=TCONS00000321
+    priority: 8
+    resources: tmpdir=0, memory=10, time=1
+
+
+[Mon Nov 15 18:31:46 2021]
+rule interpro_scan:
+    input: Results/Genes_temp/PRKCZ/transcripts/TCONS00000324_protein.fa
+    output: Results/Genes_temp/PRKCZ/transcripts/TCONS00000324_func_domains.gff3
+    jobid: 40
+    wildcards: gene=PRKCZ, transcript=TCONS00000324
+    priority: 8
+    resources: tmpdir=0, memory=16, time=1
+
+
+[Mon Nov 15 18:31:46 2021]
+rule iupred2a_analysis:
+    input: Results/Genes_temp/PRKCZ/transcripts/TCONS00006347_protein.fa, /home/annaldas/iupred2a/iupred2a.py
+    output: Results/Genes_temp/PRKCZ/transcripts/TCONS00006347_sequence.txt, Results/Genes_temp/PRKCZ/transcripts/TCONS00006347_func_iupred2a.txt
+    jobid: 55
+    wildcards: gene=PRKCZ, transcript=TCONS00006347
+    priority: 8
+    resources: tmpdir=0, memory=10, time=1
+[Mon Nov 15 18:31:46 2021]
+
+Finished job 47.
+4 of 55 steps (7%) done
+
+[Mon Nov 15 18:31:46 2021]
+rule iupred2a_analysis:
+    input: Results/Genes_temp/PRKCZ/transcripts/TCONS00000318_protein.fa, /home/annaldas/iupred2a/iupred2a.py
+    output: Results/Genes_temp/PRKCZ/transcripts/TCONS00000318_sequence.txt, Results/Genes_temp/PRKCZ/transcripts/TCONS00000318_func_iupred2a.txt
+    jobid: 19
+    wildcards: gene=PRKCZ, transcript=TCONS00000318
+    priority: 8
+    resources: tmpdir=0, memory=10, time=1
+
+
+[Mon Nov 15 18:31:46 2021]
+rule functional_site_analysis:
+    input: Results/Genes_temp/PRKCZ/transcripts/TCONS00000324_protein.fa
+    output: Results/Genes_temp/PRKCZ/transcripts/TCONS00000324_func_sites.txt
+    jobid: 41
+    wildcards: gene=PRKCZ, transcript=TCONS00000324
+    priority: 8
+    resources: tmpdir=0, memory=10, time=1
+
+
+[Mon Nov 15 18:31:46 2021]
+rule interpro_scan:
+    input: Results/Genes_temp/PRKCZ/transcripts/TCONS00006347_protein.fa
+    output: Results/Genes_temp/PRKCZ/transcripts/TCONS00006347_func_domains.gff3
+    jobid: 56
+    wildcards: gene=PRKCZ, transcript=TCONS00006347
+    priority: 8
+    resources: tmpdir=0, memory=16, time=1
+
+
+[Mon Nov 15 18:31:46 2021]
+rule interpro_scan:
+    input: Results/Genes_temp/PRKCZ/transcripts/TCONS00000318_protein.fa
+    output: Results/Genes_temp/PRKCZ/transcripts/TCONS00000318_func_domains.gff3
+    jobid: 20
+    wildcards: gene=PRKCZ, transcript=TCONS00000318
+    priority: 8
+    resources: tmpdir=0, memory=16, time=1
+
+
+[Mon Nov 15 18:31:46 2021]
+rule iupred2a_analysis:
+    input: Results/Genes_temp/PRKCZ/transcripts/TCONS00000320_protein.fa, /home/annaldas/iupred2a/iupred2a.py
+    output: Results/Genes_temp/PRKCZ/transcripts/TCONS00000320_sequence.txt, Results/Genes_temp/PRKCZ/transcripts/TCONS00000320_func_iupred2a.txt
+    jobid: 27
+    wildcards: gene=PRKCZ, transcript=TCONS00000320
+    priority: 8
+    resources: tmpdir=0, memory=10, time=1
+
+[Mon Nov 15 18:31:46 2021]
+Error in rule interpro_scan:
+    jobid: 24
+    output: Results/Genes_temp/PRKCZ/transcripts/TCONS00000319_func_domains.gff3
+    shell:
+        sh  /home/annaldas/my_interproscan/interproscan-5.38-76.0/interproscan.sh -i Results/Genes_temp/PRKCZ/transcripts/TCONS00000319_protein.fa -o Results/Genes_temp/PRKCZ/transcripts/TCONS00000319_func_domains.gff3 -f GFF3 -appl Pfam -dra
+        (one of the commands exited with non-zero exit code; note that snakemake uses bash strict mode!)
+
+
+[Mon Nov 15 18:31:46 2021]
+rule iupred2a_analysis:
+    input: Results/Genes_temp/PRKCZ/transcripts/TCONS00000322_protein.fa, /home/annaldas/iupred2a/iupred2a.py
+    output: Results/Genes_temp/PRKCZ/transcripts/TCONS00000322_sequence.txt, Results/Genes_temp/PRKCZ/transcripts/TCONS00000322_func_iupred2a.txt
+    jobid: 35
+    wildcards: gene=PRKCZ, transcript=TCONS00000322
+    priority: 8
+    resources: tmpdir=0, memory=10, time=1
+
+[Mon Nov 15 18:31:46 2021]
+Finished job 39.
+5 of 55 steps (9%) done
+[Mon Nov 15 18:31:46 2021]
+Error in rule interpro_scan:
+    jobid: 32
+    output: Results/Genes_temp/PRKCZ/transcripts/TCONS00000321_func_domains.gff3
+    shell:
+        sh  /home/annaldas/my_interproscan/interproscan-5.38-76.0/interproscan.sh -i Results/Genes_temp/PRKCZ/transcripts/TCONS00000321_protein.fa -o Results/Genes_temp/PRKCZ/transcripts/TCONS00000321_func_domains.gff3 -f GFF3 -appl Pfam -dra
+        (one of the commands exited with non-zero exit code; note that snakemake uses bash strict mode!)
+
+
+[Mon Nov 15 18:31:46 2021]
+rule functional_site_analysis:
+    input: Results/Genes_temp/PRKCZ/transcripts/TCONS00006347_protein.fa
+    output: Results/Genes_temp/PRKCZ/transcripts/TCONS00006347_func_sites.txt
+    jobid: 57
+    wildcards: gene=PRKCZ, transcript=TCONS00006347
+    priority: 8
+    resources: tmpdir=0, memory=10, time=1
+
+[Mon Nov 15 18:31:46 2021]
+Error in rule interpro_scan:
+[Mon Nov 15 18:31:46 2021]
+    jobid: 40
+
+Finished job 55.
+    output: Results/Genes_temp/PRKCZ/transcripts/TCONS00000324_func_domains.gff3
+[Mon Nov 15 18:31:46 2021]
+6 of 55 steps (11%) done
+    shell:
+        sh  /home/annaldas/my_interproscan/interproscan-5.38-76.0/interproscan.sh -i Results/Genes_temp/PRKCZ/transcripts/TCONS00000324_protein.fa -o Results/Genes_temp/PRKCZ/transcripts/TCONS00000324_func_domains.gff3 -f GFF3 -appl Pfam -dra
+        (one of the commands exited with non-zero exit code; note that snakemake uses bash strict mode!)
+rule functional_site_analysis:
+    input: Results/Genes_temp/PRKCZ/transcripts/TCONS00000318_protein.fa
+    output: Results/Genes_temp/PRKCZ/transcripts/TCONS00000318_func_sites.txt
+    jobid: 21
+    wildcards: gene=PRKCZ, transcript=TCONS00000318
+    priority: 8
+    resources: tmpdir=0, memory=10, time=1
+
+
+
+[Mon Nov 15 18:31:46 2021]
+rule interpro_scan:
+    input: Results/Genes_temp/PRKCZ/transcripts/TCONS00000320_protein.fa
+    output: Results/Genes_temp/PRKCZ/transcripts/TCONS00000320_func_domains.gff3
+    jobid: 28
+    wildcards: gene=PRKCZ, transcript=TCONS00000320
+    priority: 8
+    resources: tmpdir=0, memory=16, time=1
+
+
+[Mon Nov 15 18:31:46 2021]
+rule interpro_scan:
+    input: Results/Genes_temp/PRKCZ/transcripts/TCONS00000322_protein.fa
+    output: Results/Genes_temp/PRKCZ/transcripts/TCONS00000322_func_domains.gff3
+    jobid: 36
+    wildcards: gene=PRKCZ, transcript=TCONS00000322
+    priority: 8
+    resources: tmpdir=0, memory=16, time=1
+
+
+[Mon Nov 15 18:31:46 2021]
+[Mon Nov 15 18:31:46 2021]
+rule iupred2a_analysis:
+    input: Results/Genes_temp/PRKCZ/transcripts/TCONS00000325_protein.fa, /home/annaldas/iupred2a/iupred2a.py
+    output: Results/Genes_temp/PRKCZ/transcripts/TCONS00000325_sequence.txt, Results/Genes_temp/PRKCZ/transcripts/TCONS00000325_func_iupred2a.txt
+    jobid: 43
+    wildcards: gene=PRKCZ, transcript=TCONS00000325
+    priority: 8
+    resources: tmpdir=0, memory=10, time=1
+Error in rule interpro_scan:
+
+    jobid: 20
+    output: Results/Genes_temp/PRKCZ/transcripts/TCONS00000318_func_domains.gff3
+    shell:
+        sh  /home/annaldas/my_interproscan/interproscan-5.38-76.0/interproscan.sh -i Results/Genes_temp/PRKCZ/transcripts/TCONS00000318_protein.fa -o Results/Genes_temp/PRKCZ/transcripts/TCONS00000318_func_domains.gff3 -f GFF3 -appl Pfam -dra
+        (one of the commands exited with non-zero exit code; note that snakemake uses bash strict mode!)
+[Mon Nov 15 18:31:46 2021]
+
+Error in rule interpro_scan:
+    jobid: 56
+    output: Results/Genes_temp/PRKCZ/transcripts/TCONS00006347_func_domains.gff3
+    shell:
+        sh  /home/annaldas/my_interproscan/interproscan-5.38-76.0/interproscan.sh -i Results/Genes_temp/PRKCZ/transcripts/TCONS00006347_protein.fa -o Results/Genes_temp/PRKCZ/transcripts/TCONS00006347_func_domains.gff3 -f GFF3 -appl Pfam -dra
+        (one of the commands exited with non-zero exit code; note that snakemake uses bash strict mode!)
+
+
+[Mon Nov 15 18:31:46 2021]
+rule iupred2a_analysis:
+    input: Results/Genes_temp/PRKCZ/transcripts/TCONS00000323_protein.fa, /home/annaldas/iupred2a/iupred2a.py
+    output: Results/Genes_temp/PRKCZ/transcripts/TCONS00000323_sequence.txt, Results/Genes_temp/PRKCZ/transcripts/TCONS00000323_func_iupred2a.txt
+    jobid: 51
+    wildcards: gene=PRKCZ, transcript=TCONS00000323
+    priority: 8
+    resources: tmpdir=0, memory=10, time=1
+
+[Mon Nov 15 18:31:46 2021]
+Finished job 19.
+7 of 55 steps (13%) done
+
+[Mon Nov 15 18:31:46 2021]
+rule functional_site_analysis:
+    input: Results/Genes_temp/PRKCZ/transcripts/TCONS00000320_protein.fa
+    output: Results/Genes_temp/PRKCZ/transcripts/TCONS00000320_func_sites.txt
+    jobid: 29
+    wildcards: gene=PRKCZ, transcript=TCONS00000320
+    priority: 8
+    resources: tmpdir=0, memory=10, time=1
+
+
+[Mon Nov 15 18:31:46 2021]
+rule functional_site_analysis:
+    input: Results/Genes_temp/PRKCZ/transcripts/TCONS00000322_protein.fa
+    output: Results/Genes_temp/PRKCZ/transcripts/TCONS00000322_func_sites.txt
+    jobid: 37
+    wildcards: gene=PRKCZ, transcript=TCONS00000322
+    priority: 8
+    resources: tmpdir=0, memory=10, time=1
+
+[Mon Nov 15 18:31:46 2021]
+Finished job 35.
+8 of 55 steps (15%) done
+
+[Mon Nov 15 18:31:46 2021]
+rule interpro_scan:
+    input: Results/Genes_temp/PRKCZ/transcripts/TCONS00000325_protein.fa
+    output: Results/Genes_temp/PRKCZ/transcripts/TCONS00000325_func_domains.gff3
+    jobid: 44
+    wildcards: gene=PRKCZ, transcript=TCONS00000325
+    priority: 8
+    resources: tmpdir=0, memory=16, time=1
+
+
+[Mon Nov 15 18:31:46 2021]
+[Mon Nov 15 18:31:46 2021]
+rule interpro_scan:
+    input: Results/Genes_temp/PRKCZ/transcripts/TCONS00000323_protein.fa
+    output: Results/Genes_temp/PRKCZ/transcripts/TCONS00000323_func_domains.gff3
+    jobid: 52
+    wildcards: gene=PRKCZ, transcript=TCONS00000323
+    priority: 8
+    resources: tmpdir=0, memory=16, time=1
+Finished job 27.
+
+9 of 55 steps (16%) done
+[Mon Nov 15 18:31:46 2021]
+[Mon Nov 15 18:31:46 2021]
+Error in rule interpro_scan:
+Error in rule interpro_scan:
+    jobid: 36
+    jobid: 28
+    output: Results/Genes_temp/PRKCZ/transcripts/TCONS00000322_func_domains.gff3
+    output: Results/Genes_temp/PRKCZ/transcripts/TCONS00000320_func_domains.gff3
+    shell:
+        sh  /home/annaldas/my_interproscan/interproscan-5.38-76.0/interproscan.sh -i Results/Genes_temp/PRKCZ/transcripts/TCONS00000322_protein.fa -o Results/Genes_temp/PRKCZ/transcripts/TCONS00000322_func_domains.gff3 -f GFF3 -appl Pfam -dra
+        (one of the commands exited with non-zero exit code; note that snakemake uses bash strict mode!)
+    shell:
+        sh  /home/annaldas/my_interproscan/interproscan-5.38-76.0/interproscan.sh -i Results/Genes_temp/PRKCZ/transcripts/TCONS00000320_protein.fa -o Results/Genes_temp/PRKCZ/transcripts/TCONS00000320_func_domains.gff3 -f GFF3 -appl Pfam -dra
+        (one of the commands exited with non-zero exit code; note that snakemake uses bash strict mode!)
+
+
+
+[Mon Nov 15 18:31:46 2021]
+rule iupred2a_analysis:
+    input: Results/Genes_temp/PRKCZ/transcripts/TCONS00006348_protein.fa, /home/annaldas/iupred2a/iupred2a.py
+    output: Results/Genes_temp/PRKCZ/transcripts/TCONS00006348_sequence.txt, Results/Genes_temp/PRKCZ/transcripts/TCONS00006348_func_iupred2a.txt
+    jobid: 59
+    wildcards: gene=PRKCZ, transcript=TCONS00006348
+    priority: 8
+    resources: tmpdir=0, memory=10, time=1
+
+[Mon Nov 15 18:31:46 2021]
+Finished job 43.
+10 of 55 steps (18%) done
+
+[Mon Nov 15 18:31:46 2021]
+rule iupred2a_analysis:
+    input: Results/Genes_temp/PRKCZ/transcripts/TCONS00000317_protein.fa, /home/annaldas/iupred2a/iupred2a.py
+    output: Results/Genes_temp/PRKCZ/transcripts/TCONS00000317_sequence.txt, Results/Genes_temp/PRKCZ/transcripts/TCONS00000317_func_iupred2a.txt
+    jobid: 15
+    wildcards: gene=PRKCZ, transcript=TCONS00000317
+    priority: 8
+    resources: tmpdir=0, memory=10, time=1
+
+
+[Mon Nov 15 18:31:46 2021]
+rule iupred2a_analysis:
+    input: Results/Genes_temp/PRKCZ/transcripts/TCONS00000319_protein.fa, /home/annaldas/iupred2a/iupred2a.py
+    output: Results/Genes_temp/PRKCZ/transcripts/TCONS00000319_sequence.txt, Results/Genes_temp/PRKCZ/transcripts/TCONS00000319_func_iupred2a.txt
+    jobid: 23
+    wildcards: gene=PRKCZ, transcript=TCONS00000319
+    priority: 8
+    resources: tmpdir=0, memory=10, time=1
+
+
+[Mon Nov 15 18:31:46 2021]
+rule functional_site_analysis:
+    input: Results/Genes_temp/PRKCZ/transcripts/TCONS00000325_protein.fa
+    output: Results/Genes_temp/PRKCZ/transcripts/TCONS00000325_func_sites.txt
+    jobid: 45
+    wildcards: gene=PRKCZ, transcript=TCONS00000325
+    priority: 8
+    resources: tmpdir=0, memory=10, time=1
+[Mon Nov 15 18:31:46 2021]
+
+Finished job 51.
+11 of 55 steps (20%) done
+
+[Mon Nov 15 18:31:46 2021]
+rule functional_site_analysis:
+    input: Results/Genes_temp/PRKCZ/transcripts/TCONS00000323_protein.fa
+    output: Results/Genes_temp/PRKCZ/transcripts/TCONS00000323_func_sites.txt
+    jobid: 53
+    wildcards: gene=PRKCZ, transcript=TCONS00000323
+    priority: 8
+    resources: tmpdir=0, memory=10, time=1
+
+
+[Mon Nov 15 18:31:46 2021]
+[Mon Nov 15 18:31:46 2021]
+Error in rule interpro_scan:
+rule interpro_scan:
+    input: Results/Genes_temp/PRKCZ/transcripts/TCONS00000317_protein.fa
+    output: Results/Genes_temp/PRKCZ/transcripts/TCONS00000317_func_domains.gff3
+    jobid: 16
+    wildcards: gene=PRKCZ, transcript=TCONS00000317
+    priority: 8
+    resources: tmpdir=0, memory=16, time=1
+    jobid: 44
+
+    output: Results/Genes_temp/PRKCZ/transcripts/TCONS00000325_func_domains.gff3
+    shell:
+        sh  /home/annaldas/my_interproscan/interproscan-5.38-76.0/interproscan.sh -i Results/Genes_temp/PRKCZ/transcripts/TCONS00000325_protein.fa -o Results/Genes_temp/PRKCZ/transcripts/TCONS00000325_func_domains.gff3 -f GFF3 -appl Pfam -dra
+        (one of the commands exited with non-zero exit code; note that snakemake uses bash strict mode!)
+
+
+[Mon Nov 15 18:31:46 2021]
+rule iupred2a_analysis:
+    input: Results/Genes_temp/PRKCZ/transcripts/TCONS00000321_protein.fa, /home/annaldas/iupred2a/iupred2a.py
+    output: Results/Genes_temp/PRKCZ/transcripts/TCONS00000321_sequence.txt, Results/Genes_temp/PRKCZ/transcripts/TCONS00000321_func_iupred2a.txt
+    jobid: 31
+    wildcards: gene=PRKCZ, transcript=TCONS00000321
+    priority: 8
+    resources: tmpdir=0, memory=10, time=1
+
+[Mon Nov 15 18:31:46 2021]
+Error in rule interpro_scan:
+    jobid: 52
+    output: Results/Genes_temp/PRKCZ/transcripts/TCONS00000323_func_domains.gff3
+    shell:
+        sh  /home/annaldas/my_interproscan/interproscan-5.38-76.0/interproscan.sh -i Results/Genes_temp/PRKCZ/transcripts/TCONS00000323_protein.fa -o Results/Genes_temp/PRKCZ/transcripts/TCONS00000323_func_domains.gff3 -f GFF3 -appl Pfam -dra
+        (one of the commands exited with non-zero exit code; note that snakemake uses bash strict mode!)
+
+[Mon Nov 15 18:31:46 2021]
+Finished job 59.
+12 of 55 steps (22%) done
+[Mon Nov 15 18:31:46 2021]
+Finished job 23.
+13 of 55 steps (24%) done
+[Mon Nov 15 18:31:46 2021]
+Finished job 15.
+14 of 55 steps (25%) done
+[Mon Nov 15 18:31:46 2021]
+Error in rule interpro_scan:
+    jobid: 16
+    output: Results/Genes_temp/PRKCZ/transcripts/TCONS00000317_func_domains.gff3
+    shell:
+        sh  /home/annaldas/my_interproscan/interproscan-5.38-76.0/interproscan.sh -i Results/Genes_temp/PRKCZ/transcripts/TCONS00000317_protein.fa -o Results/Genes_temp/PRKCZ/transcripts/TCONS00000317_func_domains.gff3 -f GFF3 -appl Pfam -dra
+        (one of the commands exited with non-zero exit code; note that snakemake uses bash strict mode!)
+
+[Mon Nov 15 18:31:47 2021]
+Finished job 31.
+15 of 55 steps (27%) done
+[Mon Nov 15 18:31:57 2021]
+Finished job 57.
+16 of 55 steps (29%) done
+[Mon Nov 15 18:31:58 2021]
+Finished job 53.
+17 of 55 steps (31%) done
+[Mon Nov 15 18:31:59 2021]
+Finished job 41.
+18 of 55 steps (33%) done
+[Mon Nov 15 18:31:59 2021]
+Finished job 21.
+19 of 55 steps (35%) done
+[Mon Nov 15 18:31:59 2021]
+Finished job 37.
+20 of 55 steps (36%) done
+[Mon Nov 15 18:32:00 2021]
+Finished job 17.
+21 of 55 steps (38%) done
+[Mon Nov 15 18:32:00 2021]
+Finished job 45.
+22 of 55 steps (40%) done
+[Mon Nov 15 18:32:00 2021]
+Finished job 33.
+23 of 55 steps (42%) done
+[Mon Nov 15 18:32:01 2021]
+Finished job 25.
+24 of 55 steps (44%) done
+[Mon Nov 15 18:32:01 2021]
+Finished job 29.
+25 of 55 steps (45%) done
+Shutting down, this might take some time.
+Exiting because a job execution failed. Look above for error message
+Complete log: /home/annaldas/projects/IsoTV/.snakemake/log/2021-11-15T183139.420152.snakemake.log

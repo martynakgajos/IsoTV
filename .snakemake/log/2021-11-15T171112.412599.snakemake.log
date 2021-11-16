@@ -1,0 +1,42 @@
+The flag 'directory' used in rule aggregate_transcript_analysis is only valid for outputs, not inputs.
+The flag 'directory' used in rule output_combine_files is only valid for outputs, not inputs.
+Building DAG of jobs...
+Using shell: /bin/bash
+Provided cores: 32
+Rules claiming more threads will be scaled down.
+Conda environments: ignored
+Job stats:
+job                     count    min threads    max threads
+--------------------  -------  -------------  -------------
+gene_filter                 1              1              1
+output_combine_files        1              1              1
+total                       2              1              1
+
+Select jobs to execute...
+
+[Mon Nov 15 17:11:13 2021]
+checkpoint gene_filter:
+    input: /project/owlmayerTemporary/Sid/isoform_analysis/github/Results/GffCompare/nanopore.combined.gtf
+    output: Results/Genes_temp
+    jobid: 1
+    resources: tmpdir=/scratch/local
+Downstream jobs will be updated after completion.
+
+[Mon Nov 15 17:11:15 2021]
+Finished job 1.
+1 of 2 steps (50%) done
+Updating job output_combine_files.
+Select jobs to execute...
+
+[Mon Nov 15 17:11:15 2021]
+rule output_combine_files:
+    input: Results/Genes/PFN2/PFN2_functional_analysis.pdf, Results/Genes_temp
+    output: Results/Output/test.pdf
+    jobid: 0
+    priority: 5
+    resources: tmpdir=0, memory=4, time=1
+
+[Mon Nov 15 17:11:15 2021]
+Finished job 0.
+2 of 2 steps (100%) done
+Complete log: /home/annaldas/projects/IsoTV/.snakemake/log/2021-11-15T171112.412599.snakemake.log

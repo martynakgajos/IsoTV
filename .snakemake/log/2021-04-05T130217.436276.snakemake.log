@@ -1,0 +1,47 @@
+The flag 'directory' used in rule aggregate_transcript_analysis is only valid for outputs, not inputs.
+The flag 'directory' used in rule output_combine_files is only valid for outputs, not inputs.
+Building DAG of jobs...
+Using shell: /bin/bash
+Provided cores: 32
+Rules claiming more threads will be scaled down.
+Conda environments: ignored
+Job counts:
+	count	jobs
+	1	all
+	1	gene_filter
+	1	output_combine_files
+	3
+Select jobs to execute...
+
+[Mon Apr  5 13:02:18 2021]
+checkpoint gene_filter:
+    input: /project/owlmayerTemporary/Sid/isoform_analysis/github/ReferenceData/gencode.v32.primary_assembly.annotation.gtf
+    output: Results/Genes_temp
+    jobid: 2
+Downstream jobs will be updated after completion.
+
+Updating job output_combine_files.
+[Mon Apr  5 13:02:34 2021]
+Finished job 2.
+1 of 3 steps (33%) done
+Select jobs to execute...
+
+[Mon Apr  5 13:02:34 2021]
+rule output_combine_files:
+    input: Results/Genes_temp
+    output: Results/Output/OlgaIsoforms.pdf
+    jobid: 1
+    priority: 5
+    resources: memory=4, time=1, tmpdir=0
+
+[Mon Apr  5 13:02:34 2021]
+Error in rule output_combine_files:
+    jobid: 1
+    output: Results/Output/OlgaIsoforms.pdf
+    shell:
+        rm -rf Results/Genes_temp; pdfunite  Results/Output/OlgaIsoforms.pdf;
+        (one of the commands exited with non-zero exit code; note that snakemake uses bash strict mode!)
+
+Shutting down, this might take some time.
+Exiting because a job execution failed. Look above for error message
+Complete log: /home/annaldas/projects/IsoTV/.snakemake/log/2021-04-05T130217.436276.snakemake.log

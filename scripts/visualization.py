@@ -176,8 +176,8 @@ def plotAnnotation(annotation, transcripts_plot, colors, longest_length_protein,
         ax.spines['right'].set_visible(False)
         ax.spines['left'].set_visible(False)
         ax.spines['bottom'].set_visible(False)
-        ax.set_yticks([], [])
-        ax.set_xticks([], [])
+        ax.set_yticks([])
+        ax.set_xticks([])
 
         curr_row_panel += 1
 
@@ -308,8 +308,8 @@ def plotSequenceAnalysis(transcripts_plot, colors, longest_length_protein, fig, 
             protein_exon_start = 0
             protein_exon_end = 0
             if (transcript_annotation.shape[0] > 0):
-                if (transcript_annotation.iloc[0]["strand"] == "-"):
-                    transcript_annotation = transcript_annotation.iloc[::-1]
+                #if (transcript_annotation.iloc[0]["strand"] == "-"):
+                #    transcript_annotation = transcript_annotation.iloc[::-1]
                 for idx,row in transcript_annotation.iterrows():
                     if (row['type'] != 'transcript'):
                         start = row['plot_start']
@@ -352,8 +352,8 @@ def plotSequenceAnalysis(transcripts_plot, colors, longest_length_protein, fig, 
         lg.spines['right'].set_visible(False)
         lg.spines['left'].set_visible(False)
         #lg.spines['bottom'].set_visible(False)
-        lg.set_xticks([], [])
-        lg.set_yticks([], [])
+        lg.set_xticks([])
+        lg.set_yticks([])
 
         ax.set_ylim((0, bottom))
         plt.plot((0,0),(0,bottom),color = "black")
@@ -362,7 +362,7 @@ def plotSequenceAnalysis(transcripts_plot, colors, longest_length_protein, fig, 
         ax.spines['right'].set_visible(False)
         ax.spines['left'].set_visible(False)
         #ax.spines['bottom'].set_visible(False)
-        ax.set_yticks([], [])
+        ax.set_yticks([])
         curr_row_panel += total_features + 1
 
 # Plotting legend for the netire visualization
@@ -437,8 +437,9 @@ total_gs = 1
 transcripts_plot = sorted(list(transcripts.keys()))
 if (snakemake.config["quantification"]):
     #df_temp = data[data["gene_name"] == gene]
-    print(transcripts_plot)
-    print(data["transcript_id"])
+    #print(transcripts_plot)
+    #print(data["transcript_id"])
+    data["transcript_id"] = data["transcript_id"].apply(lambda x: x.replace("_",""))
     df_temp = data[data["transcript_id"].isin(transcripts_plot)]
     data_gene = df_temp[samples].sum().to_frame().transpose()
     data_gene = calculateStatistics(data_gene,conditions,number_replicates)
