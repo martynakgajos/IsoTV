@@ -1,0 +1,168 @@
+The flag 'directory' used in rule aggregate_transcript_analysis is only valid for outputs, not inputs.
+The flag 'directory' used in rule output_combine_files is only valid for outputs, not inputs.
+Building DAG of jobs...
+Using shell: /usr/bin/bash
+Provided cores: 8
+Rules claiming more threads will be scaled down.
+Job stats:
+job                                         count    min threads    max threads
+----------------------------------------  -------  -------------  -------------
+CalculateDeSeq2Norm                             1              1              1
+ConcatenateCounts                               1              1              1
+CountTranscripts                                2              1              1
+ExtractPrimaryMapping                           2              1              1
+GffCompare                                      1              1              1
+Map2Transcriptome                               2              8              8
+PrepareCorrectedTranscriptomeFastaNonred        1              1              1
+Transcriptome2Index                             1              8              8
+all                                             1              1              1
+total                                          12              1              8
+
+Select jobs to execute...
+
+[Wed Nov 17 00:53:34 2021]
+rule GffCompare:
+    input: /scratch/sjannalda/projects/SGNEX/reference/gencode.v32.primary_assembly.annotation.gtf, Results/Pinfish/polished_transcripts_collapsed.gff
+    output: Results/GffCompare/nanopore.combined.gtf
+    jobid: 3
+    resources: tmpdir=/tmp, memory=16, time=1
+
+Activating conda environment: /scratch/sjannalda/projects/SGNEX/.snakemake/conda/11f91e466efa10df6e0977f307982a34
+[Wed Nov 17 00:53:56 2021]
+Finished job 3.
+1 of 12 steps (8%) done
+Select jobs to execute...
+
+[Wed Nov 17 00:53:56 2021]
+rule PrepareCorrectedTranscriptomeFastaNonred:
+    input: Results/Pinfish/corrected_transcriptome_polished_collapsed.fas, Results/GffCompare/nanopore.combined.gtf
+    output: Results/Pinfish/corrected_transcriptome_polished_collapsed_nonred.fas
+    jobid: 21
+    resources: tmpdir=/tmp, memory=8, time=1
+
+Activating conda environment: /scratch/sjannalda/projects/SGNEX/.snakemake/conda/55d95d7f96d86cd9f8884dbccd46b684
+Activating conda environment: /scratch/sjannalda/projects/SGNEX/.snakemake/conda/55d95d7f96d86cd9f8884dbccd46b684
+[Wed Nov 17 00:55:15 2021]
+Finished job 21.
+2 of 12 steps (17%) done
+Select jobs to execute...
+
+[Wed Nov 17 00:55:15 2021]
+rule Transcriptome2Index:
+    input: Results/Pinfish/corrected_transcriptome_polished_collapsed_nonred.fas
+    output: Results/Minimap2/Transcriptome.mmi
+    jobid: 20
+    threads: 8
+    resources: tmpdir=/tmp, memory=16, time=2
+
+Activating conda environment: /scratch/sjannalda/projects/SGNEX/.snakemake/conda/de012c2f23fcfa29962e7b302d6c2120
+[Wed Nov 17 00:55:16 2021]
+Finished job 20.
+3 of 12 steps (25%) done
+Select jobs to execute...
+
+[Wed Nov 17 00:55:16 2021]
+rule Map2Transcriptome:
+    input: Results/Minimap2/Transcriptome.mmi, FilteredData/HCT116_1.fastq
+    output: Results/Quantification/HCT116_1.bam, Results/Quantification/HCT116_1.sorted.bam
+    jobid: 19
+    wildcards: sample=HCT116_1
+    threads: 8
+    resources: tmpdir=/tmp, memory=32, time=4
+
+Activating conda environment: /scratch/sjannalda/projects/SGNEX/.snakemake/conda/de012c2f23fcfa29962e7b302d6c2120
+[Wed Nov 17 00:56:03 2021]
+Finished job 19.
+4 of 12 steps (33%) done
+Select jobs to execute...
+
+[Wed Nov 17 00:56:03 2021]
+rule Map2Transcriptome:
+    input: Results/Minimap2/Transcriptome.mmi, FilteredData/HEPG2_1.fastq
+    output: Results/Quantification/HEPG2_1.bam, Results/Quantification/HEPG2_1.sorted.bam
+    jobid: 26
+    wildcards: sample=HEPG2_1
+    threads: 8
+    resources: tmpdir=/tmp, memory=32, time=4
+
+Activating conda environment: /scratch/sjannalda/projects/SGNEX/.snakemake/conda/de012c2f23fcfa29962e7b302d6c2120
+[Wed Nov 17 00:59:58 2021]
+Finished job 26.
+5 of 12 steps (42%) done
+Select jobs to execute...
+
+[Wed Nov 17 00:59:58 2021]
+rule ExtractPrimaryMapping:
+    input: Results/Quantification/HCT116_1.sorted.bam, IGV/HCT116_1.genome.bam
+    output: IGV/HCT116_1.transcriptome.bam
+    jobid: 18
+    wildcards: sample=HCT116_1
+    resources: tmpdir=/tmp, memory=4, time=1
+
+Activating conda environment: /scratch/sjannalda/projects/SGNEX/.snakemake/conda/f2e55bf4fc874467f187857759540083
+
+[Wed Nov 17 00:59:59 2021]
+rule ExtractPrimaryMapping:
+    input: Results/Quantification/HEPG2_1.sorted.bam, IGV/HEPG2_1.genome.bam
+    output: IGV/HEPG2_1.transcriptome.bam
+    jobid: 25
+    wildcards: sample=HEPG2_1
+    resources: tmpdir=/tmp, memory=4, time=1
+
+Activating conda environment: /scratch/sjannalda/projects/SGNEX/.snakemake/conda/f2e55bf4fc874467f187857759540083
+[Wed Nov 17 01:00:09 2021]
+Finished job 18.
+6 of 12 steps (50%) done
+Select jobs to execute...
+
+[Wed Nov 17 01:00:09 2021]
+rule CountTranscripts:
+    input: IGV/HCT116_1.transcriptome.bam
+    output: Results/Quantification/HCT116_1.counts
+    jobid: 17
+    wildcards: sample=HCT116_1
+    resources: tmpdir=/tmp, memory=4, time=1
+
+Activating conda environment: /scratch/sjannalda/projects/SGNEX/.snakemake/conda/f2e55bf4fc874467f187857759540083
+[Wed Nov 17 01:00:11 2021]
+Finished job 17.
+7 of 12 steps (58%) done
+[Wed Nov 17 01:00:22 2021]
+Finished job 25.
+8 of 12 steps (67%) done
+Select jobs to execute...
+
+[Wed Nov 17 01:00:22 2021]
+rule CountTranscripts:
+    input: IGV/HEPG2_1.transcriptome.bam
+    output: Results/Quantification/HEPG2_1.counts
+    jobid: 24
+    wildcards: sample=HEPG2_1
+    resources: tmpdir=/tmp, memory=4, time=1
+
+Activating conda environment: /scratch/sjannalda/projects/SGNEX/.snakemake/conda/f2e55bf4fc874467f187857759540083
+[Wed Nov 17 01:00:26 2021]
+Finished job 24.
+9 of 12 steps (75%) done
+Select jobs to execute...
+
+[Wed Nov 17 01:00:26 2021]
+rule ConcatenateCounts:
+    input: /scratch/sjannalda/projects/SGNEX/reference/gencode.v32.primary_assembly.annotation.gtf, Results/GffCompare/nanopore.combined.gtf, Results/Quantification/HCT116_1.counts, Results/Quantification/HEPG2_1.counts
+    output: Results/Quantification/counts.txt
+    jobid: 2
+    resources: tmpdir=/tmp, memory=4, time=1
+
+[Wed Nov 17 01:00:36 2021]
+Error in rule ConcatenateCounts:
+    jobid: 2
+    output: Results/Quantification/counts.txt
+
+RuleException:
+CalledProcessError in line 30 of /scratch/sjannalda/IsoTV/workflow/rules/quantification.smk:
+Command '/home/sjannalda/miniconda3/envs/snakemake/bin/python3.9 /scratch/sjannalda/projects/SGNEX/.snakemake/scripts/tmpkofitbaw.concatenate.py' returned non-zero exit status 1.
+  File "/scratch/sjannalda/IsoTV/workflow/rules/quantification.smk", line 30, in __rule_ConcatenateCounts
+  File "/home/sjannalda/miniconda3/envs/snakemake/lib/python3.9/concurrent/futures/thread.py", line 52, in run
+Shutting down, this might take some time.
+Exiting because a job execution failed. Look above for error message
+Complete log: /scratch/sjannalda/IsoTV/.snakemake/log/2021-11-17T005330.193027.snakemake.log

@@ -5,10 +5,13 @@ rule Transcriptome2Index:
         genome = rules.PrepareCorrectedTranscriptomeFastaNonred.output.fasta,
     output:
         index = "Results/Minimap2/Transcriptome.mmi"
-    threads: config["threads"]
+    threads: 
+        config["threads"]
     resources:
         memory = 16,
         time = 2
+    conda:
+        "../envs/minimap2.yaml"
     shell:
       "minimap2 -t {threads} -I 1000G -d {output.index} {input.genome}"
 
@@ -21,16 +24,19 @@ rule Minimap2Genome:
     output:
        bam = "IGV/{sample}.genome.bam"
     resources:
-        memory = 32,
+        memory = 16,
         time = 4
     params:
         opts = config["minimap2_opts"]
-    threads: config["threads"]
+    threads: 
+        config["threads"]
+    conda:
+        "../envs/minimap2.yaml"
     shell:"""
-    minimap2 -t {threads} -ax splice {params.opts} --junc-bed {input.use_junc} {input.index} {input.fastq}\
-    | samtools view -F 260 -Sb | samtools sort -@ {threads} - -o {output.bam};
-    samtools index {output.bam}
-    """
+        minimap2 -t {threads} -ax splice {params.opts} --junc-bed {input.use_junc} {input.index} {input.fastq}\
+        | samtools view -F 260 -Sb | samtools sort -@ {threads} - -o {output.bam};
+        samtools index {output.bam}
+        """
 
 # Map to transcriptome
 rule Map2Transcriptome:
@@ -47,7 +53,8 @@ rule Map2Transcriptome:
     params:
         msec = config["maximum_secondary"],
         psec = config["secondary_score_ratio"],
-    priority: 10
+    conda:
+        "../envs/minimap2.yaml"
     shell:"""
         minimap2 -ax map-ont -t {threads} -p {params.psec} -N {params.msec} {input.index} {input.fastq} | samtools view -Sb > {output.bam};
         samtools sort -@ {threads} {output.bam} -o {output.sbam};
@@ -63,6 +70,8 @@ rule ExtractPrimaryMapping:
         time = 1
     output:
         "IGV/{sample}.transcriptome.bam"
+    conda:
+        "../envs/pinfish.yaml"
     shell:"""
         samtools view -b -F 260 {input.transcriptome} > {output};
         samtools index {output}

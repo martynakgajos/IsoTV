@@ -5,7 +5,7 @@ repo: "https://github.molgen.mpg.de/MayerGroup/IsoTV"
 
 ### Output directory
 
-outdir: "/Users/SJAnnaldasula/Documents/MPIMG/SGNEX"
+outdir: "/scratch/sjannalda/projects//SGNEX"
 
 ### General pipeline parameters:
 
@@ -26,22 +26,22 @@ kit: SQK-DCS109
 #genome_annot: "/path/to/gencode.v32.primary_assembly.annotation.gtf"
 #genome_fasta: "/project/owlmayerTemporary/Sid/nanopore-analysis/ReferenceData/GRCh38.p12.primary_assembly.genome.fa"
 #genome_annot: "/project/owlmayerTemporary/Sid/nanopore-analysis/ReferenceData/gencode.v32.primary_assembly.annotation.gtf"
-genome_fasta: "/Users/SJAnnaldasula/Documents/MPIMG/SGNEX/reference/GRCh38.p12.primary_assembly.genome.fa"
-genome_annot: "/Users/SJAnnaldasula/Documents/MPIMG/SGNEX/reference/gencode.v32.primary_assembly.annotation.gtf"
+genome_fasta: "/scratch/sjannalda/projects/SGNEX/reference/GRCh38.p12.primary_assembly.genome.fa"
+genome_annot: "/scratch/sjannalda/projects/SGNEX/reference/gencode.v32.primary_assembly.annotation.gtf"
 
 ### Samples
 # samples with .bottom extension must be placed in the RawData folder
 # condition_replicate
 
 samples:
-    A549_1: "A549_r1_r3"
+    #A549_1: "A549_r1_r3"
     #A549_2: "A549_r2_r1"
     #A549_5: "A549_r5_r3"
-    #HCT116_1: "HCT116_r1_r4"
+    HCT116_1: "HCT116_r1_r4"
     #HCT116_3: "HCT116_r3_r2"
     #HCT116_4: "HCT116_r4_r1"
     #HCT116_5: "HCT116_r5_r1"
-    #HEPG2_1: "HEPG2_r1_r1"
+    HEPG2_1: "HEPG2_r1_r1"
     #HEPG2_4: "HEPG2_r4_r2"
     #HEPG2_5: "HEPG2_r5_r3"
     #K562_1: "K562_r1_r2"
@@ -52,7 +52,7 @@ samples:
     #MCF7_3: "MCF7_r3_r3"
     #MCF7_4: "MCF7_r4_r2"
 
-threads: 4
+threads: 8
 
 # Use pychopper results
 pychopper: TRUE

@@ -1,0 +1,21 @@
+The flag 'directory' used in rule aggregate_transcript_analysis is only valid for outputs, not inputs.
+The flag 'directory' used in rule output_combine_files is only valid for outputs, not inputs.
+Building DAG of jobs...
+Creating conda environment /scratch/sjannalda/IsoTV/workflow/rules/../envs/filtlong.yaml...
+Downloading and installing remote packages.
+Environment for ../../IsoTV/workflow/envs/filtlong.yaml created (location: .snakemake/conda/2b78c469ec5bff7ee531fa386b002c7d)
+Creating conda environment /scratch/sjannalda/IsoTV/workflow/rules/../envs/pychopper.yaml...
+Downloading and installing remote packages.
+Environment for ../../IsoTV/workflow/envs/pychopper.yaml created (location: .snakemake/conda/1fb91db314823f34531ee184ffcf65e9)
+Creating conda environment /scratch/sjannalda/IsoTV/workflow/rules/../envs/minimap2.yaml...
+Downloading and installing remote packages.
+CreateCondaEnvironmentException:
+Could not create conda environment from /scratch/sjannalda/IsoTV/workflow/rules/../envs/minimap2.yaml:
+Encountered problems while solving.
+Problem: nothing provides requested k8 ==0.2.5 h87af4ef_1
+Problem: nothing provides requested libcxx ==12.0.1 habf9029_0
+Problem: nothing provides requested libzlib ==1.2.11 h9173be1_1013
+Problem: nothing provides requested minimap2 ==2.22 h188c3c3_0
+Problem: nothing provides requested zlib ==1.2.11 h9173be1_1013
+
+

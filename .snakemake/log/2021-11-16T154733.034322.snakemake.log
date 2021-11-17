@@ -1,0 +1,10 @@
+The flag 'directory' used in rule aggregate_transcript_analysis is only valid for outputs, not inputs.
+The flag 'directory' used in rule output_combine_files is only valid for outputs, not inputs.
+Building DAG of jobs...
+InputFunctionException in line 42 of /scratch/sjannalda/IsoTV/workflow/rules/preprocess.smk:
+Error:
+  AssertionError: 
+Wildcards:
+  sample=HCT116_1
+Traceback:
+  File "/scratch/sjannalda/IsoTV/workflow/rules/preprocess.smk", line 39, in FilterReadsInput

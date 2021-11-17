@@ -10,7 +10,7 @@ countData <- as.matrix(countData)
 name <- colnames(data)[2:(length(samples) + 1)]
 condition <- sapply(strsplit(name,"_"), `[`, 1)
 colData <- cbind(name,condition)
-
+print(data)
 dds <- DESeqDataSetFromMatrix(countData,colData,design=~condition)
 dds <- estimateSizeFactors(dds)
 Pcounts <- counts(dds, normalized=TRUE)

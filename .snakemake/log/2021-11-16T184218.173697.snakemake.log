@@ -1,0 +1,3 @@
+The flag 'directory' used in rule aggregate_transcript_analysis is only valid for outputs, not inputs.
+The flag 'directory' used in rule output_combine_files is only valid for outputs, not inputs.
+Unlocking working directory.

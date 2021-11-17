@@ -1,0 +1,120 @@
+The flag 'directory' used in rule aggregate_transcript_analysis is only valid for outputs, not inputs.
+The flag 'directory' used in rule output_combine_files is only valid for outputs, not inputs.
+Building DAG of jobs...
+Creating conda environment /scratch/sjannalda/IsoTV/workflow/rules/../envs/pinfish.yaml...
+Downloading and installing remote packages.
+Environment for ../../IsoTV/workflow/envs/pinfish.yaml created (location: .snakemake/conda/9895d758bb8cc1c2c40ccbaeaebd43c0)
+Using shell: /usr/bin/bash
+Provided cores: 8
+Rules claiming more threads will be scaled down.
+Job stats:
+job                                         count    min threads    max threads
+----------------------------------------  -------  -------------  -------------
+CalculateDeSeq2Norm                             1              1              1
+ConcatenateCounts                               1              1              1
+CountTranscripts                                2              1              1
+ExtractPrimaryMapping                           2              1              1
+GffCompare                                      1              1              1
+Map2Transcriptome                               2              8              8
+MinimapPolishedClusters                         1              8              8
+PinfishCollapsePolishedPartials                 1              8              8
+PinfishPolishClusters                           1              8              8
+PinfishPolishedBAM2GFF                          1              8              8
+PrepareCorrectedTranscriptomeFasta              1              1              1
+PrepareCorrectedTranscriptomeFastaNonred        1              1              1
+Transcriptome2Index                             1              8              8
+all                                             1              1              1
+total                                          17              1              8
+
+Select jobs to execute...
+
+[Tue Nov 16 17:50:57 2021]
+rule PinfishPolishClusters:
+    input: Results/Pinfish/clustered_pol_transcripts.gff, Results/Pinfish/cluster_memberships.tsv, Results/Minimap2/merged.mapping.bam
+    output: Results/Pinfish/polished_transcripts.fas
+    jobid: 8
+    threads: 8
+    resources: tmpdir=/tmp, memory=8, time=1
+
+Activating conda environment: /scratch/sjannalda/projects/SGNEX/.snakemake/conda/9895d758bb8cc1c2c40ccbaeaebd43c0
+[Tue Nov 16 17:52:36 2021]
+Finished job 8.
+1 of 17 steps (6%) done
+Select jobs to execute...
+
+[Tue Nov 16 17:52:36 2021]
+rule MinimapPolishedClusters:
+    input: Results/Minimap2/GRCh38.p12.primary_assembly.genome.fa.mmi, Results/Pinfish/polished_transcripts.fas
+    output: Results/Minimap2/polished_reads_aln_sorted.bam
+    jobid: 6
+    threads: 8
+    resources: tmpdir=/tmp, memory=8, time=1
+
+Activating conda environment: /scratch/sjannalda/projects/SGNEX/.snakemake/conda/de012c2f23fcfa29962e7b302d6c2120
+[Tue Nov 16 17:52:56 2021]
+Finished job 6.
+2 of 17 steps (12%) done
+Select jobs to execute...
+
+[Tue Nov 16 17:52:56 2021]
+rule PinfishPolishedBAM2GFF:
+    input: Results/Minimap2/polished_reads_aln_sorted.bam
+    output: Results/Pinfish/polished_transcripts.gff
+    jobid: 5
+    threads: 8
+    resources: tmpdir=/tmp, memory=8, time=1
+
+Activating conda environment: /scratch/sjannalda/projects/SGNEX/.snakemake/conda/9895d758bb8cc1c2c40ccbaeaebd43c0
+[Tue Nov 16 17:52:57 2021]
+Finished job 5.
+3 of 17 steps (18%) done
+Select jobs to execute...
+
+[Tue Nov 16 17:52:57 2021]
+rule PinfishCollapsePolishedPartials:
+    input: Results/Pinfish/polished_transcripts.gff
+    output: Results/Pinfish/polished_transcripts_collapsed.gff
+    jobid: 4
+    threads: 8
+    resources: tmpdir=/tmp, memory=8, time=1
+
+Activating conda environment: /scratch/sjannalda/projects/SGNEX/.snakemake/conda/9895d758bb8cc1c2c40ccbaeaebd43c0
+[Tue Nov 16 17:52:58 2021]
+Finished job 4.
+4 of 17 steps (24%) done
+Select jobs to execute...
+
+[Tue Nov 16 17:52:58 2021]
+rule PrepareCorrectedTranscriptomeFasta:
+    input: /scratch/sjannalda/projects/SGNEX/reference/GRCh38.p12.primary_assembly.genome.fa, Results/Pinfish/polished_transcripts_collapsed.gff
+    output: Results/Pinfish/corrected_transcriptome_polished_collapsed.fas
+    jobid: 22
+    resources: tmpdir=/tmp, memory=8, time=1
+
+
+[Tue Nov 16 17:52:59 2021]
+rule GffCompare:
+    input: /scratch/sjannalda/projects/SGNEX/reference/gencode.v32.primary_assembly.annotation.gtf, Results/Pinfish/polished_transcripts_collapsed.gff
+    output: Results/GffCompare/nanopore.combined.gtf
+    jobid: 3
+    resources: tmpdir=/tmp, memory=16, time=1
+
+[Tue Nov 16 17:52:59 2021]
+Error in rule PrepareCorrectedTranscriptomeFasta:
+    jobid: 22
+    output: Results/Pinfish/corrected_transcriptome_polished_collapsed.fas
+    shell:
+        gffread -g /scratch/sjannalda/projects/SGNEX/reference/GRCh38.p12.primary_assembly.genome.fa -w Results/Pinfish/corrected_transcriptome_polished_collapsed.fas Results/Pinfish/polished_transcripts_collapsed.gff
+        (one of the commands exited with non-zero exit code; note that snakemake uses bash strict mode!)
+
+[Tue Nov 16 17:52:59 2021]
+Error in rule GffCompare:
+    jobid: 3
+    output: Results/GffCompare/nanopore.combined.gtf
+    shell:
+        gffcompare -r /scratch/sjannalda/projects/SGNEX/reference/gencode.v32.primary_assembly.annotation.gtf -R -A -K -o Results/GffCompare/nanopore Results/Pinfish/polished_transcripts_collapsed.gff
+        (one of the commands exited with non-zero exit code; note that snakemake uses bash strict mode!)
+
+Shutting down, this might take some time.
+Exiting because a job execution failed. Look above for error message
+Complete log: /scratch/sjannalda/IsoTV/.snakemake/log/2021-11-16T174507.293885.snakemake.log

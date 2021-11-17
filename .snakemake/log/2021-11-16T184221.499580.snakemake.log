@@ -1,0 +1,84 @@
+The flag 'directory' used in rule aggregate_transcript_analysis is only valid for outputs, not inputs.
+The flag 'directory' used in rule output_combine_files is only valid for outputs, not inputs.
+Building DAG of jobs...
+Using shell: /usr/bin/bash
+Provided cores: 8
+Rules claiming more threads will be scaled down.
+Job stats:
+job                      count    min threads    max threads
+---------------------  -------  -------------  -------------
+CalculateDeSeq2Norm          1              1              1
+ConcatenateCounts            1              1              1
+CountTranscripts             2              1              1
+ExtractPrimaryMapping        2              1              1
+Map2Transcriptome            1              8              8
+all                          1              1              1
+total                        8              1              8
+
+Select jobs to execute...
+
+[Tue Nov 16 18:42:26 2021]
+rule Map2Transcriptome:
+    input: Results/Minimap2/Transcriptome.mmi, FilteredData/HEPG2_1.fastq
+    output: Results/Quantification/HEPG2_1.bam, Results/Quantification/HEPG2_1.sorted.bam
+    jobid: 26
+    wildcards: sample=HEPG2_1
+    threads: 8
+    resources: tmpdir=/tmp, memory=32, time=4
+
+Activating conda environment: /scratch/sjannalda/projects/SGNEX/.snakemake/conda/de012c2f23fcfa29962e7b302d6c2120
+[Tue Nov 16 18:44:14 2021]
+Finished job 26.
+1 of 8 steps (12%) done
+Select jobs to execute...
+
+[Tue Nov 16 18:44:14 2021]
+rule ExtractPrimaryMapping:
+    input: Results/Quantification/HEPG2_1.sorted.bam, IGV/HEPG2_1.genome.bam
+    output: IGV/HEPG2_1.transcriptome.bam
+    jobid: 25
+    wildcards: sample=HEPG2_1
+    resources: tmpdir=/tmp, memory=4, time=1
+
+Activating conda environment: /scratch/sjannalda/projects/SGNEX/.snakemake/conda/9895d758bb8cc1c2c40ccbaeaebd43c0
+
+[Tue Nov 16 18:44:14 2021]
+rule ExtractPrimaryMapping:
+    input: Results/Quantification/HCT116_1.sorted.bam, IGV/HCT116_1.genome.bam
+    output: IGV/HCT116_1.transcriptome.bam
+    jobid: 18
+    wildcards: sample=HCT116_1
+    resources: tmpdir=/tmp, memory=4, time=1
+
+Activating conda environment: /scratch/sjannalda/projects/SGNEX/.snakemake/conda/9895d758bb8cc1c2c40ccbaeaebd43c0
+[Tue Nov 16 18:44:15 2021]
+Error in rule ExtractPrimaryMapping:
+    jobid: 25
+    output: IGV/HEPG2_1.transcriptome.bam
+    conda-env: /scratch/sjannalda/projects/SGNEX/.snakemake/conda/9895d758bb8cc1c2c40ccbaeaebd43c0
+    shell:
+        
+        samtools view -b -F 260 Results/Quantification/HEPG2_1.sorted.bam > IGV/HEPG2_1.transcriptome.bam;
+        samtools index IGV/HEPG2_1.transcriptome.bam
+        
+        (one of the commands exited with non-zero exit code; note that snakemake uses bash strict mode!)
+
+Removing output files of failed job ExtractPrimaryMapping since they might be corrupted:
+IGV/HEPG2_1.transcriptome.bam
+[Tue Nov 16 18:44:15 2021]
+Error in rule ExtractPrimaryMapping:
+    jobid: 18
+    output: IGV/HCT116_1.transcriptome.bam
+    conda-env: /scratch/sjannalda/projects/SGNEX/.snakemake/conda/9895d758bb8cc1c2c40ccbaeaebd43c0
+    shell:
+        
+        samtools view -b -F 260 Results/Quantification/HCT116_1.sorted.bam > IGV/HCT116_1.transcriptome.bam;
+        samtools index IGV/HCT116_1.transcriptome.bam
+        
+        (one of the commands exited with non-zero exit code; note that snakemake uses bash strict mode!)
+
+Removing output files of failed job ExtractPrimaryMapping since they might be corrupted:
+IGV/HCT116_1.transcriptome.bam
+Shutting down, this might take some time.
+Exiting because a job execution failed. Look above for error message
+Complete log: /scratch/sjannalda/IsoTV/.snakemake/log/2021-11-16T184221.499580.snakemake.log

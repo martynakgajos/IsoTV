@@ -8,6 +8,8 @@ rule CountTranscripts:
     resources:
         memory = 4,
         time = 1
+    conda:
+        "../envs/pinfish.yaml"
     shell:"""
         echo -e "counts\ttranscript" > {output.quant};
         samtools view {input.bam} | cut -f3 | uniq -c | grep -v "*" | sed -e 's/^[ \t]*//' | sed 's/ /\t/' >> {output.quant}
@@ -18,12 +20,12 @@ rule ConcatenateCounts:
     input:
         annotation = GenomeGFF,
         transcriptome = rules.GffCompare.output.nanopore_gtf,
-        counts = expand("Results/Quantification/{sample}.counts", sample=SAMPLES),
+        counts = expand(rules.CountTranscripts.output.quant, sample=SAMPLES),
+    output:
+        counts = "Results/Quantification/counts.txt"
     resources:
         memory = 4,
         time = 1
-    output:
-        counts = "Results/Quantification/counts.txt"
     script:
         "../scripts/concatenate.py"
 
@@ -36,5 +38,7 @@ rule CalculateDeSeq2Norm:
     resources:
         memory = 4,
         time = 1
+    conda:
+        "../envs/rpackages.yaml"
     script:
         "../scripts/deseq2norm.R"

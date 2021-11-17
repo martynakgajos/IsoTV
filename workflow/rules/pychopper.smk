@@ -3,11 +3,11 @@ rule Pychopper:
     input:
         rules.FilterReads.output
     output:
-        pdf = "Results/Pychopper/{sample}.pychopper_report.pdf",
-        fastq = "Results/Pychopper/{sample}.pychop.fastq",
-        stats = "Results/Pychopper/{sample}.pychop.stats",
-        scores = "Results/Pychopper/{sample}.pychop.scores",
-        unclass = "Results/Pychopper/{sample}.unclassified.fastq"
+        pdf = "Results/Pychopper/{sample}/{sample}.pychopper_report.pdf",
+        fastq = "Results/Pychopper/{sample}/{sample}.pychop.fastq",
+        stats = "Results/Pychopper/{sample}/{sample}.pychop.stats",
+        scores = "Results/Pychopper/{sample}/{sample}.pychop.scores",
+        unclass = "Results/Pychopper/{sample}/{sample}.unclassified.fastq"
     params:
         opts = config["porechop_heu_stringency"]
     threads:
@@ -37,7 +37,7 @@ rule Minimap2Pinfish:
         memory = 16,
         time = 4
     conda:
-        "../envs/pychopper.yaml"
+        "../envs/minimap2.yaml"
     shell:"""
         minimap2 -t {threads} -ax splice {params.opts} --junc-bed {input.use_junc} {input.index} {input.fastq}\
         | samtools view -q {params.min_mq} -F 2304 -Sb | samtools sort -@ {threads} - -o {output.bam};

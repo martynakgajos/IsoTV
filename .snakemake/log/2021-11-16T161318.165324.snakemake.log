@@ -1,0 +1,144 @@
+The flag 'directory' used in rule aggregate_transcript_analysis is only valid for outputs, not inputs.
+The flag 'directory' used in rule output_combine_files is only valid for outputs, not inputs.
+Building DAG of jobs...
+Creating conda environment /scratch/sjannalda/IsoTV/workflow/rules/../envs/minimap2.yaml...
+Downloading and installing remote packages.
+Environment for ../../IsoTV/workflow/envs/minimap2.yaml created (location: .snakemake/conda/507751b9867c7574ee4962aa8db55d26)
+Using shell: /usr/bin/bash
+Provided cores: 8
+Rules claiming more threads will be scaled down.
+Job stats:
+job                                         count    min threads    max threads
+----------------------------------------  -------  -------------  -------------
+CalculateDeSeq2Norm                             1              1              1
+ConcatenateCounts                               1              1              1
+CountTranscripts                                2              1              1
+ExtractPrimaryMapping                           2              1              1
+FilterReads                                     2              1              1
+GffCompare                                      1              1              1
+Map2Transcriptome                               2              4              4
+Minimap2Genome                                  2              4              4
+Minimap2Index                                   1              4              4
+Minimap2Pinfish                                 1              4              4
+MinimapPolishedClusters                         1              4              4
+PinfishClusterGFF                               1              4              4
+PinfishCollapsePolishedPartials                 1              4              4
+PinfishPolishClusters                           1              4              4
+PinfishPolishedBAM2GFF                          1              4              4
+PinfishRawBAM2GFF                               1              4              4
+PrepareCorrectedTranscriptomeFasta              1              1              1
+PrepareCorrectedTranscriptomeFastaNonred        1              1              1
+Pychopper                                       2              4              4
+SpliceJunctionIndex                             1              1              1
+Transcriptome2Index                             1              4              4
+all                                             1              1              1
+total                                          28              1              4
+
+Select jobs to execute...
+
+[Tue Nov 16 16:13:25 2021]
+rule FilterReads:
+    input: RawData/Fastq/HEPG2_r1_r1.fastq.gz
+    output: FilteredData/HEPG2_1.fastq
+    jobid: 15
+    wildcards: sample=HEPG2_1
+    resources: tmpdir=/tmp, memory=8, time=1
+
+Activating conda environment: /scratch/sjannalda/projects/SGNEX/.snakemake/conda/2b78c469ec5bff7ee531fa386b002c7d
+
+[Tue Nov 16 16:13:26 2021]
+rule Minimap2Index:
+    input: /scratch/sjannalda/projects/SGNEX/reference/GRCh38.p12.primary_assembly.genome.fa
+    output: Results/Minimap2/GRCh38.p12.primary_assembly.genome.fa.mmi
+    jobid: 7
+    threads: 4
+    resources: tmpdir=/tmp, memory=8, time=1
+
+Activating conda environment: /scratch/sjannalda/projects/SGNEX/.snakemake/conda/507751b9867c7574ee4962aa8db55d26
+
+[Tue Nov 16 16:13:26 2021]
+rule FilterReads:
+    input: RawData/Fastq/HCT116_r1_r4.fastq.gz
+    output: FilteredData/HCT116_1.fastq
+    jobid: 13
+    wildcards: sample=HCT116_1
+    resources: tmpdir=/tmp, memory=8, time=1
+
+Activating conda environment: /scratch/sjannalda/projects/SGNEX/.snakemake/conda/2b78c469ec5bff7ee531fa386b002c7d
+
+[Tue Nov 16 16:13:27 2021]
+rule SpliceJunctionIndex:
+    input: /scratch/sjannalda/projects/SGNEX/reference/gencode.v32.primary_assembly.annotation.gtf
+    output: ReferenceData/junctions.bed
+    jobid: 16
+    resources: tmpdir=/tmp
+
+Activating conda environment: /scratch/sjannalda/projects/SGNEX/.snakemake/conda/507751b9867c7574ee4962aa8db55d26
+[Tue Nov 16 16:13:38 2021]
+Finished job 16.
+1 of 28 steps (4%) done
+[Tue Nov 16 16:14:17 2021]
+Finished job 13.
+2 of 28 steps (7%) done
+Select jobs to execute...
+[Tue Nov 16 16:14:45 2021]
+Finished job 15.
+3 of 28 steps (11%) done
+Select jobs to execute...
+
+[Tue Nov 16 16:14:45 2021]
+rule Pychopper:
+    input: FilteredData/HCT116_1.fastq
+    output: Results/Pychopper/HCT116_1.pychopper_report.pdf, Results/Pychopper/HCT116_1.pychop.fastq, Results/Pychopper/HCT116_1.pychop.stats, Results/Pychopper/HCT116_1.pychop.scores, Results/Pychopper/HCT116_1.unclassified.fastq
+    jobid: 12
+    wildcards: sample=HCT116_1
+    threads: 4
+    resources: tmpdir=/tmp, memory=16, time=4
+
+Activating conda environment: /scratch/sjannalda/projects/SGNEX/.snakemake/conda/1fb91db314823f34531ee184ffcf65e9
+[Tue Nov 16 16:15:27 2021]
+Finished job 7.
+4 of 28 steps (14%) done
+Select jobs to execute...
+
+[Tue Nov 16 16:15:27 2021]
+rule Pychopper:
+    input: FilteredData/HEPG2_1.fastq
+    output: Results/Pychopper/HEPG2_1.pychopper_report.pdf, Results/Pychopper/HEPG2_1.pychop.fastq, Results/Pychopper/HEPG2_1.pychop.stats, Results/Pychopper/HEPG2_1.pychop.scores, Results/Pychopper/HEPG2_1.unclassified.fastq
+    jobid: 14
+    wildcards: sample=HEPG2_1
+    threads: 4
+    resources: tmpdir=/tmp, memory=16, time=4
+
+Activating conda environment: /scratch/sjannalda/projects/SGNEX/.snakemake/conda/1fb91db314823f34531ee184ffcf65e9
+[Tue Nov 16 16:23:39 2021]
+Finished job 12.
+5 of 28 steps (18%) done
+Select jobs to execute...
+
+[Tue Nov 16 16:23:39 2021]
+rule Minimap2Genome:
+    input: Results/Minimap2/GRCh38.p12.primary_assembly.genome.fa.mmi, FilteredData/HEPG2_1.fastq, ReferenceData/junctions.bed
+    output: IGV/HEPG2_1.genome.bam
+    jobid: 27
+    wildcards: sample=HEPG2_1
+    threads: 4
+    resources: tmpdir=/tmp, memory=32, time=4
+
+[Tue Nov 16 16:23:40 2021]
+Error in rule Minimap2Genome:
+    jobid: 27
+    output: IGV/HEPG2_1.genome.bam
+    shell:
+        
+    minimap2 -t 4 -ax splice -uf --junc-bed ReferenceData/junctions.bed Results/Minimap2/GRCh38.p12.primary_assembly.genome.fa.mmi FilteredData/HEPG2_1.fastq    | samtools view -F 260 -Sb | samtools sort -@ 4 - -o IGV/HEPG2_1.genome.bam;
+    samtools index IGV/HEPG2_1.genome.bam
+    
+        (one of the commands exited with non-zero exit code; note that snakemake uses bash strict mode!)
+
+[Tue Nov 16 16:29:55 2021]
+Finished job 14.
+6 of 28 steps (21%) done
+Shutting down, this might take some time.
+Exiting because a job execution failed. Look above for error message
+Complete log: /scratch/sjannalda/IsoTV/.snakemake/log/2021-11-16T161318.165324.snakemake.log

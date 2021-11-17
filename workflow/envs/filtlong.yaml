@@ -1,11 +1,18 @@
 name: filtlong
 channels:
-  - conda-forge
   - bioconda
+  - conda-forge
   - defaults
+  - r
+  - default
+  - anaconda
 dependencies:
-  - filtlong=0.2.1=h87af4ef_0
-  - libcxx=12.0.1=habf9029_0
-  - libzlib=1.2.11=h9173be1_1013
-  - zlib=1.2.11=h9173be1_1013
-prefix: /Users/SJAnnaldasula/miniconda3/envs/filtlong
+  - _libgcc_mutex=0.1=conda_forge
+  - _openmp_mutex=4.5=1_gnu
+  - filtlong=0.2.1=h9a82719_0
+  - libgcc-ng=11.2.0=h1d223b6_11
+  - libgomp=11.2.0=h1d223b6_11
+  - libstdcxx-ng=11.2.0=he4da1e4_11
+  - libzlib=1.2.11=h36c2ea0_1013
+  - zlib=1.2.11=h36c2ea0_1013
+prefix: /home/sjannalda/miniconda3/envs/filtlong

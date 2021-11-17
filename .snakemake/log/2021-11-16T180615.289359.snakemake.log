@@ -1,0 +1,57 @@
+The flag 'directory' used in rule aggregate_transcript_analysis is only valid for outputs, not inputs.
+The flag 'directory' used in rule output_combine_files is only valid for outputs, not inputs.
+Building DAG of jobs...
+Using shell: /usr/bin/bash
+Provided cores: 8
+Rules claiming more threads will be scaled down.
+Job stats:
+job                                         count    min threads    max threads
+----------------------------------------  -------  -------------  -------------
+CalculateDeSeq2Norm                             1              1              1
+ConcatenateCounts                               1              1              1
+CountTranscripts                                2              1              1
+ExtractPrimaryMapping                           2              1              1
+Map2Transcriptome                               2              8              8
+PrepareCorrectedTranscriptomeFasta              1              1              1
+PrepareCorrectedTranscriptomeFastaNonred        1              1              1
+Transcriptome2Index                             1              8              8
+all                                             1              1              1
+total                                          12              1              8
+
+Select jobs to execute...
+
+[Tue Nov 16 18:06:18 2021]
+rule PrepareCorrectedTranscriptomeFasta:
+    input: /scratch/sjannalda/projects/SGNEX/reference/GRCh38.p12.primary_assembly.genome.fa, Results/Pinfish/polished_transcripts_collapsed.gff
+    output: Results/Pinfish/corrected_transcriptome_polished_collapsed.fas
+    jobid: 22
+    resources: tmpdir=/tmp, memory=8, time=1
+
+Activating conda environment: /scratch/sjannalda/projects/SGNEX/.snakemake/conda/8022ad4fedb3e36527d0dd83eba10095
+[Tue Nov 16 18:06:45 2021]
+Finished job 22.
+1 of 12 steps (8%) done
+Select jobs to execute...
+
+[Tue Nov 16 18:06:45 2021]
+rule PrepareCorrectedTranscriptomeFastaNonred:
+    input: Results/Pinfish/corrected_transcriptome_polished_collapsed.fas, Results/GffCompare/nanopore.combined.gtf
+    output: Results/Pinfish/corrected_transcriptome_polished_collapsed_nonred.fas
+    jobid: 21
+    resources: tmpdir=/tmp, memory=8, time=1
+
+Activating conda environment: /scratch/sjannalda/projects/SGNEX/.snakemake/conda/8022ad4fedb3e36527d0dd83eba10095
+[Tue Nov 16 18:06:47 2021]
+Error in rule PrepareCorrectedTranscriptomeFastaNonred:
+    jobid: 21
+    output: Results/Pinfish/corrected_transcriptome_polished_collapsed_nonred.fas
+    conda-env: /scratch/sjannalda/projects/SGNEX/.snakemake/conda/8022ad4fedb3e36527d0dd83eba10095
+
+RuleException:
+CalledProcessError in line 42 of /scratch/sjannalda/IsoTV/workflow/rules/gffcompare.smk:
+Command 'source /home/sjannalda/miniconda3/bin/activate '/scratch/sjannalda/projects/SGNEX/.snakemake/conda/8022ad4fedb3e36527d0dd83eba10095'; /home/sjannalda/miniconda3/envs/snakemake/bin/python3.9 /scratch/sjannalda/projects/SGNEX/.snakemake/scripts/tmp_z86f3c1.nonredundant.py' returned non-zero exit status 1.
+  File "/scratch/sjannalda/IsoTV/workflow/rules/gffcompare.smk", line 42, in __rule_PrepareCorrectedTranscriptomeFastaNonred
+  File "/home/sjannalda/miniconda3/envs/snakemake/lib/python3.9/concurrent/futures/thread.py", line 52, in run
+Shutting down, this might take some time.
+Exiting because a job execution failed. Look above for error message
+Complete log: /scratch/sjannalda/IsoTV/.snakemake/log/2021-11-16T180615.289359.snakemake.log

@@ -1,0 +1,4 @@
+NameError in line 23 of /scratch/sjannalda/IsoTV/workflow/rules/quantification.smk:
+name 'rule' is not defined
+  File "/scratch/sjannalda/IsoTV/workflow/Snakefile", line 45, in <module>
+  File "/scratch/sjannalda/IsoTV/workflow/rules/quantification.smk", line 23, in <module>

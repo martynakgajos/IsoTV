@@ -1,0 +1,40 @@
+name: gffcompare
+channels:
+  - bioconda
+  - conda-forge
+  - defaults
+  - r
+  - default
+  - anaconda
+dependencies:
+  - _libgcc_mutex=0.1=conda_forge
+  - _openmp_mutex=4.5=1_gnu
+  - biopython=1.78=py37h7b6447c_0
+  - ca-certificates=2020.10.14=0
+  - certifi=2020.6.20=py37_0
+  - gffcompare=0.11.2=h7d875b9_2
+  - gffread=0.12.7=h9a82719_0
+  - ld_impl_linux-64=2.33.1=h53a641e_7
+  - libblas=3.8.0=17_openblas
+  - libcblas=3.8.0=17_openblas
+  - libedit=3.1.20191231=h14c3975_1
+  - libffi=3.3=he6710b0_2
+  - libgcc-ng=11.2.0=h1d223b6_11
+  - libgfortran-ng=7.3.0=hdf63c60_0
+  - libgomp=11.2.0=h1d223b6_11
+  - libopenblas=0.3.10=h5a2b251_0
+  - libstdcxx-ng=11.2.0=he4da1e4_11
+  - libzlib=1.2.11=h36c2ea0_1013
+  - ncurses=6.2=he6710b0_1
+  - numpy=1.15.4=py37h8b7e671_1001
+  - openssl=1.1.1h=h7b6447c_0
+  - pip=20.2.4=py37_0
+  - python=3.7.9=h7579374_0
+  - readline=8.0=h7b6447c_0
+  - setuptools=50.3.0=py37hb0f4dca_1
+  - sqlite=3.33.0=h62c20be_0
+  - tk=8.6.10=hbc83047_0
+  - wheel=0.35.1=py_0
+  - xz=5.2.5=h7b6447c_0
+  - zlib=1.2.11=h36c2ea0_1013
+prefix: /home/sjannalda/miniconda3/envs/gffcompare

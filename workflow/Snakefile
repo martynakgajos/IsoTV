@@ -194,6 +194,7 @@ def functional_files():
     if (config["brewery"]): files.append(rules.brewery_analysis.output)
     if (config["pfScan"]): files.append(rules.functional_site_analysis.output)
     return files
+    
 rule individual_transcript_analysis:
     input:
         functional_files()

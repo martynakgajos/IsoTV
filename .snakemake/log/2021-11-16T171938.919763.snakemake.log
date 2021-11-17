@@ -1,0 +1,124 @@
+The flag 'directory' used in rule aggregate_transcript_analysis is only valid for outputs, not inputs.
+The flag 'directory' used in rule output_combine_files is only valid for outputs, not inputs.
+Building DAG of jobs...
+Using shell: /usr/bin/bash
+Provided cores: 8
+Rules claiming more threads will be scaled down.
+Job stats:
+job                                         count    min threads    max threads
+----------------------------------------  -------  -------------  -------------
+CalculateDeSeq2Norm                             1              1              1
+ConcatenateCounts                               1              1              1
+CountTranscripts                                2              1              1
+ExtractPrimaryMapping                           2              1              1
+GffCompare                                      1              1              1
+Map2Transcriptome                               2              8              8
+Minimap2Pinfish                                 1              8              8
+MinimapPolishedClusters                         1              8              8
+PinfishClusterGFF                               1              8              8
+PinfishCollapsePolishedPartials                 1              8              8
+PinfishPolishClusters                           1              8              8
+PinfishPolishedBAM2GFF                          1              8              8
+PinfishRawBAM2GFF                               1              8              8
+PrepareCorrectedTranscriptomeFasta              1              1              1
+PrepareCorrectedTranscriptomeFastaNonred        1              1              1
+Pychopper                                       2              8              8
+Transcriptome2Index                             1              8              8
+all                                             1              1              1
+total                                          22              1              8
+
+Select jobs to execute...
+
+[Tue Nov 16 17:19:44 2021]
+rule Pychopper:
+    input: FilteredData/HCT116_1.fastq
+    output: Results/Pychopper/HCT116_1/HCT116_1.pychopper_report.pdf, Results/Pychopper/HCT116_1/HCT116_1.pychop.fastq, Results/Pychopper/HCT116_1/HCT116_1.pychop.stats, Results/Pychopper/HCT116_1/HCT116_1.pychop.scores, Results/Pychopper/HCT116_1/HCT116_1.unclassified.fastq
+    jobid: 12
+    wildcards: sample=HCT116_1
+    threads: 8
+    resources: tmpdir=/tmp, memory=16, time=4
+
+Activating conda environment: /scratch/sjannalda/projects/SGNEX/.snakemake/conda/1fb91db314823f34531ee184ffcf65e9
+[Tue Nov 16 17:26:58 2021]
+Finished job 12.
+1 of 22 steps (5%) done
+Select jobs to execute...
+
+[Tue Nov 16 17:26:58 2021]
+rule Pychopper:
+    input: FilteredData/HEPG2_1.fastq
+    output: Results/Pychopper/HEPG2_1/HEPG2_1.pychopper_report.pdf, Results/Pychopper/HEPG2_1/HEPG2_1.pychop.fastq, Results/Pychopper/HEPG2_1/HEPG2_1.pychop.stats, Results/Pychopper/HEPG2_1/HEPG2_1.pychop.scores, Results/Pychopper/HEPG2_1/HEPG2_1.unclassified.fastq
+    jobid: 14
+    wildcards: sample=HEPG2_1
+    threads: 8
+    resources: tmpdir=/tmp, memory=16, time=4
+
+Activating conda environment: /scratch/sjannalda/projects/SGNEX/.snakemake/conda/1fb91db314823f34531ee184ffcf65e9
+[Tue Nov 16 17:36:49 2021]
+Finished job 14.
+2 of 22 steps (9%) done
+Select jobs to execute...
+
+[Tue Nov 16 17:36:49 2021]
+rule Minimap2Pinfish:
+    input: Results/Minimap2/GRCh38.p12.primary_assembly.genome.fa.mmi, Results/Pychopper/HCT116_1/HCT116_1.pychop.fastq, Results/Pychopper/HEPG2_1/HEPG2_1.pychop.fastq, ReferenceData/junctions.bed
+    output: Results/Minimap2/merged.mapping.bam
+    jobid: 11
+    threads: 8
+    resources: tmpdir=/tmp, memory=16, time=4
+
+Activating conda environment: /scratch/sjannalda/projects/SGNEX/.snakemake/conda/de012c2f23fcfa29962e7b302d6c2120
+[Tue Nov 16 17:38:21 2021]
+Finished job 11.
+3 of 22 steps (14%) done
+Select jobs to execute...
+
+[Tue Nov 16 17:38:21 2021]
+rule PinfishRawBAM2GFF:
+    input: Results/Minimap2/merged.mapping.bam
+    output: Results/Pinfish/raw_transcripts.gff
+    jobid: 10
+    threads: 8
+    resources: tmpdir=/tmp, memory=8, time=1
+
+Activating conda environment: /scratch/sjannalda/projects/SGNEX/.snakemake/conda/a94fcb91b5e20d9738554147a5b68375
+[Tue Nov 16 17:38:25 2021]
+Finished job 10.
+4 of 22 steps (18%) done
+Select jobs to execute...
+
+[Tue Nov 16 17:38:25 2021]
+rule PinfishClusterGFF:
+    input: Results/Pinfish/raw_transcripts.gff
+    output: Results/Pinfish/clustered_pol_transcripts.gff, Results/Pinfish/cluster_memberships.tsv
+    jobid: 9
+    threads: 8
+    resources: tmpdir=/tmp, memory=8, time=1
+
+Activating conda environment: /scratch/sjannalda/projects/SGNEX/.snakemake/conda/a94fcb91b5e20d9738554147a5b68375
+[Tue Nov 16 17:38:26 2021]
+Finished job 9.
+5 of 22 steps (23%) done
+Select jobs to execute...
+
+[Tue Nov 16 17:38:26 2021]
+rule PinfishPolishClusters:
+    input: Results/Pinfish/clustered_pol_transcripts.gff, Results/Pinfish/cluster_memberships.tsv, Results/Minimap2/merged.mapping.bam
+    output: Results/Pinfish/polished_transcripts.fas
+    jobid: 8
+    threads: 8
+    resources: tmpdir=/tmp, memory=8, time=1
+
+Activating conda environment: /scratch/sjannalda/projects/SGNEX/.snakemake/conda/a94fcb91b5e20d9738554147a5b68375
+[Tue Nov 16 17:38:27 2021]
+Error in rule PinfishPolishClusters:
+    jobid: 8
+    output: Results/Pinfish/polished_transcripts.fas
+    conda-env: /scratch/sjannalda/projects/SGNEX/.snakemake/conda/a94fcb91b5e20d9738554147a5b68375
+    shell:
+        polish_clusters -t 8 -a Results/Pinfish/cluster_memberships.tsv -c 3 -o Results/Pinfish/polished_transcripts.fas Results/Minimap2/merged.mapping.bam
+        (one of the commands exited with non-zero exit code; note that snakemake uses bash strict mode!)
+
+Shutting down, this might take some time.
+Exiting because a job execution failed. Look above for error message
+Complete log: /scratch/sjannalda/IsoTV/.snakemake/log/2021-11-16T171938.919763.snakemake.log

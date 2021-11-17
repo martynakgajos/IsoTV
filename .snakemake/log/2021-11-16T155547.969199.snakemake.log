@@ -1,0 +1,17 @@
+The flag 'directory' used in rule aggregate_transcript_analysis is only valid for outputs, not inputs.
+The flag 'directory' used in rule output_combine_files is only valid for outputs, not inputs.
+Building DAG of jobs...
+Creating conda environment /scratch/sjannalda/IsoTV/workflow/rules/../envs/pinfish.yaml...
+Downloading and installing remote packages.
+Environment for ../../IsoTV/workflow/envs/pinfish.yaml created (location: .snakemake/conda/a94fcb91b5e20d9738554147a5b68375)
+Creating conda environment /scratch/sjannalda/IsoTV/workflow/rules/../envs/filtlong.yaml...
+Downloading and installing remote packages.
+CreateCondaEnvironmentException:
+Could not create conda environment from /scratch/sjannalda/IsoTV/workflow/rules/../envs/filtlong.yaml:
+Encountered problems while solving.
+Problem: nothing provides requested filtlong ==0.2.1 h87af4ef_0
+Problem: nothing provides requested libcxx ==12.0.1 habf9029_0
+Problem: nothing provides requested libzlib ==1.2.11 h9173be1_1013
+Problem: nothing provides requested zlib ==1.2.11 h9173be1_1013
+
+

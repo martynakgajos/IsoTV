@@ -7,6 +7,8 @@ rule GffCompare:
     resources:
         memory = 16,
         time = 1
+    conda:
+        "../envs/gffcompare.yaml"
     shell:
         "gffcompare -r {input.reference} -R -A -K -o " + "Results/GffCompare/nanopore {input.exptgff}"
 
@@ -20,6 +22,8 @@ rule PrepareCorrectedTranscriptomeFasta:
     resources:
         memory = 8,
         time = 1
+    conda:
+        "../envs/gffcompare.yaml"
     shell:
         "gffread -g {input.genome} -w {output.fasta} {input.gff}"
 
@@ -32,6 +36,8 @@ rule PrepareCorrectedTranscriptomeFastaNonred:
     resources:
         memory = 8,
         time = 1
+    conda:
+        "../envs/pythonpackages.yaml"
     script:
         "../scripts/nonredundant.py"
 
@@ -46,7 +52,9 @@ rule ReadsToTranscripts:
         time = 1,
         tmpdir = 0
     priority: 8
-    threads: 1
-    group: "preprocess_sequences"
+    group: 
+        "preprocess_sequences"
+    conda:
+        "../envs/pythonpackages.yaml"
     script:
         "../scripts/reads_to_transcripts.py"

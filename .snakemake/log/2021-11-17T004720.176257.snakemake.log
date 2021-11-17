@@ -1,0 +1,36 @@
+The flag 'directory' used in rule aggregate_transcript_analysis is only valid for outputs, not inputs.
+The flag 'directory' used in rule output_combine_files is only valid for outputs, not inputs.
+Building DAG of jobs...
+Using shell: /usr/bin/bash
+Provided cores: 8
+Rules claiming more threads will be scaled down.
+Job stats:
+job                    count    min threads    max threads
+-------------------  -------  -------------  -------------
+CalculateDeSeq2Norm        1              1              1
+ConcatenateCounts          1              1              1
+all                        1              1              1
+total                      3              1              1
+
+Select jobs to execute...
+
+[Wed Nov 17 00:47:23 2021]
+rule ConcatenateCounts:
+    input: /scratch/sjannalda/projects/SGNEX/reference/gencode.v32.primary_assembly.annotation.gtf, Results/GffCompare/nanopore.combined.gtf, Results/Quantification/HCT116_1.counts, Results/Quantification/HEPG2_1.counts
+    output: Results/Quantification/counts.txt
+    jobid: 2
+    resources: tmpdir=/tmp, memory=4, time=1
+
+[Wed Nov 17 00:47:31 2021]
+Error in rule ConcatenateCounts:
+    jobid: 2
+    output: Results/Quantification/counts.txt
+
+RuleException:
+CalledProcessError in line 30 of /scratch/sjannalda/IsoTV/workflow/rules/quantification.smk:
+Command '/home/sjannalda/miniconda3/envs/snakemake/bin/python3.9 /scratch/sjannalda/projects/SGNEX/.snakemake/scripts/tmp482lrira.concatenate.py' returned non-zero exit status 1.
+  File "/scratch/sjannalda/IsoTV/workflow/rules/quantification.smk", line 30, in __rule_ConcatenateCounts
+  File "/home/sjannalda/miniconda3/envs/snakemake/lib/python3.9/concurrent/futures/thread.py", line 52, in run
+Shutting down, this might take some time.
+Exiting because a job execution failed. Look above for error message
+Complete log: /scratch/sjannalda/IsoTV/.snakemake/log/2021-11-17T004720.176257.snakemake.log

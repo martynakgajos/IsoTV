@@ -1,0 +1,3 @@
+SyntaxError in line 17 of /scratch/sjannalda/IsoTV/workflow/rules/quantification.smk:
+invalid syntax
+  File "/scratch/sjannalda/IsoTV/workflow/Snakefile", line 45, in <module>
