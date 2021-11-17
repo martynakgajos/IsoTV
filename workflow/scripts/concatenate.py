@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 
-# Concatentate and annotate isoforms and their expression levels 
+# Concatentate and annotate isoforms and their expression levels
 
 import pandas as pd
 
@@ -18,7 +18,6 @@ df=df.fillna(0)
 # Get connection to reference
 ds=pd.read_csv(snakemake.input[1],delimiter='\t',usecols=[2,8],header=None, names=['type','info'])
 ds=ds[ds["type"]=='transcript']
-print(ds["info"].head())
 ds['transcript']=ds.apply(lambda x: x['info'].split('oId "')[1].split('";')[0],1)
 ds['transcript_id']=ds.apply(lambda x: x['info'].split('transcript_id "')[1].split('";')[0],1)
 ds['class_code']=ds.apply(lambda x: x['info'].split('class_code "')[1].split('";')[0],1)
@@ -39,9 +38,6 @@ with open(snakemake.input[0],'r') as af:
                 gene_type=linia.split('gene_type "')[1].split('"')[0]
                 d.append([gene_name,gene_id,gene_type])
 d=pd.DataFrame(data=d,columns=['gene_name','gene_id','gene_type'])
-print(d.head())
-print(df["gene_name"].head())
-assert(1==0)
 
 df=df.merge(d,how='left',on='gene_name')
 df=df.drop(columns=['info','type'])

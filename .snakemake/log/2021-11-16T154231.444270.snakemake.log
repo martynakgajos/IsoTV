@@ -1,8 +1,0 @@
-PermissionError in line 10 of /scratch/sjannalda/IsoTV/workflow/Snakefile:
-[Errno 13] Permission denied: '/Users'
-  File "/scratch/sjannalda/IsoTV/workflow/Snakefile", line 10, in <module>
-  File "/home/sjannalda/miniconda3/envs/snakemake/lib/python3.9/os.py", line 215, in makedirs
-  File "/home/sjannalda/miniconda3/envs/snakemake/lib/python3.9/os.py", line 215, in makedirs
-  File "/home/sjannalda/miniconda3/envs/snakemake/lib/python3.9/os.py", line 215, in makedirs
-  File "/home/sjannalda/miniconda3/envs/snakemake/lib/python3.9/os.py", line 215, in makedirs
-  File "/home/sjannalda/miniconda3/envs/snakemake/lib/python3.9/os.py", line 225, in makedirs

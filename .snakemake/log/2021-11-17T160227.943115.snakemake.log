@@ -1,0 +1,39 @@
+The flag 'directory' used in rule aggregate_transcript_analysis is only valid for outputs, not inputs.
+The flag 'directory' used in rule output_combine_files is only valid for outputs, not inputs.
+Building DAG of jobs...
+Updating job output_combine_files.
+Using shell: /bin/bash
+Provided cores: 32
+Rules claiming more threads will be scaled down.
+Job stats:
+job                                  count    min threads    max threads
+---------------------------------  -------  -------------  -------------
+all                                      1              1              1
+output_combine_files                     1              1              1
+protein_coding_potential_analysis        1              1              1
+total                                    3              1              1
+
+Select jobs to execute...
+
+[Wed Nov 17 16:02:30 2021]
+rule protein_coding_potential_analysis:
+    input: Results/Genes/NRCAM/NRCAM_transcripts_filtered_analysis.txt, Results/Genes/NRCAM/NRCAM_transcripts_stats.txt, /project/owlmayerTemporary/Sid/isoform_analysis/github/Results/Quantification/counts_deseq2norm.txt, /project/owlmayerTemporary/Sid/isoform_analysis/github/Results/GffCompare/nanopore.combined.gtf
+    output: Results/Genes/NRCAM/NRCAM_functional_analysis.pdf
+    jobid: 14
+    wildcards: gene=NRCAM
+    priority: 8
+    resources: tmpdir=0, memory=16, time=1
+
+[Wed Nov 17 16:02:54 2021]
+Error in rule protein_coding_potential_analysis:
+    jobid: 14
+    output: Results/Genes/NRCAM/NRCAM_functional_analysis.pdf
+
+RuleException:
+CalledProcessError in line 148 of /home/annaldas/projects/IsoTV/workflow/Snakefile:
+Command 'set -euo pipefail;  /pkg/python-3.9.7-0/bin/python3.9 /project/owlmayerTemporary/Sid/isoform_analysis/github/.snakemake/scripts/tmpka9stwak.visualization.py' returned non-zero exit status 1.
+  File "/home/annaldas/projects/IsoTV/workflow/Snakefile", line 148, in __rule_protein_coding_potential_analysis
+  File "/pkg/python-3.9.7-0/lib/python3.9/concurrent/futures/thread.py", line 52, in run
+Shutting down, this might take some time.
+Exiting because a job execution failed. Look above for error message
+Complete log: /home/annaldas/projects/IsoTV/.snakemake/log/2021-11-17T160227.943115.snakemake.log

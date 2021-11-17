@@ -1,3 +1,0 @@
-ModuleNotFoundError in line 7 of /scratch/sjannalda/IsoTV/workflow/Snakefile:
-No module named 'matplotlib'
-  File "/scratch/sjannalda/IsoTV/workflow/Snakefile", line 7, in <module>

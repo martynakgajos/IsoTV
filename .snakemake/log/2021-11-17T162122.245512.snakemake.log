@@ -1,0 +1,54 @@
+The flag 'directory' used in rule aggregate_transcript_analysis is only valid for outputs, not inputs.
+The flag 'directory' used in rule output_combine_files is only valid for outputs, not inputs.
+Building DAG of jobs...
+Updating job output_combine_files.
+Using shell: /bin/bash
+Provided cores: 32
+Rules claiming more threads will be scaled down.
+Job stats:
+job                                  count    min threads    max threads
+---------------------------------  -------  -------------  -------------
+all                                      1              1              1
+output_combine_files                     1              1              1
+protein_coding_potential_analysis        1              1              1
+total                                    3              1              1
+
+Select jobs to execute...
+
+[Wed Nov 17 16:21:23 2021]
+rule protein_coding_potential_analysis:
+    input: Results/Genes/NRCAM/NRCAM_transcripts_filtered_analysis.txt, Results/Genes/NRCAM/NRCAM_transcripts_stats.txt, /project/owlmayerTemporary/Sid/isoform_analysis/github/Results/Quantification/counts_deseq2norm.txt, /project/owlmayerTemporary/Sid/isoform_analysis/github/Results/GffCompare/nanopore.combined.gtf
+    output: Results/Genes/NRCAM/NRCAM_functional_analysis.pdf
+    jobid: 14
+    wildcards: gene=NRCAM
+    priority: 8
+    resources: tmpdir=0, memory=16, time=1
+
+[Wed Nov 17 16:21:52 2021]
+Finished job 14.
+1 of 3 steps (33%) done
+Select jobs to execute...
+
+[Wed Nov 17 16:21:52 2021]
+rule output_combine_files:
+    input: Results/Genes/NRCAM/NRCAM_functional_analysis.pdf, Results/Genes_temp
+    output: Results/Output/test.pdf
+    jobid: 1
+    priority: 5
+    resources: tmpdir=0, memory=4, time=1
+
+[Wed Nov 17 16:21:52 2021]
+Finished job 1.
+2 of 3 steps (67%) done
+Select jobs to execute...
+
+[Wed Nov 17 16:21:52 2021]
+localrule all:
+    input: Results/Output/test.pdf, Results/Quantification/counts_deseq2norm.txt
+    jobid: 0
+    resources: tmpdir=/scratch/local
+
+[Wed Nov 17 16:21:52 2021]
+Finished job 0.
+3 of 3 steps (100%) done
+Complete log: /home/annaldas/projects/IsoTV/.snakemake/log/2021-11-17T162122.245512.snakemake.log

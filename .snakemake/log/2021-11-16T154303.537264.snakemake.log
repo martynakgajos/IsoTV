@@ -1,4 +1,0 @@
-TypeError in line 76 of /scratch/sjannalda/IsoTV/workflow/rules/pinfish.smk:
-conda() takes 2 positional arguments but 3 were given
-  File "/scratch/sjannalda/IsoTV/workflow/Snakefile", line 39, in <module>
-  File "/scratch/sjannalda/IsoTV/workflow/rules/pinfish.smk", line 76, in <module>

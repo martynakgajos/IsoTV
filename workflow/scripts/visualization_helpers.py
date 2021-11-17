@@ -143,9 +143,9 @@ def calculateStatistics(df,conds,nreps):
 def chooseIsoforms2Plot(df,minTPM,minPct,maxIso):
     df['minimum']=df.filter(regex='^mean').min(axis=1)
     df['maximumPct']=df.filter(regex='^Pct').max(axis=1)
-    df=df[df['maximumPct']>minPct]
+    df=df[df['maximumPct']>0] ###CHANGE
     df['maximum']=df.filter(regex='^mean').max(axis=1)
-    df=df[df['maximum']>minTPM]
+    df=df[df['maximum']>0]###CHANGE
     df['avg'] = df.filter(regex='^Pct').mean(axis=1)
     df=df.sort_values('avg',ascending=False)
     df=df.head(maxIso)

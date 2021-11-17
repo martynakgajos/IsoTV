@@ -445,21 +445,24 @@ if (snakemake.config["quantification"]):
     data_gene = calculateStatistics(data_gene,conditions,number_replicates)
     df_temp = calculateStatistics(df_temp,conditions,number_replicates)
     df_temp = (df_temp.filter(like='mean').div(data_gene.filter(like='mean').values[0],1)*100).add_prefix('Pct_').join(df_temp)
+    df_temp.to_csv("/project/owlmayerTemporary/Sid/isoform_analysis/github/Results/Genes/NRCAM/NRCAM_before.csv")
     df_temp = chooseIsoforms2Plot(df_temp,minimumTPM,minimumPct,maximumIso)
     df_temp["transcript_id"] = df_temp["transcript_id"].apply(lambda x: x.replace("_",""))
     transcripts_plot = list(pd.unique(df_temp["transcript_id"]))
+    print(transcripts_plot)
     total_gs += 4
 
 if (snakemake.config["annotation"]):
     transcripts_delete = []
     for transcript_id in transcripts_plot:
         transcript_annotation = annotation[annotation['transcript_id']==transcript_id]
-        if ((transcript_annotation.shape[0] < 3)):
+        if ((transcript_annotation.shape[0] < 1)):
             transcripts_delete.append(transcript_id.replace("_",""))
     for transcript_id in transcripts_delete:
         transcripts_plot.remove(transcript_id)
     total_gs += len(transcripts_plot) + 1
 total_gs += (total_features + 1) * len(transcripts_plot) + 2
+print(transcripts_plot)
 
 
 # Visualization Code
@@ -479,11 +482,15 @@ if (snakemake.config["quantification"]):
 
 if (len(transcripts_plot) > 0):
     if (snakemake.config["quantification"]):
+        print(transcripts_plot)
         df_temp = df_temp[df_temp["transcript_id"].isin(transcripts_plot)]
 
         #plot isoform expression
         axg = fig.add_subplot(gs[0:4, 5:10])
+
         plotIsoformProfiles(conditions, df_temp, axg, colors, continuous)
+        df_temp.to_csv("/project/owlmayerTemporary/Sid/isoform_analysis/github/Results/Genes/NRCAM/NRCAM_after.csv")
+
 
         #plot isoform expression percentage
         axg = fig.add_subplot(gs[0:4, 11:15])

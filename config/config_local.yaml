@@ -5,7 +5,8 @@ repo: "https://github.molgen.mpg.de/MayerGroup/IsoTV"
 
 ### Output directory
 
-outdir: "/scratch/sjannalda/projects//SGNEX"
+#outdir: "/scratch/sjannalda/projects//SGNEX"
+outdir: "/project/owlmayerTemporary/Sid/isoform_analysis/isotv_v2"
 
 ### General pipeline parameters:
 
@@ -24,10 +25,10 @@ kit: SQK-DCS109
 ### Reference Files
 #genome_fasta: "/path/to/GRCh38.p12.primary_assembly.genome.fa"
 #genome_annot: "/path/to/gencode.v32.primary_assembly.annotation.gtf"
-#genome_fasta: "/project/owlmayerTemporary/Sid/nanopore-analysis/ReferenceData/GRCh38.p12.primary_assembly.genome.fa"
-#genome_annot: "/project/owlmayerTemporary/Sid/nanopore-analysis/ReferenceData/gencode.v32.primary_assembly.annotation.gtf"
-genome_fasta: "/scratch/sjannalda/projects/SGNEX/reference/GRCh38.p12.primary_assembly.genome.fa"
-genome_annot: "/scratch/sjannalda/projects/SGNEX/reference/gencode.v32.primary_assembly.annotation.gtf"
+genome_fasta: "/project/owlmayerTemporary/Sid/nanopore-analysis/ReferenceData/GRCh38.p12.primary_assembly.genome.fa"
+genome_annot: "/project/owlmayerTemporary/Sid/nanopore-analysis/ReferenceData/gencode.v32.primary_assembly.annotation.gtf"
+#genome_fasta: "/scratch/sjannalda/projects/SGNEX/reference/GRCh38.p12.primary_assembly.genome.fa"
+#genome_annot: "/scratch/sjannalda/projects/SGNEX/reference/gencode.v32.primary_assembly.annotation.gtf"
 
 ### Samples
 # samples with .bottom extension must be placed in the RawData folder
@@ -112,7 +113,7 @@ secondary_score_ratio: 1
 ##### Feature Analysis Config
 ### Input genes
 
-gene_file: "data/genes.tab"
+gene_file: "/home/annaldas/projects/IsoTV/genes.tab"
 
 ### Output file and folder
 
@@ -140,10 +141,10 @@ iupred2a: TRUE
 
 #brewery_path: "/path/to/Brewery/Brewery.py"
 brewery_path: "/home/annaldas/Brewery/Brewery.py"
-brewery: TRUE
+brewery: FALSE
 
 #interproScan_path: "/path/to/my_interproscan/interproscan-5.38-76.0/interproscan.sh"
-interproScan_path: "/home/annaldas/my_interproscan/interproscan-5.38-76.0/interproscan.sh"
+#interproScan_path: "/home/annaldas/my_interproscan/interproscan-5.38-76.0/interproscan.sh"
 pfam: TRUE
 
 #prositeScan_path: "/path/to/ps_scan/ps_scan.pl"
@@ -157,10 +158,3 @@ pfScan: TRUE
 minIsoTPM: 1
 maxIsoNum: 8
 minIsoPct: 10
-
-### Misc paths
-
-java : "/pkg/openjdk-11.0.3.2-0/profile"
-
-lock1: "/.../lock.txt"
-lock2: "/.../lock2.txt"
